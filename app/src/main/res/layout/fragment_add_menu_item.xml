@@ -1,0 +1,136 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.yirmio.lockaway.AddMenuItemFragment"
+    android:background="@color/backgroundColor">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="הוספת פריט חדש לתפריט"
+        android:id="@+id/txtVw_AddMenuItem_Title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/insertItemEditTextName"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:typeface="monospace"
+        android:layout_below="@+id/txtVw_AddMenuItem_Title"
+        android:hint="שם הפריט" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/insertItemEditTextDescription"
+        android:layout_below="@+id/insertItemEditTextName"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:typeface="monospace"
+        android:lines="3"
+        android:hint="תאור המנה" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/insertItemEditTextTimeToMake"
+        android:textAlignment="center"
+        android:typeface="monospace"
+        android:hint="זמן להכנת המנה בדקות"
+        android:layout_above="@+id/insertItemImgViewPhoto"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:clickable="false"
+        android:gravity="center"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/insertItemEditTextDescription"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="צמחוני"
+            android:id="@+id/insertItemChckBxIsVeg"
+            android:layout_below="@+id/insertItemEditTextTimeToMake"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="זמין בתפריט"
+            android:id="@+id/insertItemChckBxAvalibleInMemu"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/insertItemChckBxIsGlotenFree"
+            android:layout_toStartOf="@+id/insertItemChckBxIsGlotenFree" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ללא גלוטן"
+            android:id="@+id/insertItemChckBxIsGlotenFree"
+            android:layout_below="@+id/insertItemEditTextTimeToMake"
+            android:layout_toLeftOf="@+id/insertItemChckBxIsVeg"
+            android:layout_toStartOf="@+id/insertItemChckBxIsVeg"
+            android:layout_marginRight="32dp"
+            android:layout_marginEnd="32dp" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="בחר תמונות"
+        android:id="@+id/insertItemBtnAddImages"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/txtVw_AddMenuItem_Title"
+        android:layout_alignEnd="@+id/txtVw_AddMenuItem_Title" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="שלח"
+        android:id="@+id/insertItemBtnSend"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/insertItemEditTextTimeToMake"
+        android:layout_toStartOf="@+id/insertItemEditTextTimeToMake" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/insertItemImgViewPhoto"
+        android:layout_below="@+id/insertItemEditTextPrice"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/insertItemBtnAddImages"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/insertItemEditTextPrice"
+        android:hint="מחיר"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:layout_toLeftOf="@+id/insertItemEditTextTimeToMake" />
+
+</RelativeLayout>

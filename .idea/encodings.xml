@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/yirmio/lockaway/BL/MenuItemTypesEnum.java" charset="windows-1255" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/yirmio/lockaway/BL/Order.java" charset="windows-1255" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/yirmio/lockaway/BL/OrderStatusEnum.java" charset="windows-1255" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/yirmio/lockaway/BL/RestaurantMenu.java" charset="windows-1255" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/yirmio/lockaway/BL/RestaurantMenuObject.java" charset="windows-1255" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/yirmio/lockaway/BL/Store.java" charset="windows-1255" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/menu_item_row_layout.xml" charset="windows-1255" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

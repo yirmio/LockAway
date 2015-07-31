@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@color/backgroundColor">
+
+    <com.parse.ParseImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/user_order_imageView_photo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/afeyalogo"
+        android:layout_marginLeft="5dp" >
+</com.parse.ParseImageView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout2"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/user_order_imageView_photo"
+        android:layout_toEndOf="@+id/user_order_imageView_photo"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Name"
+            android:id="@+id/user_order_textView_name"
+            android:layout_alignParentTop="false"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="TimeToMake"
+            android:id="@+id/user_order_textView_time_toMake"
+
+            android:layout_below="@+id/user_order_textView_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Price"
+            android:id="@+id/user_order_textViewPrice"
+
+
+            android:layout_below="@+id/user_order_textView_time_toMake" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:text="X"
+        android:id="@+id/user_order_btn_X"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="5dp" />
+
+</RelativeLayout>

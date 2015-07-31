@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name" translatable="false">LockAway</string>
+
+    <string name="dummy_button" translatable="false">Dummy Button</string>
+    <string name="dummy_content" translatable="false">DUMMY\nCONTENT</string>
+    <string name="welcome">Welcome To Afeya Ksuma</string>
+    <string name="afeya_slogen">Fairy-tale experience</string>
+    <string name="title_activity_table_row">TableRowActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="AfeyaKsuma">אפיה קסומה</string>
+    <string name="check_item_name">בדוק את שם הפריט</string>
+    <string name="check_item">לא כל השדות מלאים</string>
+    <string name="AfeyaStoreID" translatable="false">g1bzMQEXoj</string>
+    <string name="item_addedd">הפריט נוסף בהצלחה להזמנה</string>
+</resources>

@@ -5,4 +5,7 @@
     <string name="AfeyaKsuma">אפיה קסומה</string>
     <string name="check_item_name">בדוק את שם הפריט</string>
     <string name="check_item">לא כל השדות מלאים</string>
+    <string name="totalPrice">סה\"כ</string>
+    <string name="send">Send</string>
+    <string name="clear">מחק</string>
 </resources>

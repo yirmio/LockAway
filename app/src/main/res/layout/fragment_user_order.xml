@@ -1,12 +1,111 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
-    android:layout_height="match_parent" tools:context="com.yirmio.lockaway.userOrderFragment">
+    android:layout_height="wrap_content"
+    tools:context="com.yirmio.lockaway.userOrderFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <ListView
         android:id="@+id/user_order_listView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rltvLyoutOrderBotomDetails"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:id="@+id/rltvLyoutOrderBotomDetails"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rltvLyoutOrderBotomButtons"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:autoText="false"
+            android:elegantTextHeight="false"
+            android:singleLine="true"
+            android:text="@string/totalPrice"
+            android:textAlignment="gravity"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textDirection="anyRtl"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/usrOrderFrgmntTxtViewTotalPriceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/textView2"
+            android:layout_toStartOf="@+id/textView2"
+            android:numeric="decimal"
+            android:singleLine="true"
+            android:text="99.99"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/usrOrderFrgmntTxtViewTotalPriceValue"
+            android:layout_toStartOf="@+id/usrOrderFrgmntTxtViewTotalPriceValue"
+            android:text="₪"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="89dp"
+            android:src="@drawable/clock" />
+
+        <TextView
+            android:id="@+id/usrOrderFrgmntTxtViewTotalTimeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/imageView2"
+            android:layout_toRightOf="@+id/imageView2"
+            android:text="TimeToMake"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rltvLyoutOrderBotomButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/clear" />
+    </RelativeLayout>
 
 </RelativeLayout>

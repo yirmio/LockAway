@@ -90,7 +90,7 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
         // TODO: Change Adapter to display your content
         //mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
         //    android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
-        mAdapter = new MenuAdapter(getActivity(), menuList,this);
+        mAdapter = new MenuAdapter(getActivity(), menuList, this);
     }
 
     @Override
@@ -104,6 +104,7 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
+
 
         return view;
     }

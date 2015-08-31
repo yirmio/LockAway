@@ -156,9 +156,11 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     //Get RowLayoutItem and add it to user order and refresh adapter
     public void onFragmentInteraction(RowLayoutItem item) {
         LockAwayApplication.getUserOrder().addItemToOrder(new RestaurantMenuObject(item), true);//Loal BL
-        UserOrderAdapter adapter = (UserOrderAdapter) ((userOrderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
-        adapter.clear();
-        adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
+        if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
+            UserOrderAdapter adapter = (UserOrderAdapter) ((userOrderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
+            adapter.clear();
+            adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
+        }
 
 
         //adapter.notifyDataSetChanged();
@@ -255,11 +257,11 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    return "תפריט";
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
+                    return "הוספת פריט לתפריט";
                 case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                    return "ביצוע הזמנה";
             }
             return null;
         }

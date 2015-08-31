@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.UserOrder;
@@ -42,8 +43,11 @@ public class userOrderFragment extends Fragment {
     private LockAwayApplication app;
     private UserOrderAdapter mAdapter;
     private AbsListView mListView;
+    private TextView mTotalPriceTextView;
+    private TextView mTotalTimeTextView;
 
     //region Ctor
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -90,6 +94,7 @@ public class userOrderFragment extends Fragment {
         //mListView = (AbsListView)getView().findViewById(R.id.user_order_listView);
         //((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
+
     }
 
     @Override
@@ -105,7 +110,16 @@ public class userOrderFragment extends Fragment {
         //         mAdapter = new UserOrderAdapter(getActivity(),R.layout.user_order_item_layout,orderList);
 
         // mListView.invalidate();
-        return  view;
+
+
+        //Update Bottom Details
+        mTotalPriceTextView = (TextView) view.findViewById(R.id.usrOrderFrgmntTxtViewTotalPriceValue);
+        mTotalTimeTextView = (TextView) view.findViewById(R.id.usrOrderFrgmntTxtViewTotalTimeValue);
+        if (app.getUserOrder() != null) {
+            mTotalPriceTextView.setText(String.valueOf(app.getUserOrder().getTotalPrice()));
+            mTotalTimeTextView.setText(String.valueOf(app.getUserOrder().getTotalTimeToMake()));
+        }
+        return view;
     }
 
 

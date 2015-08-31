@@ -1,16 +1,13 @@
 package com.yirmio.lockaway;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.UserOrder;
@@ -19,7 +16,6 @@ import com.yirmio.lockaway.UI.UserOrderRowLayout;
 import com.yirmio.lockaway.util.UserOrderAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -41,7 +37,7 @@ public class userOrderFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private List orderList;
+    private ArrayList orderList;
     private UserOrder userOrder;
     private LockAwayApplication app;
     private UserOrderAdapter mAdapter;
@@ -66,32 +62,33 @@ public class userOrderFragment extends Fragment {
         return fragment;
     }
 
-    public userOrderFragment() {
-        // Required empty public constructor
 
-    }
     //endregion
 
     //region Getters & Setters
     public UserOrderAdapter getmAdapter() {
         return mAdapter;
     }
-    //endregion
+
 
     public void setmAdapter(UserOrderAdapter mAdapter) {
         this.mAdapter = mAdapter;
     }
 
+    //endregion
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         app = ((LockAwayApplication) this.getActivity().getApplicationContext());
         orderList = new ArrayList();
-        for (RestaurantMenuObject obj :
-                app.getUserOrder().getObjects()) {
-        orderList.add(new UserOrderRowLayout(obj));
+        if (app.getUserOrder() != null) {
+            for (RestaurantMenuObject obj : app.getUserOrder().getObjects()) {
+                orderList.add(new UserOrderRowLayout(obj));
+            }
         }
-        mAdapter = new UserOrderAdapter(getActivity(),orderList);
+        mAdapter = new UserOrderAdapter(getActivity(), R.layout.user_order_item_layout, orderList);
+        //mListView = (AbsListView)getView().findViewById(R.id.user_order_listView);
+        //((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
     }
 
@@ -100,8 +97,14 @@ public class userOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_order, container, false);
-        mListView = (AbsListView)view.findViewById(R.id.user_order_listView);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+
+
+        mListView = (ListView) view.findViewById(R.id.user_order_listView);
+        mListView.setAdapter(mAdapter);
+
+        //         mAdapter = new UserOrderAdapter(getActivity(),R.layout.user_order_item_layout,orderList);
+
+        // mListView.invalidate();
         return  view;
     }
 
@@ -132,15 +135,26 @@ public class userOrderFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (orderList.size() < app.getUserOrder().getObjects().size()){
-            orderList = new ArrayList();
-            for (RestaurantMenuObject obj :
-                    app.getUserOrder().getObjects()) {
-                orderList.add(new UserOrderRowLayout(obj));
-            }
-            mAdapter = new UserOrderAdapter(getActivity(),orderList);
 
+        if (app.getUserOrder() != null) {
+            if (app.getUserOrder().getObjects() != null) {
+                orderList.clear();
+                orderList.addAll(app.getUserOrder().getObjects());
+                mAdapter.notifyDataSetChanged();
+            }
         }
+        /*if (app.getUserOrder() != null) {
+            if (orderList.size() < app.getUserOrder().getObjects().size()){
+                orderList = new ArrayList();
+                for (RestaurantMenuObject obj :
+                        app.getUserOrder().getObjects()) {
+                    orderList.add(new UserOrderRowLayout(obj));
+                }
+                mAdapter = new UserOrderAdapter(getActivity(),orderList);
+
+            }
+        }*/
+        mListView.invalidate();
     }
 
     /**

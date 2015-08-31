@@ -1,6 +1,7 @@
 package com.yirmio.lockaway.BL;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yirmio on 26/07/2015.
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 public class UserOrder {
     //region Properties
     private String orderId;
-    private ArrayList<RestaurantMenuObject> objects;
+    private List<RestaurantMenuObject> objects;
     private int totalPrice;
     private int totalTimeToMake;
 
@@ -35,7 +36,7 @@ public class UserOrder {
         this.orderId = id;
     }
 
-    public ArrayList<RestaurantMenuObject> getObjects() {
+    public List<RestaurantMenuObject> getObjects() {
         return objects;
     }
 
@@ -65,7 +66,7 @@ public class UserOrder {
     //addItemToOrder
     // boolean forceAdd = ignore if exist
     //return 0 = ok
-    //return 1 = allready inside
+    //return 1 = already inside
     public int addItemToOrder(RestaurantMenuObject item, boolean forceAdd) {
         boolean exist = false;
         if (forceAdd == true) {

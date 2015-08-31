@@ -2,14 +2,12 @@ package com.yirmio.lockaway.UI;
 
 import android.app.Activity;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +16,6 @@ import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
-
 import com.yirmio.lockaway.util.MenuAdapter;
 
 import java.util.ArrayList;
@@ -46,24 +43,26 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
-    public OnFragmentInteractionListener getmListener() {
-        return mListener;
-    }
-
     /**
      * The fragment's ListView/GridView.
      */
     private AbsListView mListView;
-
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
     private ListAdapter mAdapter;
-
     private List menuList;
     private RestaurantMenu restaurantMenu;
+
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public menuListFragment() {
+        this.restaurantMenu = LockAwayApplication.getRestaurantMenu();
+
+    }
 
     // TODO: Rename and change types of parameters
     public static menuListFragment newInstance(String param1, String param2) {
@@ -75,13 +74,8 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
         return fragment;
     }
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public menuListFragment() {
-        this.restaurantMenu = LockAwayApplication.getRestaurantMenu();
-
+    public OnFragmentInteractionListener getmListener() {
+        return mListener;
     }
 
     @Override
@@ -146,6 +140,7 @@ public void onPlusButtonClicked(int pos){
     RowLayoutItem item = (RowLayoutItem) menuList.get(pos);
     mListener.onFragmentInteraction(item.getId(),app.GetOrderID());
     mListener.onFragmentInteraction(item);
+    Toast.makeText(getActivity(), getString(R.string.item_addedd), Toast.LENGTH_SHORT).show();
 
 }
     /**

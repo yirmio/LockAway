@@ -1,41 +1,36 @@
 package com.yirmio.lockaway.UI;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 import com.yirmio.lockaway.AddMenuItemFragment;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
-import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.userOrderFragment;
 import com.yirmio.lockaway.util.UserOrderAdapter;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, AddMenuItemFragment.OnFragmentInteractionListener, menuListFragment.OnFragmentInteractionListener, userOrderFragment.OnFragmentInteractionListener {
 
+    private static final int ORDERFRAGMENTNUMBER = 2;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -140,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     }
 
     @Override
+    //Add item to DB in cloud
     public void onFragmentInteraction(String id, String orderID) {
         ParseObject itemToAdd = new ParseObject("OrderedObjects");
         itemToAdd.put("MenuObjectID", id);
@@ -148,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.item_addedd), Toast.LENGTH_SHORT).show();
+                    //TODO - Log...
                 }
             }
         });
@@ -159,10 +155,50 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     @Override
     //Get RowLayoutItem and add it to user order and refresh adapter
     public void onFragmentInteraction(RowLayoutItem item) {
-        LockAwayApplication.getUserOrder().addItemToOrder(new RestaurantMenuObject(item), true);
-        UserOrderAdapter adapter = (UserOrderAdapter) fragment.getmAdapter();
-        adapter.notifyDataSetChanged();
+        LockAwayApplication.getUserOrder().addItemToOrder(new RestaurantMenuObject(item), true);//Loal BL
+        UserOrderAdapter adapter = (UserOrderAdapter) ((userOrderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
+        adapter.clear();
+        adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
 
+
+        //adapter.notifyDataSetChanged();
+
+
+    }
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        public PlaceholderFragment() {
+        }
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+
+
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            return rootView;
+        }
     }
 
     /**
@@ -182,17 +218,26 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
             switch (position) {
                 case 0: {
-                    if (fragments.get(0) == null) {
+                    if (fragments.size() == 0) {
                         fragments.add(0, new menuListFragment());
+                        return fragments.get(0);
                     } else {
                         return fragments.get(0);
-                    };
+                    }
                 }
 
                 case 1:
-                    return new AddMenuItemFragment();
+                    if (fragments.size() == 1) {
+                        fragments.add(1, new AddMenuItemFragment());
+                        return fragments.get(1);
+                    }
+
                 case 2:
-                    return new userOrderFragment();
+                    if (fragments.size() == 2) {
+                        fragments.add(2, new userOrderFragment());
+                        return fragments.get(2);
+                    }
+                    //return new userOrderFragment();
             }
 
 
@@ -217,41 +262,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
                     return getString(R.string.title_section3).toUpperCase(l);
             }
             return null;
-        }
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-
-
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
         }
     }
 

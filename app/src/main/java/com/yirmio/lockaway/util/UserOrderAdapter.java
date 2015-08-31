@@ -8,18 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
+import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.UI.UserOrderRowLayout;
-import com.yirmio.lockaway.UI.menuListFragment;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by yirmio on 27/07/2015.
@@ -28,6 +28,8 @@ public class UserOrderAdapter extends ArrayAdapter {
     //region Properties
     private Context context;
     private boolean useList = true;
+    private ArrayList userOrder;
+
 
     //endregion
     //region Ctor
@@ -38,23 +40,12 @@ public class UserOrderAdapter extends ArrayAdapter {
      * @param context The current context.
      * @param objects The objects to represent in the ListView.
      */
-    public UserOrderAdapter(Context context, List objects) {
-        super(context, R.layout.user_order_item_layout, objects);
+    public UserOrderAdapter(Context context, int resource, ArrayList objects) {
+        super(context, resource, objects);
         this.context = context;
+        this.userOrder = objects;
 
     }
-
-    //endregion
-    //region ViewHolder Class
-    private class ViewHolder {
-
-        TextView lable;
-        TextView price;
-        TextView timeToMake;
-        ParseImageView photo;
-        Button btnX;
-    }
-    //endregion
 
     /**
      * {@inheritDoc}
@@ -66,7 +57,7 @@ public class UserOrderAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        UserOrderRowLayout item = (UserOrderRowLayout) getItem(position);
+        UserOrderRowLayout item = new UserOrderRowLayout((RestaurantMenuObject) getItem(position));
         View viewToUse = null;
         final int pos = position;
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -97,10 +88,11 @@ public class UserOrderAdapter extends ArrayAdapter {
         holder.timeToMake.setText(String.valueOf(item.getTimeToMake()));
         loadParseImageFromParseFile(viewToUse, holder.photo, item.getPhotoParseFile());
 
-
+        ((ListView) (parent)).invalidate();
 
         return viewToUse;
     }
+    //endregion
 
     private void loadParseImageFromParseFile(View viewToUse, ParseImageView photo, ParseFile photoParseFile) {
         try {
@@ -126,7 +118,30 @@ public class UserOrderAdapter extends ArrayAdapter {
      * {@inheritDoc}
      */
     @Override
+    public int getCount() {
+        return this.userOrder.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
+    }
+
+    //endregion
+    //region ViewHolder Class
+    private class ViewHolder {
+
+        TextView lable;
+        TextView price;
+        TextView timeToMake;
+        ParseImageView photo;
+        Button btnX;
     }
 }

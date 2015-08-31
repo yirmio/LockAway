@@ -4,14 +4,14 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
-//import com.parse.ParseCrashReporting;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.yirmio.lockaway.BL.Order;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.UserOrder;
 import com.yirmio.lockaway.DAL.ParseConnector;
+
+//import com.parse.ParseCrashReporting;
 
 /**
  * Created by yirmio on 13/06/2015.
@@ -30,22 +30,26 @@ public class LockAwayApplication extends Application {
     }
 
     public static String GetOrderID() {
+        String idToReturn = null;
         if (userOrder != null) {
-            return userOrder.getOrderId();
+            idToReturn = userOrder.getOrderId();
         } else {
 
             try {
+                ParseUser usr = ParseUser.logIn("Yirmi", "Z69Hus&&");
                 ParseObject order = new ParseObject("UserToOrders");
-                order.put("UserID", ParseUser.getCurrentUser().getObjectId());
+                order.put("UserID", usr.getObjectId());
+
                 order.save();
                 userOrder = new UserOrder(order.getObjectId());
 
-                return userOrder.getOrderId();
+                idToReturn = userOrder.getOrderId();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            return null;
+
         }
+        return idToReturn;
     }
 
     public static UserOrder getUserOrder() {

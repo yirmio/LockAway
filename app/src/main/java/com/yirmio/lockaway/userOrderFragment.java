@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.UserOrder;
 import com.yirmio.lockaway.UI.RowLayoutItem;
+import com.yirmio.lockaway.UI.SendOrderActivity;
 import com.yirmio.lockaway.UI.UserOrderRowLayout;
 import com.yirmio.lockaway.util.UserOrderAdapter;
 

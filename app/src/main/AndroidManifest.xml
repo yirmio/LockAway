@@ -51,7 +51,7 @@
         <activity
             android:name=".UI.OrderSummary"
             android:label="@string/title_activity_order_summary"></activity>
-        <activity android:name=".SendOrderActivity"></activity>
+        <activity android:name=".UI.SendOrderActivity"></activity>
     </application>
 
 </manifest>

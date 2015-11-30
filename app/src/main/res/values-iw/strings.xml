@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="check_item_name">בדוק את שם הפריט</string>
+    <string name="welcome">ברוכים הבאים לאפיה קסומה</string>
+    <string name="afeya_slogen">חוויה מהאגדות</string>
     <string name="AfeyaKsuma">אפיה קסומה</string>
+    <string name="check_item_name">בדוק את שם הפריט</string>
     <string name="check_item">לא כל השדות מלאים</string>
+    <string name="send">שלח</string>
+    <string name="clear">מחק</string>
+    <string name="continuetoorder">המשך</string>
+    <string name="total_price">סה"כ</string>
+    <string name="ETA">זמן הגעה משוער</string>
+    <string name="minutes">דקות</string>
+    <string name="item_removed">הפריט הוסר מההזמנה</string>
+    <string name="confirm_order">מאשר ההזמנה</string>
+    <string name="total_items">פריטים בהזמנה</string>
+    <string name="item_addedd">הפריט נוסף בהצלחה להזמנה</string>
+    <string name="totalPrice">לתשלום</string>
+    <string name="current_address">כתובת נוכחית</string>
 </resources>

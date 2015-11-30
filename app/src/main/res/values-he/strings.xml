@@ -5,7 +5,18 @@
     <string name="AfeyaKsuma">אפיה קסומה</string>
     <string name="check_item_name">בדוק את שם הפריט</string>
     <string name="check_item">לא כל השדות מלאים</string>
-    <string name="totalPrice">סה\"כ</string>
-    <string name="send">Send</string>
+    <string name="send">שלח</string>
     <string name="clear">מחק</string>
+    <string name="continuetoorder">המשך</string>
+    <string name="total_price">סה"כ</string>
+    <string name="ETA">זמן הגעה משוער</string>
+    <string name="minutes">דקות</string>
+    <string name="item_removed">הפריט הוסר מההזמנה</string>
+    <string name="confirm_order">מאשר ההזמנה</string>
+    <string name="total_items">פריטים בהזמנה</string>
+    <string name="item_addedd">הפריט נוסף בהצלחה להזמנה</string>
+    <string name="totalPrice">לתשלום</string>
+    <string name="current_address">כתובת נוכחית</string>
+
+
 </resources>

@@ -18,8 +18,11 @@ import com.parse.ParseImageView;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.UI.UserOrderRowLayout;
+import com.yirmio.lockaway.UI.menuListFragment;
+import com.yirmio.lockaway.userOrderFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yirmio on 27/07/2015.
@@ -29,6 +32,7 @@ public class UserOrderAdapter extends ArrayAdapter {
     private Context context;
     private boolean useList = true;
     private ArrayList userOrder;
+    private userOrderFragment frgament;
 
 
     //endregion
@@ -40,12 +44,16 @@ public class UserOrderAdapter extends ArrayAdapter {
      * @param context The current context.
      * @param objects The objects to represent in the ListView.
      */
-    public UserOrderAdapter(Context context, int resource, ArrayList objects) {
+    public UserOrderAdapter(Context context, int resource, ArrayList objects,userOrderFragment frg) {
         super(context, resource, objects);
         this.context = context;
         this.userOrder = objects;
+        this.frgament = frg;
 
     }
+
+
+
 
     /**
      * {@inheritDoc}
@@ -70,6 +78,12 @@ public class UserOrderAdapter extends ArrayAdapter {
             //Create holder and bind to view objects
             holder = new ViewHolder();
             holder.btnX = (Button) viewToUse.findViewById(R.id.user_order_btn_X);
+            holder.btnX.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    frgament.onXButtonClicked(pos);
+                }
+            });
             holder.lable = (TextView) viewToUse.findViewById(R.id.user_order_textView_name);
             holder.price = (TextView) viewToUse.findViewById(R.id.user_order_textViewPrice);
             holder.timeToMake = (TextView) viewToUse.findViewById(R.id.user_order_textView_time_toMake);

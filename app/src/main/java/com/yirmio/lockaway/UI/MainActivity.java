@@ -15,6 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.parse.DeleteCallback;
+import com.parse.FunctionCallback;
+import com.parse.Parse;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
@@ -26,6 +30,7 @@ import com.yirmio.lockaway.userOrderFragment;
 import com.yirmio.lockaway.util.UserOrderAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, AddMenuItemFragment.OnFragmentInteractionListener, menuListFragment.OnFragmentInteractionListener, userOrderFragment.OnFragmentInteractionListener {
@@ -53,7 +58,13 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         super.onCreate(savedInstanceState);
         // remove title
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+        ParseCloud.callFunctionInBackground("hello",new HashMap<String, Object>(), new FunctionCallback<String>(){
+            public void done(String res, ParseException e){
+                if (e != null){
+                    String str = res;
+                }
+            }
+        });
         setContentView(R.layout.activity_main);
         this.fragments = new ArrayList<Fragment>();
         // Set up the action bar.
@@ -128,46 +139,79 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
-
+    //region onFragmentInteraction
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
 
     @Override
-    //Add item to DB in cloud
-    public void onFragmentInteraction(String id, String orderID) {
-        ParseObject itemToAdd = new ParseObject("OrderedObjects");
-        itemToAdd.put("MenuObjectID", id);
-        itemToAdd.put("OrderID", orderID);
-        itemToAdd.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    //TODO - Log...
+    //Add/Del item to DB in cloud
+    public void onFragmentInteraction(String id, String orderID, String op) {
+        ParseObject tmpItem = new ParseObject("OrderedObjects");
+        if (op == "add") {
+
+            tmpItem.put("MenuObjectID", id);
+            tmpItem.put("OrderID", orderID);
+            tmpItem.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        //TODO - Log...
+                    }
                 }
-            }
-        });
+            });
+        } else if (op == "remove"){
+            tmpItem.deleteInBackground(new DeleteCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e ==null){
+                        //TODO - Log...
+                    }
+                }
+            });
+
+        }
 
 
     }
 
+
+
+    //endregion
+    //@Override
+    //public void onFragmentInteraction(RestaurantMenuObject item, String opp) {
+      //  LockAwayApplication.getUserOrder().removeItemFromOrder(item.getId());
+    //}
+
     @Override
     //Get RowLayoutItem and add it to user order and refresh adapter
-    public void onFragmentInteraction(RowLayoutItem item) {
-        LockAwayApplication.getUserOrder().addItemToOrder(new RestaurantMenuObject(item), true);//Loal BL
-        if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
-            UserOrderAdapter adapter = (UserOrderAdapter) ((userOrderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
-            adapter.clear();
-            adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
+    public void onFragmentInteraction(RowLayoutItem item, String opp) {
+        if (opp == "add") {
+            LockAwayApplication.getUserOrder().addItemToOrder(new RestaurantMenuObject(item), true);//Loal BL
+            //UI
+            if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
+                UserOrderAdapter adapter = (UserOrderAdapter) ((userOrderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
+                adapter.clear();
+                adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
+
+            }
+        } else if (opp == "remove"){
+            LockAwayApplication.getUserOrder().removeItemFromOrder(item.getId());
+            if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
+                UserOrderAdapter adapter = (UserOrderAdapter) ((userOrderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
+                adapter.clear();
+                adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
+
+            }
         }
 
 
+//TODO user order remove
         //adapter.notifyDataSetChanged();
 
 
     }
-
     /**
      * A placeholder fragment containing a simple view.
      */

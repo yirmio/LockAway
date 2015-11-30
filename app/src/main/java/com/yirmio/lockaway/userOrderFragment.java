@@ -1,14 +1,17 @@
 package com.yirmio.lockaway;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.UserOrder;
@@ -45,6 +48,7 @@ public class userOrderFragment extends Fragment {
     private AbsListView mListView;
     private TextView mTotalPriceTextView;
     private TextView mTotalTimeTextView;
+    private Button mSendBtn;
 
     //region Ctor
 
@@ -90,7 +94,7 @@ public class userOrderFragment extends Fragment {
                 orderList.add(new UserOrderRowLayout(obj));
             }
         }
-        mAdapter = new UserOrderAdapter(getActivity(), R.layout.user_order_item_layout, orderList);
+        mAdapter = new UserOrderAdapter(getActivity(), R.layout.user_order_item_layout, orderList,this);
         //mListView = (AbsListView)getView().findViewById(R.id.user_order_listView);
         //((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
@@ -107,19 +111,32 @@ public class userOrderFragment extends Fragment {
         mListView = (ListView) view.findViewById(R.id.user_order_listView);
         mListView.setAdapter(mAdapter);
 
-        //         mAdapter = new UserOrderAdapter(getActivity(),R.layout.user_order_item_layout,orderList);
-
-        // mListView.invalidate();
 
 
         //Update Bottom Details
         mTotalPriceTextView = (TextView) view.findViewById(R.id.usrOrderFrgmntTxtViewTotalPriceValue);
         mTotalTimeTextView = (TextView) view.findViewById(R.id.usrOrderFrgmntTxtViewTotalTimeValue);
+        mSendBtn = (Button) view.findViewById(R.id.frgmnt_user_order_btn_continu);
+        mSendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendCurrentOrder();
+            }
+        });
         if (app.getUserOrder() != null) {
             mTotalPriceTextView.setText(String.valueOf(app.getUserOrder().getTotalPrice()));
             mTotalTimeTextView.setText(String.valueOf(app.getUserOrder().getTotalTimeToMake()));
         }
         return view;
+    }
+
+    private void sendCurrentOrder() {
+        //Open sendOrderActivity
+        Intent intent = new Intent(this.getActivity(),SendOrderActivity.class);
+        intent.putExtra("totalPrice",this.mTotalPriceTextView.getText());
+        intent.putExtra("totalTimeToMake",this.mTotalTimeTextView.getText());
+        startActivity(intent);
+
     }
 
 
@@ -171,19 +188,24 @@ public class userOrderFragment extends Fragment {
         mListView.invalidate();
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    public void onXButtonClicked(int pos) {
+
+        RestaurantMenuObject item = (RestaurantMenuObject) orderList.get(pos);
+        RowLayoutItem tmpItem = new RowLayoutItem(item);
+        mListener.onFragmentInteraction(item.getId(), app.GetOrderID(), "remove");
+        mListener.onFragmentInteraction(tmpItem, "remove");
+
+
+        if (app.getUserOrder() != null) {
+            mTotalPriceTextView.setText(String.valueOf(app.getUserOrder().getTotalPrice()));
+            mTotalTimeTextView.setText(String.valueOf(app.getUserOrder().getTotalTimeToMake()));
+        }
+
+        Toast.makeText(getActivity(), getString(R.string.item_removed), Toast.LENGTH_SHORT).show();
+    }
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(RowLayoutItem item);
+        public void onFragmentInteraction(String itemID, String orderID,String opp);
+        public void onFragmentInteraction(RowLayoutItem item,String opp);
     }
 
 }

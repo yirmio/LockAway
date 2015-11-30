@@ -15,14 +15,23 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="AfeyaKsuma">אפיה קסומה</string>
-    <string name="check_item_name">בדוק את שם הפריט</string>
-    <string name="check_item">לא כל השדות מלאים</string>
+    <string name="AfeyaKsuma">Afeya Ksuma</string>
+    <string name="check_item_name">Check Item Name</string>
+    <string name="check_item">Not All Fields Are Valid!</string>
     <string name="AfeyaStoreID" translatable="false">g1bzMQEXoj</string>
-    <string name="item_addedd">הפריט נוסף בהצלחה להזמנה</string>
-    <string name="totalPrice">סה\"כ</string>
+    <string name="item_addedd">Item Added To Order</string>
+    <string name="totalPrice">Total Price</string>
     <string name="send">Send</string>
-    <string name="clear">מחק</string>
+    <string name="clear">Clear</string>
+    <string name="continuetoorder">Continue</string>
+    <string name="title_activity_order_summary">OrderSummary</string>
+    <string name="total_price">Total Price</string>
+    <string name="ETA">Estimated time of arrival</string>
+    <string name="minutes">Minutes</string>
+    <string name="item_removed">Item Removed From Order</string>
+    <string name="confirm_order">Confirm Order</string>
+    <string name="total_items">Total Items:</string>
+    <string name="current_address">Current Address</string>
 </resources>

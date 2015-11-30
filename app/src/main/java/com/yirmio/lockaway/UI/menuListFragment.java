@@ -139,8 +139,8 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
     }
 public void onPlusButtonClicked(int pos){
     RowLayoutItem item = (RowLayoutItem) menuList.get(pos);
-    mListener.onFragmentInteraction(item.getId(),app.GetOrderID());
-    mListener.onFragmentInteraction(item);
+    mListener.onFragmentInteraction(item.getId(),app.GetOrderID(),"add");
+    mListener.onFragmentInteraction(item,"add");
     Toast.makeText(getActivity(), getString(R.string.item_addedd), Toast.LENGTH_SHORT).show();
 
 }
@@ -168,10 +168,10 @@ public void onPlusButtonClicked(int pos){
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(String id,String orderID);
+        public void onFragmentInteraction(String id,String orderID,String opp);
 
-        public void onFragmentInteraction(RowLayoutItem item);
+        public void onFragmentInteraction(RowLayoutItem item, String opp);
     }
+
 
 }

@@ -95,13 +95,14 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/frgmnt_user_order_btn_continu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/send" />
+            android:text="@string/continuetoorder"
+            android:nestedScrollingEnabled="false" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/frgmnt_user_order_btn_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

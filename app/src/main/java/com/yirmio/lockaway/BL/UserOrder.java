@@ -1,5 +1,7 @@
 package com.yirmio.lockaway.BL;
 
+import com.yirmio.lockaway.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +62,26 @@ public class UserOrder {
         this.totalTimeToMake = totalTimeToMake;
     }
 
+    public RestaurantMenuObject getItemByID(String id){
+        //TODO - do it better
+        for (RestaurantMenuObject item:
+             this.objects) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null;
+    }
+    public int getItemPositionByID(String id){
+        for (int i=0;i<=this.objects.size();i++){
+            if (this.objects.get(i).getId() == id){
+                return i;
+            }
+
+        }
+        return 99999;
+
+    }
     //endregion
 
     //region Core Methods
@@ -91,6 +113,13 @@ public class UserOrder {
         this.objects.add(item);
         this.totalPrice += item.getPrice();
         this.totalTimeToMake += item.getTimeToMake();
+    }
+
+    public void removeItemFromOrder(String id) {
+        RestaurantMenuObject tmpObj =this.getItemByID(id);
+        this.totalPrice -= tmpObj.getPrice();
+        this.totalTimeToMake -= tmpObj.getTimeToMake();
+        this.objects.remove(tmpObj);
     }
 
 

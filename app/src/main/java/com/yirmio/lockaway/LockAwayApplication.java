@@ -2,6 +2,7 @@ package com.yirmio.lockaway;
 
 import android.app.Application;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
@@ -17,9 +18,11 @@ import com.yirmio.lockaway.DAL.ParseConnector;
  * Created by yirmio on 13/06/2015.
  */
 public class LockAwayApplication extends Application {
+    //32.0831538,34.9435619
     public static final ParseConnector parseConector = new ParseConnector();
     private static RestaurantMenu restaurantMenu;
     private static UserOrder userOrder;
+    public  static LatLng AfeyaLatLang = new LatLng(32.0831538,34.9435619);
 
     public static RestaurantMenu getRestaurantMenu() {
         return restaurantMenu;

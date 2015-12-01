@@ -134,7 +134,7 @@ public class userOrderFragment extends Fragment {
     private void sendCurrentOrder() {
         //Open sendOrderActivity
         Intent intent = new Intent(this.getActivity(),SendOrderActivity.class);
-        intent.putExtra("totalPrice",this.mTotalPriceTextView.getText());
+        intent.putExtra("totalPrice",this.mTotalPriceTextView.getText().toString());
         intent.putExtra("totalTimeToMake",this.mTotalTimeTextView.getText());
         startActivity(intent);
 

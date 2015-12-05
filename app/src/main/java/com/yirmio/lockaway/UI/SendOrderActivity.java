@@ -1,14 +1,13 @@
 package com.yirmio.lockaway.UI;
 
-import android.app.Application;
-import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -19,32 +18,39 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
 import com.yirmio.lockaway.Location.LocationUtils;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 
-import java.io.IOException;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
+import java.util.Stack;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.ocpsoft.prettytime.PrettyTime;
 
 
 public class SendOrderActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
+    //Local Members
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private boolean mMapIsReady;
     private GoogleMap mGogleMap;
+    private String orderID;
+    private String eta;
+
+    //GUI Elements
     private TextView mCurAddressTextView;
     private TextView mTimeToMakeValue;
     private TextView mTotalPriceValue;
-    private TextView mETAValue;
+    private TextView mItemsCount;
+    private TextView mETAValueTxtView;
+    private Button mSendBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,20 +62,64 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        //GUI Elements
+
         this.mCurAddressTextView = (TextView) findViewById(R.id.txtVw_send_order_current_address_label);
         this.mTotalPriceValue = (TextView) findViewById(R.id.txtVw_send_order_total_price_value);
-        this.mETAValue = (TextView) findViewById(R.id.txtVw_send_order_eta_value);
-        if (extras != null) {
-            String tmp = extras.getString("totalPrice").toString();
-            this.mTotalPriceValue.setText(tmp);
-        }
+        this.mTimeToMakeValue = (TextView) findViewById(R.id.txtVw_send_order_time_to_make_value);
+        this.mETAValueTxtView = (TextView) findViewById(R.id.txtVw_send_order_eta_value);
+        this.mItemsCount = (TextView) findViewById(R.id.txtVw_send_order_total_items_value);
+        this.mSendBtn = (Button) findViewById(R.id.btn_send_order_confirm_send);
 
+        this.mSendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendOrderToCloud();
+
+            }
+
+
+        });
+
+        //Get Data
+        if (extras != null) {
+            this.mTotalPriceValue.setText(extras.getString("totalPrice").toString());
+            this.mTimeToMakeValue.setText(extras.getString("totalTimeToMake"));
+            this.mItemsCount.setText(extras.getString("itemsCount"));
+            this.orderID = extras.getString("OrderID");
+
+        }
+        //Build map
         buildGoogleApiClient();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.frgmnt_send_order_map);
         mapFragment.getMapAsync(this);
 
 
+    }
+
+    private void sendOrderToCloud() {
+        //var orderID,userETA;
+        HashMap<String, Object> dict = new HashMap<String, Object>();
+        dict.put("orderID", this.orderID);
+        dict.put("userETA", eta);
+        Toast.makeText(this.getApplicationContext(), "Conecting to cloud", Toast.LENGTH_SHORT).show();
+
+        ParseCloud.callFunctionInBackground("sendNewOrder", dict, new FunctionCallback<Object>() {
+            @Override
+            public void done(Object o, ParseException e) {
+                if (e != null) {
+                    Toast.makeText(getApplicationContext(), "Error Saving Order " + e.getMessage(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), o.toString(), Toast.LENGTH_LONG).show();
+                    orderSavedSuccess();
+                }
+            }
+        });
+    }
+
+    private void orderSavedSuccess() {
+        //TODO - Open new activity
     }
 
 
@@ -138,11 +188,12 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         }
 
         //Get ETA & Distance
-        Map<String,String> disAndTimeMap = LocationUtils.getETAAndDistanceInfo(latLng, LockAwayApplication.AfeyaLatLang);
-        if (disAndTimeMap != null){
-            LocalTime dateTime = LocalTime .now().plusSeconds(Integer.parseInt(disAndTimeMap.get("totalTimeInSec")));
+        Map<String, String> disAndTimeMap = LocationUtils.getETAAndDistanceInfo(latLng, LockAwayApplication.AfeyaLatLang);
+        if (disAndTimeMap != null) {
+            LocalTime dateTime = LocalTime.now().plusSeconds(Integer.parseInt(disAndTimeMap.get("totalTimeInSec")));
             DateTimeFormatter dFmtr = DateTimeFormat.forPattern("HH:mm");
-            this.mETAValue.setText(dateTime.toString(dFmtr));
+            this.mETAValueTxtView.setText(dateTime.toString(dFmtr));
+            this.eta = dateTime.toString(dFmtr);
 
         }
 

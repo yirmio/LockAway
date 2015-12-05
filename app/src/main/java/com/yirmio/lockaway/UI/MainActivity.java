@@ -17,16 +17,15 @@ import android.view.ViewGroup;
 
 import com.parse.DeleteCallback;
 import com.parse.FunctionCallback;
-import com.parse.Parse;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 import com.yirmio.lockaway.AddMenuItemFragment;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
+import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.userOrderFragment;
 import com.yirmio.lockaway.util.UserOrderAdapter;
 
 import java.util.ArrayList;
@@ -148,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     @Override
     //Add/Del item to DB in cloud
     public void onFragmentInteraction(String id, String orderID, String op) {
+        ParseConnector.addObjectToOrder(id,orderID);
         ParseObject tmpItem = new ParseObject("OrderedObjects");
         if (op == "add") {
 
@@ -162,14 +162,15 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
                 }
             });
         } else if (op == "remove"){
-            tmpItem.deleteInBackground(new DeleteCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e ==null){
-                        //TODO - Log...
-                    }
-                }
-            });
+            ParseConnector.reoveObjectFromOrder(orderID,id);
+//            tmpItem.deleteInBackground(new DeleteCallback() {
+//                @Override
+//                public void done(ParseException e) {
+//                    if (e ==null){
+//                        //TODO - Log...
+//                    }
+//                }
+//            });
 
         }
 

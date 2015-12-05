@@ -38,7 +38,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="TimeToMake"
             android:id="@+id/user_order_textView_time_toMake"
-
+android:drawableLeft="@drawable/ic_hourglass_empty_black_24dp"
             android:layout_below="@+id/user_order_textView_name" />
 
         <TextView
@@ -46,13 +46,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Price"
+            android:drawableLeft="@drawable/ic_action_money"
             android:id="@+id/user_order_textViewPrice"
 
 
             android:layout_below="@+id/user_order_textView_time_toMake" />
     </RelativeLayout>
 
-    <Button
+    <ImageButton
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:text="X"
@@ -60,6 +61,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ic_delete_black_24dp"
+        android:background="#00ffffff" />
 
 </RelativeLayout>

@@ -2,13 +2,16 @@ package com.yirmio.lockaway.DAL;
 
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 import com.yirmio.lockaway.BL.MenuItemTypesEnum;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
@@ -29,6 +32,42 @@ public final class ParseConnector {
     private static ParseObject rest;
     private static String TAG = "In ParseConnector Class";
     private static boolean tmpResult = false;
+
+    public static boolean reoveObjectFromOrder(final String orderID, final String objectID) {
+        boolean res = true;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("OrderedObjects");
+        query.whereEqualTo("MenuObjectID", objectID);
+        try {
+            String tmpID;
+            List<ParseObject> objects = query.find();
+            for (ParseObject p : objects) {
+                tmpID = p.getString("OrderID");
+                if (tmpID.equals(orderID)) {
+                    p.deleteInBackground(new DeleteCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            //Success
+                            if (e == null) {
+                                Log.i(TAG, "Object " + objectID + " Removed from order " + orderID);
+
+                            } else {
+                                Log.e(TAG, "Error reoving object " + objectID + " From order " + orderID);
+                                //throw new ParseException(9,"Error reoving object " + objectID + " From order " + orderID);                            }
+                            }
+                        }
+                    });
+                }
+            }
+
+
+        } catch (ParseException e) {
+            res = false;
+        }
+
+
+        return res;
+
+    }
 
     public static boolean setRestaurantID(String id) {
         tmpResult = false;
@@ -173,12 +212,28 @@ public final class ParseConnector {
                     tmpFile = getImagesFilesForObject(obj.getObjectId(), 1).get(0);
                 }
             }
-            return new RestaurantMenuObject(id,description, price, title, timeToMake, tmpFile, type, isVeg, isGlotenFree);
+            return new RestaurantMenuObject(id, description, price, title, timeToMake, tmpFile, type, isVeg, isGlotenFree);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return null;
         }
 
 
+    }
+
+    public static boolean addObjectToOrder(String id, String orderID) {
+        ParseObject tmpItem = new ParseObject("OrderedObjects");
+
+        tmpItem.put("MenuObjectID", id);
+        tmpItem.put("OrderID", orderID);
+        tmpItem.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    //TODO - Log...
+                }
+            }
+        });
+        return false;
     }
 }

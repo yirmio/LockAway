@@ -1,4 +1,4 @@
-package com.yirmio.lockaway;
+package com.yirmio.lockaway.UI;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,9 +15,8 @@ import android.widget.Toast;
 
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.UserOrder;
-import com.yirmio.lockaway.UI.RowLayoutItem;
-import com.yirmio.lockaway.UI.SendOrderActivity;
-import com.yirmio.lockaway.UI.UserOrderRowLayout;
+import com.yirmio.lockaway.LockAwayApplication;
+import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.util.UserOrderAdapter;
 
 import java.util.ArrayList;
@@ -91,6 +90,7 @@ public class userOrderFragment extends Fragment {
         app = ((LockAwayApplication) this.getActivity().getApplicationContext());
         orderList = new ArrayList();
         if (app.getUserOrder() != null) {
+            this.userOrder = app.getUserOrder();
             for (RestaurantMenuObject obj : app.getUserOrder().getObjects()) {
                 orderList.add(new UserOrderRowLayout(obj));
             }
@@ -134,8 +134,11 @@ public class userOrderFragment extends Fragment {
     private void sendCurrentOrder() {
         //Open sendOrderActivity
         Intent intent = new Intent(this.getActivity(),SendOrderActivity.class);
+
         intent.putExtra("totalPrice",this.mTotalPriceTextView.getText().toString());
         intent.putExtra("totalTimeToMake",this.mTotalTimeTextView.getText());
+        intent.putExtra("itemsCount",String.valueOf(this.orderList.size()));
+        intent.putExtra("OrderID",userOrder.getOrderId());
         startActivity(intent);
 
     }

@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.yirmio.lockaway.userOrderFragment">
+    tools:context=".UI.userOrderFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -22,34 +22,16 @@
         android:layout_alignParentStart="false">
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:autoText="false"
-            android:elegantTextHeight="false"
-            android:singleLine="true"
-            android:text="@string/totalPrice"
-            android:textAlignment="gravity"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textDirection="anyRtl"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/usrOrderFrgmntTxtViewTotalPriceValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@+id/textView2"
-            android:layout_toStartOf="@+id/textView2"
             android:numeric="decimal"
             android:singleLine="true"
             android:text="99.99"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_alignParentRight="true" />
 
         <TextView
             android:id="@+id/textView"

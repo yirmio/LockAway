@@ -5,7 +5,11 @@ package com.yirmio.lockaway.BL;
  */
 public enum  OrderStatusEnum {
     OnHold,
+    OnDelay,
     OnMake,
-    Ready
+    Ready,
+    WaitingToStart,
+    Finish
+
 }
 

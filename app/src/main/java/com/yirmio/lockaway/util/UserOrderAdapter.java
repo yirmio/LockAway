@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,11 +19,9 @@ import com.parse.ParseImageView;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.UI.UserOrderRowLayout;
-import com.yirmio.lockaway.UI.menuListFragment;
-import com.yirmio.lockaway.userOrderFragment;
+import com.yirmio.lockaway.UI.userOrderFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by yirmio on 27/07/2015.
@@ -77,7 +76,7 @@ public class UserOrderAdapter extends ArrayAdapter {
             }
             //Create holder and bind to view objects
             holder = new ViewHolder();
-            holder.btnX = (Button) viewToUse.findViewById(R.id.user_order_btn_X);
+            holder.btnX = (ImageButton) viewToUse.findViewById(R.id.user_order_btn_X);
             holder.btnX.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -156,6 +155,6 @@ public class UserOrderAdapter extends ArrayAdapter {
         TextView price;
         TextView timeToMake;
         ParseImageView photo;
-        Button btnX;
+        ImageButton btnX;
     }
 }

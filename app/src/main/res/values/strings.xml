@@ -34,4 +34,5 @@
     <string name="confirm_order">Confirm Order</string>
     <string name="total_items">Total Items:</string>
     <string name="current_address">Current Address</string>
+    <string name="item_deleted_fro_order">Item Deleted From Order</string>
 </resources>

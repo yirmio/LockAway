@@ -9,7 +9,7 @@ import com.yirmio.lockaway.BL.RestaurantMenuObject;
 /**
  * Created by yirmio on 23/07/2015.
  */
-public class RowLayoutItem {
+public class MenuListRowLayoutItem {
 
     //region Properties
     private ParseFile photoParseFile;
@@ -26,7 +26,7 @@ public class RowLayoutItem {
 
 
     //region CTor
-    public RowLayoutItem(String itemID,ParseFile photoParseFileToUse, String info, boolean isGlotenFree, boolean isVeg, String lable, Float price, int timeToMake) {
+    public MenuListRowLayoutItem(String itemID, ParseFile photoParseFileToUse, String info, boolean isGlotenFree, boolean isVeg, String lable, Float price, int timeToMake) {
         this.photoParseFile = photoParseFileToUse;
         this.info = info;
         this.isGlotenFree = isGlotenFree;
@@ -37,7 +37,7 @@ public class RowLayoutItem {
         this.id = itemID;
     }
 
-    public RowLayoutItem(RestaurantMenuObject item) {
+    public MenuListRowLayoutItem(RestaurantMenuObject item) {
         this.photoParseFile = item.getPic();
         this.info = item.getDescription();
         this.isGlotenFree = item.isVeg();

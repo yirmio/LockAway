@@ -14,25 +14,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
-import com.parse.DeleteCallback;
-import com.parse.FunctionCallback;
-import com.parse.ParseCloud;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.SaveCallback;
-import com.yirmio.lockaway.AddMenuItemFragment;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.util.UserOrderAdapter;
+import com.yirmio.lockaway.util.OrderBuilderAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, AddMenuItemFragment.OnFragmentInteractionListener, menuListFragment.OnFragmentInteractionListener, userOrderFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, AddMenuItemFragment.OnFragmentInteractionListener, menuListFragment.OnFragmentInteractionListener, OrderBuilderFragment.OnFragmentInteractionListener {
 
     private static final int ORDERFRAGMENTNUMBER = 2;
     /**
@@ -54,16 +47,12 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         // remove title
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        ParseCloud.callFunctionInBackground("hello",new HashMap<String, Object>(), new FunctionCallback<String>(){
-            public void done(String res, ParseException e){
-                if (e != null){
-                    String str = res;
-                }
-            }
-        });
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
         this.fragments = new ArrayList<Fragment>();
         // Set up the action bar.
@@ -138,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
+
     //region onFragmentInteraction
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -147,72 +137,45 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     @Override
     //Add/Del item to DB in cloud
     public void onFragmentInteraction(String id, String orderID, String op) {
-        ParseConnector.addObjectToOrder(id,orderID);
-        ParseObject tmpItem = new ParseObject("OrderedObjects");
+//        ParseObject tmpItem = new ParseObject("OrderedObjects");
         if (op == "add") {
+            ParseConnector.addObjectToOrder(id, orderID);
 
-            tmpItem.put("MenuObjectID", id);
-            tmpItem.put("OrderID", orderID);
-            tmpItem.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e == null) {
-                        //TODO - Log...
-                    }
-                }
-            });
-        } else if (op == "remove"){
-            ParseConnector.reoveObjectFromOrder(orderID,id);
-//            tmpItem.deleteInBackground(new DeleteCallback() {
-//                @Override
-//                public void done(ParseException e) {
-//                    if (e ==null){
-//                        //TODO - Log...
-//                    }
-//                }
-//            });
+        } else if (op == "remove") {
+            ParseConnector.removeObjectFromOrder(orderID, id);
 
         }
 
 
     }
-
 
 
     //endregion
-    //@Override
-    //public void onFragmentInteraction(RestaurantMenuObject item, String opp) {
-      //  LockAwayApplication.getUserOrder().removeItemFromOrder(item.getId());
-    //}
+
 
     @Override
-    //Get RowLayoutItem and add it to user order and refresh adapter
-    public void onFragmentInteraction(RowLayoutItem item, String opp) {
+    //Get MenuListRowLayoutItem and add it to user order and refresh adapter
+    public void onFragmentInteraction(MenuListRowLayoutItem item, String opp) {
         if (opp == "add") {
-            LockAwayApplication.getUserOrder().addItemToOrder(new RestaurantMenuObject(item), true);//Loal BL
+            LockAwayApplication.getUserOrder().addItemToOrder(new RestaurantMenuObject(item), true);//Local BL
             //UI
             if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
-                UserOrderAdapter adapter = (UserOrderAdapter) ((userOrderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
+                OrderBuilderAdapter adapter = (OrderBuilderAdapter) ((OrderBuilderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
                 adapter.clear();
                 adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
 
             }
-        } else if (opp == "remove"){
+        } else if (opp == "remove") {
             LockAwayApplication.getUserOrder().removeItemFromOrder(item.getId());
             if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
-                UserOrderAdapter adapter = (UserOrderAdapter) ((userOrderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
+                OrderBuilderAdapter adapter = (OrderBuilderAdapter) ((OrderBuilderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
                 adapter.clear();
                 adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
 
             }
         }
-
-
-//TODO user order remove
-        //adapter.notifyDataSetChanged();
-
-
     }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -281,10 +244,10 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
                 case 2:
                     if (fragments.size() == 2) {
-                        fragments.add(2, new userOrderFragment());
+                        fragments.add(2, new OrderBuilderFragment());
                         return fragments.get(2);
                     }
-                    //return new userOrderFragment();
+                    //return new OrderBuilderFragment();
             }
 
 

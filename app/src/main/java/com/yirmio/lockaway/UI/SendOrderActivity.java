@@ -28,7 +28,6 @@ import com.yirmio.lockaway.R;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
@@ -182,7 +181,7 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         //Get Address
         List<String> addresses;
 
-        addresses = LocationUtils.getLocationInfo(latLng.latitude, latLng.longitude);
+        addresses = LocationUtils.getAddressByLocation(latLng.latitude, latLng.longitude);
         if (addresses != null) {
             mCurAddressTextView.setText(addresses.get(0));
         }

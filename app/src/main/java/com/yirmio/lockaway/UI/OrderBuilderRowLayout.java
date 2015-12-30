@@ -6,7 +6,7 @@ import com.yirmio.lockaway.BL.RestaurantMenuObject;
 /**
  * Created by yirmio on 27/07/2015.
  */
-public class UserOrderRowLayout {
+public class OrderBuilderRowLayout {
 
     //region Properties
     private ParseFile photoParseFile;
@@ -15,7 +15,7 @@ public class UserOrderRowLayout {
     private int timeToMake;
     private String id;
 
-    public UserOrderRowLayout(RestaurantMenuObject obj) {
+    public OrderBuilderRowLayout(RestaurantMenuObject obj) {
         this.id = obj.getId();
         this.lable = obj.getTitle();
         this.price = obj.getPrice();

@@ -1,11 +1,7 @@
 package com.yirmio.lockaway.BL;
 
-import android.graphics.Bitmap;
-
 import com.parse.ParseFile;
-import com.parse.ParseImageView;
-import com.parse.ParseObject;
-import com.yirmio.lockaway.UI.RowLayoutItem;
+import com.yirmio.lockaway.UI.MenuListRowLayoutItem;
 
 /**
  * Created by yirmio on 1/9/2015.
@@ -29,8 +25,8 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     //region Ctor
     public RestaurantMenuObject() {
     }
-    //Convert RowLayoutItem to RestaurantMenuObject
-    public RestaurantMenuObject(RowLayoutItem item){
+    //Convert MenuListRowLayoutItem to RestaurantMenuObject
+    public RestaurantMenuObject(MenuListRowLayoutItem item){
         this.price = item.getPrice();
         this.title = item.getLable();
         this.timeToMake = item.getTimeToMake();

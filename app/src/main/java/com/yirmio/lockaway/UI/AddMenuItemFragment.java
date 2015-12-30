@@ -1,4 +1,4 @@
-package com.yirmio.lockaway;
+package com.yirmio.lockaway.UI;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,18 +20,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
-import com.yirmio.lockaway.UI.MainActivity;
+import com.yirmio.lockaway.R;
 
 import java.io.ByteArrayOutputStream;
 

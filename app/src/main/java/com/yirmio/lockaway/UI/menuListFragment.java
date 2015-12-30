@@ -84,12 +84,8 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
         app = ((LockAwayApplication) this.getActivity().getApplicationContext());
         menuList = new ArrayList();
         for (RestaurantMenuObject obj : this.restaurantMenu.getAllItems()) {
-            menuList.add(new RowLayoutItem(obj));
+            menuList.add(new MenuListRowLayoutItem(obj));
         }
-
-        // TODO: Change Adapter to display your content
-        //mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-        //    android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
         mAdapter = new MenuAdapter(getActivity(), menuList, this);
     }
 
@@ -134,11 +130,11 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
 //            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
 //        }
 
-//        RowLayoutItem item = (RowLayoutItem) menuList.get(position);
+//        MenuListRowLayoutItem item = (MenuListRowLayoutItem) menuList.get(position);
 //        mListener.onFragmentInteraction(item.getId(),app.GetOrder());
     }
 public void onPlusButtonClicked(int pos){
-    RowLayoutItem item = (RowLayoutItem) menuList.get(pos);
+    MenuListRowLayoutItem item = (MenuListRowLayoutItem) menuList.get(pos);
     mListener.onFragmentInteraction(item.getId(),app.GetOrderID(),"add");
     mListener.onFragmentInteraction(item,"add");
     Toast.makeText(getActivity(), getString(R.string.item_addedd), Toast.LENGTH_SHORT).show();
@@ -170,7 +166,7 @@ public void onPlusButtonClicked(int pos){
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(String id,String orderID,String opp);
 
-        public void onFragmentInteraction(RowLayoutItem item, String opp);
+        public void onFragmentInteraction(MenuListRowLayoutItem item, String opp);
     }
 
 

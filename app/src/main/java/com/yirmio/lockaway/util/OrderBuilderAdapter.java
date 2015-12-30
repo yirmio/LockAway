@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,20 +17,20 @@ import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.UI.UserOrderRowLayout;
-import com.yirmio.lockaway.UI.userOrderFragment;
+import com.yirmio.lockaway.UI.OrderBuilderFragment;
+import com.yirmio.lockaway.UI.OrderBuilderRowLayout;
 
 import java.util.ArrayList;
 
 /**
  * Created by yirmio on 27/07/2015.
  */
-public class UserOrderAdapter extends ArrayAdapter {
+public class OrderBuilderAdapter extends ArrayAdapter {
     //region Properties
     private Context context;
     private boolean useList = true;
     private ArrayList userOrder;
-    private userOrderFragment frgament;
+    private OrderBuilderFragment frgament;
 
 
     //endregion
@@ -43,7 +42,7 @@ public class UserOrderAdapter extends ArrayAdapter {
      * @param context The current context.
      * @param objects The objects to represent in the ListView.
      */
-    public UserOrderAdapter(Context context, int resource, ArrayList objects,userOrderFragment frg) {
+    public OrderBuilderAdapter(Context context, int resource, ArrayList objects, OrderBuilderFragment frg) {
         super(context, resource, objects);
         this.context = context;
         this.userOrder = objects;
@@ -64,15 +63,15 @@ public class UserOrderAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        UserOrderRowLayout item = new UserOrderRowLayout((RestaurantMenuObject) getItem(position));
+        OrderBuilderRowLayout item = new OrderBuilderRowLayout((RestaurantMenuObject) getItem(position));
         View viewToUse = null;
         final int pos = position;
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             if (useList) {
-                viewToUse = mInflater.inflate(R.layout.user_order_item_layout, null);
+                viewToUse = mInflater.inflate(R.layout.order_builder_item_layout, null);
             } else {
-                viewToUse = mInflater.inflate(R.layout.user_order_item_layout, null);
+                viewToUse = mInflater.inflate(R.layout.order_builder_item_layout, null);
             }
             //Create holder and bind to view objects
             holder = new ViewHolder();

@@ -42,6 +42,7 @@ public class LockAwayApplication extends Application {
                 ParseUser usr = ParseUser.logIn("Yirmi", "Z69Hus&&");
                 ParseObject order = new ParseObject("UserToOrders");
                 order.put("UserID", usr.getObjectId());
+                order.put("ResturantID","g1bzMQEXoj");
 
                 order.save();
                 userOrder = new UserOrder(order.getObjectId());

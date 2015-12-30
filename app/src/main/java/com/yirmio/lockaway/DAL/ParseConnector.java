@@ -1,18 +1,13 @@
 package com.yirmio.lockaway.DAL;
 
-import android.graphics.Bitmap;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.parse.DeleteCallback;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
-import com.yirmio.lockaway.BL.MenuItemTypesEnum;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 
@@ -33,7 +28,7 @@ public final class ParseConnector {
     private static String TAG = "In ParseConnector Class";
     private static boolean tmpResult = false;
 
-    public static boolean reoveObjectFromOrder(final String orderID, final String objectID) {
+    public static boolean removeObjectFromOrder(final String orderID, final String objectID) {
         boolean res = true;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("OrderedObjects");
         query.whereEqualTo("MenuObjectID", objectID);

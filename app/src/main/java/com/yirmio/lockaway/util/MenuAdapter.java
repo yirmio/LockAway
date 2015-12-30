@@ -16,7 +16,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.UI.RowLayoutItem;
+import com.yirmio.lockaway.UI.MenuListRowLayoutItem;
 import com.yirmio.lockaway.UI.menuListFragment;
 
 import java.util.List;
@@ -64,11 +64,13 @@ public class MenuAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        RowLayoutItem item = (RowLayoutItem) getItem(position);
+        MenuListRowLayoutItem item = (MenuListRowLayoutItem) getItem(position);
         View viewToUse = null;
         final int pos = position;
 
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        //First time view
+
         if (convertView == null) {
             if (useList) {
                 viewToUse = mInflater.inflate(R.layout.menu_item_row_layout, null);
@@ -87,7 +89,10 @@ public class MenuAdapter extends ArrayAdapter {
             });
 
             viewToUse.setTag(holder);
-        } else {
+        }
+        //Not first time
+
+        else {
             viewToUse = convertView;
             holder = (ViewHolder) viewToUse.getTag();
         }
@@ -98,7 +103,7 @@ public class MenuAdapter extends ArrayAdapter {
 
     }
 
-    private void putDataInViewHolder(ViewHolder holder, RowLayoutItem item) {
+    private void putDataInViewHolder(ViewHolder holder, MenuListRowLayoutItem item) {
         holder.info.setText(item.getInfo());
         holder.lable.setText(item.getLable());
         holder.price.setText(item.getPrice().toString());
@@ -109,6 +114,7 @@ public class MenuAdapter extends ArrayAdapter {
         if (item.isGlotenFree() == true) {
             holder.isGlotenFree.setImageResource(R.drawable.glooten_free);
         }
+        //if (holder.photo == null
 
 
     }

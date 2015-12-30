@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by yirmio on 2/10/2015.
  */
-public class Order implements Parcelable {
+public class Order {
 
 
     private String clientName;
@@ -107,13 +107,4 @@ public class Order implements Parcelable {
         this.timeToMakeAllOrder = 0;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
 }

@@ -47,9 +47,6 @@
             android:name=".UI.MainActivity"
             android:label="@string/title_activity_main"></activity>
         <activity
-            android:name=".UI.OrderSummary"
-            android:label="@string/title_activity_order_summary"></activity>
-        <activity
             android:name=".UI.SendOrderActivity"
             android:label="SendOrder"></activity>
     </application>

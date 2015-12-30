@@ -123,7 +123,7 @@ public  static Map<String,String> getETAAndDistanceInfo(LatLng origin,LatLng des
         return null;
     }
 
-    public static List<String> getLocationInfo(double latitude, double longitude) {
+    public static List<String> getAddressByLocation(double latitude, double longitude) {
 
         String coords = (float) latitude + "," + (float) longitude;
         String getUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + coords + "&language=" + Locale.getDefault();

@@ -17,7 +17,7 @@ import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.UserOrder;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.util.UserOrderAdapter;
+import com.yirmio.lockaway.util.OrderBuilderAdapter;
 
 import java.util.ArrayList;
 
@@ -25,12 +25,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link userOrderFragment.OnFragmentInteractionListener} interface
+ * {@link OrderBuilderFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link userOrderFragment#newInstance} factory method to
+ * Use the {@link OrderBuilderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class userOrderFragment extends Fragment {
+public class OrderBuilderFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,7 +44,7 @@ public class userOrderFragment extends Fragment {
     private ArrayList orderList;
     private UserOrder userOrder;
     private LockAwayApplication app;
-    private UserOrderAdapter mAdapter;
+    private OrderBuilderAdapter mAdapter;
     private AbsListView mListView;
     private TextView mTotalPriceTextView;
     private TextView mTotalTimeTextView;
@@ -58,11 +58,11 @@ public class userOrderFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment userOrderFragment.
+     * @return A new instance of fragment OrderBuilderFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static userOrderFragment newInstance(String param1, String param2) {
-        userOrderFragment fragment = new userOrderFragment();
+    public static OrderBuilderFragment newInstance(String param1, String param2) {
+        OrderBuilderFragment fragment = new OrderBuilderFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,12 +74,12 @@ public class userOrderFragment extends Fragment {
     //endregion
 
     //region Getters & Setters
-    public UserOrderAdapter getmAdapter() {
+    public OrderBuilderAdapter getmAdapter() {
         return mAdapter;
     }
 
 
-    public void setmAdapter(UserOrderAdapter mAdapter) {
+    public void setmAdapter(OrderBuilderAdapter mAdapter) {
         this.mAdapter = mAdapter;
     }
 
@@ -92,10 +92,10 @@ public class userOrderFragment extends Fragment {
         if (app.getUserOrder() != null) {
             this.userOrder = app.getUserOrder();
             for (RestaurantMenuObject obj : app.getUserOrder().getObjects()) {
-                orderList.add(new UserOrderRowLayout(obj));
+                orderList.add(new OrderBuilderRowLayout(obj));
             }
         }
-        mAdapter = new UserOrderAdapter(getActivity(), R.layout.user_order_item_layout, orderList,this);
+        mAdapter = new OrderBuilderAdapter(getActivity(), R.layout.order_builder_item_layout, orderList,this);
         //mListView = (AbsListView)getView().findViewById(R.id.user_order_listView);
         //((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
@@ -106,7 +106,7 @@ public class userOrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_order_builder, container, false);
 
 
         mListView = (ListView) view.findViewById(R.id.user_order_listView);
@@ -183,9 +183,9 @@ public class userOrderFragment extends Fragment {
                 orderList = new ArrayList();
                 for (RestaurantMenuObject obj :
                         app.getUserOrder().getObjects()) {
-                    orderList.add(new UserOrderRowLayout(obj));
+                    orderList.add(new OrderBuilderRowLayout(obj));
                 }
-                mAdapter = new UserOrderAdapter(getActivity(),orderList);
+                mAdapter = new OrderBuilderAdapter(getActivity(),orderList);
 
             }
         }*/
@@ -195,7 +195,7 @@ public class userOrderFragment extends Fragment {
     public void onXButtonClicked(int pos) {
 
         RestaurantMenuObject item = (RestaurantMenuObject) orderList.get(pos);
-        RowLayoutItem tmpItem = new RowLayoutItem(item);
+        MenuListRowLayoutItem tmpItem = new MenuListRowLayoutItem(item);
         mListener.onFragmentInteraction(item.getId(), app.GetOrderID(), "remove");
         mListener.onFragmentInteraction(tmpItem, "remove");
 
@@ -209,7 +209,7 @@ public class userOrderFragment extends Fragment {
     }
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(String itemID, String orderID,String opp);
-        public void onFragmentInteraction(RowLayoutItem item,String opp);
+        public void onFragmentInteraction(MenuListRowLayoutItem item,String opp);
     }
 
 }

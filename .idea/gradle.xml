@@ -9,12 +9,20 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/ParseLoginSampleCodeCustomization" />
+            <option value="$PROJECT_DIR$/ParseLoginSampleLayoutOverride" />
+            <option value="$PROJECT_DIR$/ParseLoginSampleWithDispatchActivity" />
+            <option value="$PROJECT_DIR$/ParseUI-Login" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/ParseLoginSampleCodeCustomization" />
+            <option value="$PROJECT_DIR$/ParseLoginSampleLayoutOverride" />
+            <option value="$PROJECT_DIR$/ParseLoginSampleWithDispatchActivity" />
+            <option value="$PROJECT_DIR$/ParseUI-Login" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

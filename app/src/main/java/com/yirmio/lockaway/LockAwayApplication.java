@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.yirmio.lockaway.BL.RestaurantMenu;
@@ -43,6 +44,7 @@ public class LockAwayApplication extends Application {
                 ParseObject order = new ParseObject("UserToOrders");
                 order.put("UserID", usr.getObjectId());
                 order.put("ResturantID","g1bzMQEXoj");
+                order.put("OrderStatus","Active");
 
                 order.save();
                 userOrder = new UserOrder(order.getObjectId());
@@ -75,11 +77,12 @@ public class LockAwayApplication extends Application {
 
         // Add your initialization code here
         Parse.initialize(this, "i6hUPoLJOlkH8j0p4nB3q1r2x18Kbr2SHlKocuua", "32VPtaO5T2Rg62uZWO3i9x4jr9mfxOKePlSL0rlW");
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.
-        // defaultACL.setPublicReadAccess(true);
+         defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
     }
 

@@ -110,15 +110,17 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
                 if (e != null) {
                     Toast.makeText(getApplicationContext(), "Error Saving Order " + e.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), o.toString(), Toast.LENGTH_LONG).show();
-                    orderSavedSuccess();
+
+                    orderSavedSuccess(o.toString());
                 }
             }
         });
     }
 
-    private void orderSavedSuccess() {
+    private void orderSavedSuccess(String s) {
         //TODO - Open new activity
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+
     }
 
 

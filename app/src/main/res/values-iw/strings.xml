@@ -17,4 +17,5 @@
     <string name="item_addedd">הפריט נוסף בהצלחה להזמנה</string>
     <string name="totalPrice">לתשלום</string>
     <string name="current_address">כתובת נוכחית</string>
+    <string name="order_confirmed">ההזמנה התקבלה</string>
 </resources>

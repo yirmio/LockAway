@@ -1,8 +1,13 @@
 package com.yirmio.lockaway.UI;
 
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +22,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
@@ -30,18 +36,21 @@ import java.util.List;
 import java.util.Map;
 
 import org.joda.time.LocalTime;
+import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 
-public class SendOrderActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
+public class SendOrderActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, LocationListener {
     //Local Members
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private boolean mMapIsReady;
     private GoogleMap mGogleMap;
     private String orderID;
-    private String eta;
+    private String lastETAStr;
+    private LocalTime lastETATime;
+    private LocalTime newETATime;
 
     //GUI Elements
     private TextView mCurAddressTextView;
@@ -50,6 +59,8 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
     private TextView mItemsCount;
     private TextView mETAValueTxtView;
     private Button mSendBtn;
+    private LocationManager locManager;
+    private Marker curMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +105,10 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
                 .findFragmentById(R.id.frgmnt_send_order_map);
         mapFragment.getMapAsync(this);
 
+        //Location Listener
+        this.locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+
 
     }
 
@@ -101,7 +116,7 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         //var orderID,userETA;
         HashMap<String, Object> dict = new HashMap<String, Object>();
         dict.put("orderID", this.orderID);
-        dict.put("userETA", eta);
+        dict.put("userETA", lastETAStr);
         Toast.makeText(this.getApplicationContext(), "Conecting to cloud", Toast.LENGTH_SHORT).show();
 
         ParseCloud.callFunctionInBackground("sendNewOrder", dict, new FunctionCallback<Object>() {
@@ -118,8 +133,13 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
     }
 
     private void orderSavedSuccess(String s) {
-        //TODO - Open new activity
+
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+        this.mSendBtn.setText(R.string.order_confirmed);
+        this.mSendBtn.setEnabled(false);
+
+        //Register Location Change
+        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);//TODO - change params before release
 
     }
 
@@ -165,6 +185,9 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
             public void onMapClick(LatLng latLng) {
                 mGogleMap.clear();
                 putMarkerOnMap(mGogleMap, latLng);
+                updateMapInfo(latLng);
+                refreshMap(mGogleMap);
+
             }
         });
 
@@ -174,12 +197,7 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
 
     }
 
-    private void putMarkerOnMap(GoogleMap mGogleMap, LatLng latLng) {
-        //Add Marker
-        mGogleMap.addMarker(new MarkerOptions().position(latLng).title("You"));
-        mGogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mGogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-
+    private void updateMapInfo(LatLng latLng) {
         //Get Address
         List<String> addresses;
 
@@ -192,11 +210,26 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         Map<String, String> disAndTimeMap = LocationUtils.getETAAndDistanceInfo(latLng, LockAwayApplication.AfeyaLatLang);
         if (disAndTimeMap != null) {
             LocalTime dateTime = LocalTime.now().plusSeconds(Integer.parseInt(disAndTimeMap.get("totalTimeInSec")));
+            this.newETATime = dateTime;
             DateTimeFormatter dFmtr = DateTimeFormat.forPattern("HH:mm");
-            this.mETAValueTxtView.setText(dateTime.toString(dFmtr));
-            this.eta = dateTime.toString(dFmtr);
+            mETAValueTxtView.setText(dateTime.toString(dFmtr));
+            lastETAStr = dateTime.toString(dFmtr);
 
         }
+    }
+
+    private void putMarkerOnMap(GoogleMap mGogleMap, LatLng latLng) {
+
+        //Add Marker
+        if (this.curMarker != null) {
+            this.curMarker.remove();
+        }
+        ;
+        this.curMarker = mGogleMap.addMarker(new MarkerOptions().position(latLng).title("You"));
+        mGogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mGogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+
 
 
     }
@@ -205,7 +238,70 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         if (mLastLocation != null) {
             LatLng mLatLang = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             putMarkerOnMap(googleMap, mLatLang);
+            updateMapInfo(mLatLang);
 
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+            this.mLastLocation = location;
+            this.refreshMap(this.mGogleMap);
+
+
+        if (ETANeedUpdate(newETATime)) {
+            //Send To Cloud
+            HashMap<String, Object> dict = new HashMap<String, Object>();
+            dict.put("orderID", this.orderID);
+            dict.put("userETA", lastETAStr);
+//            Toast.makeText(this.getApplicationContext(), "Conecting to cloud", Toast.LENGTH_SHORT).show();
+
+            ParseCloud.callFunctionInBackground("updateTimeToArrive", dict, new FunctionCallback<Object>() {
+                @Override
+                public void done(Object o, ParseException e) {
+                    if (e != null) {
+                        Toast.makeText(getApplicationContext(), "Error Saving Order " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), o.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                }
+            });
+
+        }
+
+    }
+
+    private boolean ETANeedUpdate(LocalTime newETA) {
+        boolean needUpdate = false;
+        if (this.lastETATime == null){
+            this.lastETATime = newETA;
+        }
+        else {
+            if (Math.abs(Minutes.minutesBetween(lastETATime,newETA).getMinutes()) > 1){
+                this.lastETATime = newETA;
+                needUpdate = true;
+            }
+        }
+        return needUpdate;
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(intent);
+        Toast.makeText(getBaseContext(), "Gps is turned off!! ",
+                Toast.LENGTH_SHORT).show();
+
     }
 }

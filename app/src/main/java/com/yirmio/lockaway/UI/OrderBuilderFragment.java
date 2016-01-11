@@ -96,6 +96,7 @@ public class OrderBuilderFragment extends Fragment {
             }
         }
         mAdapter = new OrderBuilderAdapter(getActivity(), R.layout.order_builder_item_layout, orderList,this);
+
         //mListView = (AbsListView)getView().findViewById(R.id.user_order_listView);
         //((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
@@ -114,6 +115,7 @@ public class OrderBuilderFragment extends Fragment {
 
 
 
+
         //Update Bottom Details
         mTotalPriceTextView = (TextView) view.findViewById(R.id.usrOrderFrgmntTxtViewTotalPriceValue);
         mTotalTimeTextView = (TextView) view.findViewById(R.id.usrOrderFrgmntTxtViewTotalTimeValue);
@@ -124,11 +126,15 @@ public class OrderBuilderFragment extends Fragment {
                 sendCurrentOrder();
             }
         });
+        updateDetails();
+        return view;
+    }
+
+    public void updateDetails() {
         if (app.getUserOrder() != null) {
             mTotalPriceTextView.setText(String.valueOf(app.getUserOrder().getTotalPrice()));
             mTotalTimeTextView.setText(String.valueOf(app.getUserOrder().getTotalTimeToMake()));
         }
-        return view;
     }
 
     private void sendCurrentOrder() {
@@ -200,10 +206,7 @@ public class OrderBuilderFragment extends Fragment {
         mListener.onFragmentInteraction(tmpItem, "remove");
 
 
-        if (app.getUserOrder() != null) {
-            mTotalPriceTextView.setText(String.valueOf(app.getUserOrder().getTotalPrice()));
-            mTotalTimeTextView.setText(String.valueOf(app.getUserOrder().getTotalTimeToMake()));
-        }
+        updateDetails();
 
         Toast.makeText(getActivity(), getString(R.string.item_removed), Toast.LENGTH_SHORT).show();
     }

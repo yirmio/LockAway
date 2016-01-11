@@ -135,7 +135,9 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
     }
 public void onPlusButtonClicked(int pos){
     MenuListRowLayoutItem item = (MenuListRowLayoutItem) menuList.get(pos);
+    //DB
     mListener.onFragmentInteraction(item.getId(),app.GetOrderID(),"add");
+    //Local
     mListener.onFragmentInteraction(item,"add");
     Toast.makeText(getActivity(), getString(R.string.item_addedd), Toast.LENGTH_SHORT).show();
 

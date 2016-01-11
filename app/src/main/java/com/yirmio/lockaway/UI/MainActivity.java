@@ -27,7 +27,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, AddMenuItemFragment.OnFragmentInteractionListener, menuListFragment.OnFragmentInteractionListener, OrderBuilderFragment.OnFragmentInteractionListener {
 
-    private static final int ORDERFRAGMENTNUMBER = 2;
+    private static final int ORDERFRAGMENTNUMBER = 1;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -158,21 +158,19 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     public void onFragmentInteraction(MenuListRowLayoutItem item, String opp) {
         if (opp == "add") {
             LockAwayApplication.getUserOrder().addItemToOrder(new RestaurantMenuObject(item), true);//Local BL
-            //UI
-            if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
-                OrderBuilderAdapter adapter = (OrderBuilderAdapter) ((OrderBuilderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
-                adapter.clear();
-                adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
 
-            }
         } else if (opp == "remove") {
             LockAwayApplication.getUserOrder().removeItemFromOrder(item.getId());
-            if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
-                OrderBuilderAdapter adapter = (OrderBuilderAdapter) ((OrderBuilderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
-                adapter.clear();
-                adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
+        }
+        refreshOrderBuilderFragment();
+    }
 
-            }
+    private void refreshOrderBuilderFragment() {
+        if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
+            OrderBuilderAdapter adapter = (OrderBuilderAdapter) ((OrderBuilderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
+            adapter.clear();
+            adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
+            ((OrderBuilderFragment) fragments.get(ORDERFRAGMENTNUMBER)).updateDetails();
         }
     }
 
@@ -236,16 +234,16 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
                     }
                 }
 
+//                case 1:
+//                    if (fragments.size() == 1) {
+//                        fragments.add(1, new AddMenuItemFragment());
+//                        return fragments.get(1);
+//                    }
+
                 case 1:
                     if (fragments.size() == 1) {
-                        fragments.add(1, new AddMenuItemFragment());
+                        fragments.add(1, new OrderBuilderFragment());
                         return fragments.get(1);
-                    }
-
-                case 2:
-                    if (fragments.size() == 2) {
-                        fragments.add(2, new OrderBuilderFragment());
-                        return fragments.get(2);
                     }
                     //return new OrderBuilderFragment();
             }
@@ -256,8 +254,8 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 2 total pages.
+            return 2;
         }
 
         @Override
@@ -266,9 +264,9 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
             switch (position) {
                 case 0:
                     return "תפריט";
+//                case 1:
+//                    return "הוספת פריט לתפריט";
                 case 1:
-                    return "הוספת פריט לתפריט";
-                case 2:
                     return "ביצוע הזמנה";
             }
             return null;

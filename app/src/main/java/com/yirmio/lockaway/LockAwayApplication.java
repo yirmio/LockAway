@@ -62,6 +62,7 @@ public class LockAwayApplication extends Application {
         UserOrder order = null;
         if (userOrder == null){
             GetOrderID();
+            return userOrder;
         }
         else {
             order = userOrder;

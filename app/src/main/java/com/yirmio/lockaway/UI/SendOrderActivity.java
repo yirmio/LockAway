@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormat;
@@ -49,8 +50,8 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
     private GoogleMap mGogleMap;
     private String orderID;
     private String lastETAStr;
-    private LocalTime lastETATime;
-    private LocalTime newETATime;
+    private LocalDateTime lastETATime;
+    private LocalDateTime newETATime;
 
     //GUI Elements
     private TextView mCurAddressTextView;
@@ -116,7 +117,11 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         //var orderID,userETA;
         HashMap<String, Object> dict = new HashMap<String, Object>();
         dict.put("orderID", this.orderID);
-        dict.put("userETA", lastETAStr);
+        if (this.lastETATime != null) {
+            dict.put("userETA", lastETATime.toString());
+        } else {
+            dict.put("userETA",newETATime.toString());
+        }
         Toast.makeText(this.getApplicationContext(), "Conecting to cloud", Toast.LENGTH_SHORT).show();
 
         ParseCloud.callFunctionInBackground("sendNewOrder", dict, new FunctionCallback<Object>() {
@@ -210,9 +215,11 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         Map<String, String> disAndTimeMap = LocationUtils.getETAAndDistanceInfo(latLng, LockAwayApplication.AfeyaLatLang);
         if (disAndTimeMap != null) {
             LocalTime dateTime = LocalTime.now().plusSeconds(Integer.parseInt(disAndTimeMap.get("totalTimeInSec")));
-            this.newETATime = dateTime;
+            LocalDateTime localDateTime = LocalDateTime.now().plusSeconds(Integer.parseInt(disAndTimeMap.get("totalTimeInSec")));
+
+            this.newETATime = localDateTime;
             DateTimeFormatter dFmtr = DateTimeFormat.forPattern("HH:mm");
-            mETAValueTxtView.setText(dateTime.toString(dFmtr));
+            mETAValueTxtView.setText(localDateTime.toString(dFmtr));
             lastETAStr = dateTime.toString(dFmtr);
 
         }
@@ -254,7 +261,7 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
             //Send To Cloud
             HashMap<String, Object> dict = new HashMap<String, Object>();
             dict.put("orderID", this.orderID);
-            dict.put("userETA", lastETAStr);
+            dict.put("userETA", lastETATime.toString());
 //            Toast.makeText(this.getApplicationContext(), "Conecting to cloud", Toast.LENGTH_SHORT).show();
 
             ParseCloud.callFunctionInBackground("updateTimeToArrive", dict, new FunctionCallback<Object>() {
@@ -272,7 +279,7 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
 
     }
 
-    private boolean ETANeedUpdate(LocalTime newETA) {
+    private boolean ETANeedUpdate(LocalDateTime newETA) {
         boolean needUpdate = false;
         if (this.lastETATime == null){
             this.lastETATime = newETA;

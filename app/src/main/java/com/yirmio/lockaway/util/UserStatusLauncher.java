@@ -7,8 +7,7 @@ import android.os.Bundle;
 import com.parse.ParseAnonymousUtils;
 import com.parse.ParseUser;
 import com.yirmio.lockaway.UI.LoginActivity;
-import com.yirmio.lockaway.UI.MainActivity;
-import com.yirmio.lockaway.WelcomeActivity;
+import com.yirmio.lockaway.UI.WelcomeActivity;
 
 /**
  * Created by oppenhime on 30/01/2016.

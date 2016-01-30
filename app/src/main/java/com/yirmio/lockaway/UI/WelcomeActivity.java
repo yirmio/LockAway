@@ -1,15 +1,14 @@
-package com.yirmio.lockaway;
+package com.yirmio.lockaway.UI;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
-import com.yirmio.lockaway.UI.MainActivity;
+import com.yirmio.lockaway.R;
 
 public class WelcomeActivity extends Activity implements View.OnClickListener{
 

@@ -18,4 +18,6 @@
     <string name="welcomeText">ברוך הבא לאפיה קסומה</string>
 
     <string name="continueToMenu">המשך לתפריט</string>
+    <string name="errorSignup">הרשמה נכשלה</string>
+    <string name="seccesssignup">הרשמה בוצעה בהצלחה, יש להתחבר</string>
 </resources>

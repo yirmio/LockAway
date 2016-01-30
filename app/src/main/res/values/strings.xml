@@ -25,4 +25,6 @@
     <string name="logOut">Log Out</string>
     <string name="youLogInAs">You Are Logged In As</string>
     <string name="continueToMenu">Continue To Menu</string>
+    <string name="errorSignup">Error SignUp</string>
+    <string name="seccesssignup" >SignUp Success!</string>
 </resources>

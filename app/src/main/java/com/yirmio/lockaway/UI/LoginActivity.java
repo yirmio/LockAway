@@ -2,7 +2,6 @@ package com.yirmio.lockaway.UI;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +11,9 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.WelcomeActivity;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
 
@@ -22,6 +22,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText txtInptUserName;
     private EditText txtInptEmail;
     private EditText txtInptPassword;
+
+
+    private String usrNametxt;
+    private String passtxt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +45,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         this.btnSignUp.setOnClickListener(this);
 
         //EditTexts
-        this.txtInptUserName = (EditText)findViewById(R.id.txtInputUserName);
-        this.txtInptEmail = (EditText)findViewById(R.id.txtInputEmail);
-        this.txtInptPassword = (EditText)findViewById(R.id.txtInputPassword);
+        this.txtInptUserName = (EditText) findViewById(R.id.txtInputUserName);
+        this.txtInptEmail = (EditText) findViewById(R.id.txtInputEmail);
+        this.txtInptPassword = (EditText) findViewById(R.id.txtInputPassword);
     }
 
     @Override
@@ -66,29 +71,60 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void handleSignUp() {
         //TODO implement
         //TODO Check Input
-
+        this.checkUserInput();
         //Perform Sign Up
 
+
+        ParseUser newUser = new ParseUser();
+        newUser.setUsername(usrNametxt);
+        newUser.setPassword(passtxt);
+
+        //Save in background
+        newUser.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null){
+                    //Success
+                    Toast.makeText(getApplicationContext(), R.string.seccesssignup,Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //Fail
+                    Toast.makeText(getApplicationContext(), R.string.errorSignup,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+    }
+
+    private boolean checkUserInput() {
+        boolean isInputValid = false;
+
+        this.usrNametxt = this.txtInptUserName.getText().toString();
+        this.passtxt = this.txtInptPassword.getText().toString();
+
+
+        return isInputValid;
     }
 
     private void handleLogin() {
         //TODO implement
+
+        this.checkUserInput();
         //Perform Login
-        String usrNametxt = this.txtInptUserName.getText().toString();
-        String passtxt = this.txtInptPassword.getText().toString();
+
 
         ParseUser.logInInBackground(usrNametxt, passtxt, new LogInCallback() {
             @Override
             public void done(ParseUser parseUser, ParseException e) {
-                if (parseUser != null){
+                if (parseUser != null) {
                     //Good Login
                     Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class); //To welcome screen
                     startActivity(intent);
-                    Toast.makeText(getApplicationContext(), R.string.Successlogin,Toast.LENGTH_SHORT).show();
-                }
-                else {
+                    Toast.makeText(getApplicationContext(), R.string.Successlogin, Toast.LENGTH_SHORT).show();
+                } else {
                     //Bad Login
-                    Toast.makeText(getApplicationContext(), R.string.loginError,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
                     //TODO - log to server and client
                 }
             }

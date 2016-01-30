@@ -23,6 +23,6 @@
     <string name="Successlogin">Successfully Logged in</string>
     <string name="welcomeText">Welcome To Afeya Ksuma</string>
     <string name="logOut">Log Out</string>
-    <string name="continue">Continue</string>
     <string name="youLogInAs">You Are Logged In As</string>
+    <string name="continueToMenu">Continue To Menu</string>
 </resources>

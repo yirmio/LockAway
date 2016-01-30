@@ -22,7 +22,7 @@ public class WelcomeActivity extends Activity implements View.OnClickListener{
 
         TextView txtVewUserName = (TextView)findViewById(R.id.txtViewWelcmActUserName);
 
-        txtVewUserName.setText(R.string.youLogInAs + strUserName);
+        txtVewUserName.setText(strUserName);
 
         Button btnLogOut = (Button)findViewById(R.id.btnWelcmActLogOut);
         btnLogOut.setOnClickListener(this);

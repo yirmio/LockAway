@@ -16,5 +16,6 @@
     <string name="loginError">התחברות נכשלה</string>
     <string name="logOut">התנתק</string>
     <string name="welcomeText">ברוך הבא לאפיה קסומה</string>
-    <string name="continue">המשך לתפריט</string>
+
+    <string name="continueToMenu">המשך לתפריט</string>
 </resources>

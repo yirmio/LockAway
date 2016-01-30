@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:id="@+id/btnLogin"
-        android:layout_below="@+id/txtInputPassword2"
+        android:layout_below="@+id/chkBxIsGlotonSensitive"
         android:layout_alignParentLeft="true"
         android:layout_toEndOf="@+id/btnSignUp" />
 
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:text="@string/signUp"
         android:id="@+id/btnSignUp"
-        android:layout_below="@+id/txtInputPassword2"
+        android:layout_below="@+id/chkBxIsGlotonSensitive"
         android:layout_alignParentRight="true" />
 
     <EditText
@@ -67,5 +67,38 @@
         android:id="@+id/txtInputPassword2"
         android:text="your password"
         android:layout_below="@+id/txtInputPassword"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="visible" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/txtInputPhone"
+        android:layout_below="@+id/txtInputPassword2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/PhoneNumber" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Sensitivetogluten"
+        android:id="@+id/chkBxIsGlotonSensitive"
+        android:layout_below="@+id/txtInputPhone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="false"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/isVeg"
+        android:layout_alignBottom="@+id/chkBxIsGlotonSensitive"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentStart="false"
+        android:layout_toRightOf="@+id/chkBxIsGlotonSensitive"
+        android:layout_marginLeft="5dp"
+        android:checked="false"
+        android:id="@+id/chkBxIsVeg" />
 </RelativeLayout>

@@ -20,4 +20,7 @@
     <string name="continueToMenu">המשך לתפריט</string>
     <string name="errorSignup">הרשמה נכשלה</string>
     <string name="seccesssignup">הרשמה בוצעה בהצלחה, יש להתחבר</string>
+    <string name="PhoneNumber">מספר טלפון</string>
+    <string name="Sensitivetogluten">רגיש לגלוטוז</string>
+    <string name="isVeg">אני צמחוני</string>
 </resources>

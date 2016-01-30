@@ -24,6 +24,7 @@ public class LockAwayApplication extends Application {
     private static RestaurantMenu restaurantMenu;
     private static UserOrder userOrder;
     public  static LatLng AfeyaLatLang = new LatLng(32.0831538,34.9435619);
+    private static ParseUser curParseUser;
 
     public static RestaurantMenu getRestaurantMenu() {
         return restaurantMenu;
@@ -40,9 +41,9 @@ public class LockAwayApplication extends Application {
         } else {
 
             try {
-                ParseUser usr = ParseUser.logIn("Yirmi", "Z69Hus&&");
+                //ParseUser usr = ParseUser.logIn("Yirmi", "Z69Hus&&");
                 ParseObject order = new ParseObject("UserToOrders");
-                order.put("UserID", usr.getObjectId());
+                order.put("UserID", curParseUser.getObjectId());
                 order.put("ResturantID","g1bzMQEXoj");
                 order.put("OrderStatus","Active");
 
@@ -86,6 +87,7 @@ public class LockAwayApplication extends Application {
         // Add your initialization code here
         Parse.initialize(this, "i6hUPoLJOlkH8j0p4nB3q1r2x18Kbr2SHlKocuua", "32VPtaO5T2Rg62uZWO3i9x4jr9mfxOKePlSL0rlW");
         ParseInstallation.getCurrentInstallation().saveInBackground();
+        this.curParseUser = ParseUser.getCurrentUser();
 
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();

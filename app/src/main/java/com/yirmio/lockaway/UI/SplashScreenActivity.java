@@ -1,20 +1,16 @@
 package com.yirmio.lockaway.UI;
 
-import com.parse.ParseObject;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.util.SystemUiHider;
-
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
+import com.yirmio.lockaway.util.UserStatusLauncher;
 
 
 /**
@@ -60,23 +56,35 @@ public class SplashScreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LockAwayApplication app = ((LockAwayApplication) getApplicationContext());
         setContentView(R.layout.activity_splash_screen);
+        new LoadDataFromServer().execute();
 
-        //Load Menu
-        ParseConnector con = LockAwayApplication.parseConector;
-        con.setRestaurantID(AFEYA_KSUMA_ID);
-        RestaurantMenu restMenu = con.getMenu();
-        app.setRestaurantMenu(restMenu);
 
-//Open mainActivity
+    }
 
-        Intent mainIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
-        SplashScreenActivity.this.startActivity(mainIntent);
-        SplashScreenActivity.this.finish();
+    private class LoadDataFromServer extends AsyncTask<Void,Void,Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
-        //final View controlsView = findViewById(R.id.fullscreen_content_controls);
-        //final View contentView = findViewById(R.id.fullscreen_content);
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Intent mainIntent = new Intent(SplashScreenActivity.this, UserStatusLauncher.class);
+            SplashScreenActivity.this.startActivity(mainIntent);
+            SplashScreenActivity.this.finish();
+        }
 
+        @Override
+        protected Void doInBackground(Void... voids) {
+            LockAwayApplication app = ((LockAwayApplication) getApplicationContext());
+
+            //Load Menu
+            ParseConnector con = LockAwayApplication.parseConector;
+            con.setRestaurantID(AFEYA_KSUMA_ID);
+            RestaurantMenu restMenu = con.getMenu();
+            app.setRestaurantMenu(restMenu);
+            return null;
+        }
     }
 }

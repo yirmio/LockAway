@@ -1,6 +1,7 @@
 package com.yirmio.lockaway;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
+import com.yirmio.lockaway.UI.MainActivity;
 
 public class WelcomeActivity extends Activity implements View.OnClickListener{
 
@@ -36,6 +38,10 @@ public class WelcomeActivity extends Activity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.btnWelcmActContinue:
                 //TODO - go to next activity
+                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                startActivity(intent);
+                //finish();
+
                 break;
             case R.id.btnWelcmActLogOut:
                 //Logout

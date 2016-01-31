@@ -26,4 +26,5 @@
     <string name="dummyEmail">Example@Email.com</string>
     <string name="dumyUserName">שם משתמש</string>
     <string name="yourPassword">בחר ססמא</string>
+    <string name="loadingmenu">התפריט נטען, נא להמתין....</string>
 </resources>

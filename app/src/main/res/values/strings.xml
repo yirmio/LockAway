@@ -33,4 +33,5 @@
     <string name="dummyEmail">Example@Email.com</string>
     <string name="yourPassword">Your Password</string>
     <string name="dumyUserName">Your User Name</string>
+    <string name="loadingmenu">Loading Menu, Please wait...</string>
 </resources>

@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.DAL.ParseConnector;
@@ -52,11 +55,19 @@ public class SplashScreenActivity extends Activity {
 
     //Afeya Ksuma ObjectID
     private static final String AFEYA_KSUMA_ID = "g1bzMQEXoj";
+    private TextView txtViewLoadingMenu;
+    private ProgressBar prgsBarLoadingMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        this.txtViewLoadingMenu = (TextView)findViewById(R.id.txtViewLoading);
+        this.txtViewLoadingMenu.setVisibility(View.GONE);
+        this.prgsBarLoadingMenu = (ProgressBar)findViewById(R.id.loadingmenuprogressbar);
+        this.prgsBarLoadingMenu.setVisibility(View.GONE);
+
         new LoadDataFromServer().execute();
 
 
@@ -65,11 +76,16 @@ public class SplashScreenActivity extends Activity {
     private class LoadDataFromServer extends AsyncTask<Void,Void,Void>{
         @Override
         protected void onPreExecute() {
+
             super.onPreExecute();
+            txtViewLoadingMenu.setVisibility(View.VISIBLE);
+            prgsBarLoadingMenu.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            txtViewLoadingMenu.setVisibility(View.GONE);
+            prgsBarLoadingMenu.setVisibility(View.GONE);
             Intent mainIntent = new Intent(SplashScreenActivity.this, UserStatusLauncher.class);
             SplashScreenActivity.this.startActivity(mainIntent);
             SplashScreenActivity.this.finish();

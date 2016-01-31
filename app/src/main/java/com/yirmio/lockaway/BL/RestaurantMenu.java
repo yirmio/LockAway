@@ -95,4 +95,19 @@ public boolean addItemToMenu(RestaurantMenuObject mnuItm){
 //        return allItems;
         return this.allItems;
     }
+
+    public RestaurantMenuObject getItemById(String objectId) {
+        //TODO try make it better
+
+        RestaurantMenuObject tmpRes = null;
+        for (RestaurantMenuObject tmpObj : allItems) {
+            if (tmpObj.getId().equals(objectId)) {
+                tmpRes = tmpObj;
+                return tmpRes;
+            }
+        }
+
+
+        return tmpRes;
+    }
 }

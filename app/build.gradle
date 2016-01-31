@@ -20,9 +20,19 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/Parse-1.9.2.jar')
+    //Parse
+    compile 'com.parse.bolts:bolts-android:1.+'
+    compile 'com.parse:parse-android:1.+'
+    compile 'com.parse:parseui-widget-android:0.0.1'
+    //Google
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.google.android.gms:play-services:8.3.0'
+    //JodaTime
     compile 'joda-time:joda-time:2.9.1'
+    //Android Image Slider
+    compile "com.android.support:support-v4:+"
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
+
 }

@@ -49,6 +49,7 @@ public class MenuAdapter extends ArrayAdapter {
         ImageView isVeg;
         ImageView isGlotenFree;
         Button btnPlus;
+        String id;
     }
     //endregion
 
@@ -62,9 +63,9 @@ public class MenuAdapter extends ArrayAdapter {
      * @param parent
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        MenuListRowLayoutItem item = (MenuListRowLayoutItem) getItem(position);
+        final MenuListRowLayoutItem item = (MenuListRowLayoutItem) getItem(position);
         View viewToUse = null;
         final int pos = position;
 
@@ -81,10 +82,18 @@ public class MenuAdapter extends ArrayAdapter {
             holder = new ViewHolder();
 
             setViewItems(holder, viewToUse, parent);    //Connect UI to holder properties
+            final ViewHolder finalHolder = holder;
             holder.btnPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    fragment.onPlusButtonClicked(pos);
+                    fragment.onPlusButtonClicked(finalHolder.id);
+                }
+            });
+            holder.photo.setOnClickListener(new View.OnClickListener() {
+                int tmpPos = position;
+                @Override
+                public void onClick(View view) {
+                    fragment.onObjectPhotoClicked(finalHolder.id);
                 }
             });
 
@@ -115,6 +124,7 @@ public class MenuAdapter extends ArrayAdapter {
             holder.isGlotenFree.setImageResource(R.drawable.glooten_free);
         }
         //if (holder.photo == null
+        holder.id = item.getId();
 
 
     }

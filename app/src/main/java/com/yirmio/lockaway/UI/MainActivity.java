@@ -1,5 +1,6 @@
 package com.yirmio.lockaway.UI;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -147,6 +148,16 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         }
 
 
+    }
+
+    @Override
+    public void onFragmentInteraction(String id, String opp) {
+        //TODO use const
+        if (opp.contains("showobject")){
+            Intent intent = new Intent(MainActivity.this,MenuObjectActivity.class);
+            intent.putExtra("objectId",id);
+            startActivity(intent);
+        }
     }
 
 

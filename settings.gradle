@@ -1,1 +1,2 @@
-include ':app', ':ParseLoginSampleLayoutOverride', ':ParseLoginSampleWithDispatchActivity', ':ParseUI-Login', ':ParseLoginSampleCodeCustomization'
+include ':app', ':ParseUI-Widget'
+project(':ParseUI-Widget').projectDir = new File('app/ParseUI-Widget')

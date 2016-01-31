@@ -133,15 +133,28 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
 //        MenuListRowLayoutItem item = (MenuListRowLayoutItem) menuList.get(position);
 //        mListener.onFragmentInteraction(item.getId(),app.GetOrder());
     }
-public void onPlusButtonClicked(int pos){
-    MenuListRowLayoutItem item = (MenuListRowLayoutItem) menuList.get(pos);
-    //DB
-    mListener.onFragmentInteraction(item.getId(),app.GetOrderID(),"add");
-    //Local
-    mListener.onFragmentInteraction(item,"add");
-    Toast.makeText(getActivity(), getString(R.string.item_addedd), Toast.LENGTH_SHORT).show();
 
-}
+    public void onPlusButtonClicked(String id) {
+        MenuListRowLayoutItem item = this.getItemById(id);
+        //DB
+        mListener.onFragmentInteraction(id, app.GetOrderID(), "add");
+        //Local
+        mListener.onFragmentInteraction(item, "add");
+        Toast.makeText(getActivity(), getString(R.string.item_addedd), Toast.LENGTH_SHORT).show();
+
+    }
+
+    private MenuListRowLayoutItem getItemById(String id) {
+        MenuListRowLayoutItem tmpMenuListRowLayoutItem = null;
+        for (Object tmpItem : menuList) {
+            tmpMenuListRowLayoutItem = (MenuListRowLayoutItem) (tmpItem);
+            if (tmpMenuListRowLayoutItem.getId().equals(id)) {
+                return tmpMenuListRowLayoutItem;
+            }
+        }
+        return tmpMenuListRowLayoutItem;
+    }
+
     /**
      * The default content for this Fragment has a TextView that is shown when
      * the list is empty. If you would like to change the text, call this method
@@ -155,6 +168,12 @@ public void onPlusButtonClicked(int pos){
         }
     }
 
+    public void onObjectPhotoClicked(String id) {
+//        MenuListRowLayoutItem item = (MenuListRowLayoutItem) menuList.get(pos);
+//        mListener.onFragmentInteraction(item.getId(), "showobject");
+        mListener.onFragmentInteraction(id,"showobject");
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -166,7 +185,9 @@ public void onPlusButtonClicked(int pos){
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(String id,String orderID,String opp);
+        public void onFragmentInteraction(String id, String orderID, String opp);
+
+        public void onFragmentInteraction(String id, String opp);//For object menu activity
 
         public void onFragmentInteraction(MenuListRowLayoutItem item, String opp);
     }

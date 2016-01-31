@@ -26,7 +26,7 @@
     <string name="youLogInAs">You Are Logged In As</string>
     <string name="continueToMenu">Continue To Menu</string>
     <string name="errorSignup">Error SignUp</string>
-    <string name="seccesssignup" >SignUp Success!</string>
+    <string name="seccesssignup">SignUp Success!</string>
     <string name="PhoneNumber">Phone Number</string>
     <string name="Sensitivetogluten">Sensitive to gluten</string>
     <string name="isVeg">I am a vegetarian</string>

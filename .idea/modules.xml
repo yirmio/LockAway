@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LockAway.iml" filepath="$PROJECT_DIR$/LockAway.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ParseLoginSampleCodeCustomization/ParseLoginSampleCodeCustomization.iml" filepath="$PROJECT_DIR$/ParseLoginSampleCodeCustomization/ParseLoginSampleCodeCustomization.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ParseLoginSampleLayoutOverride/ParseLoginSampleLayoutOverride.iml" filepath="$PROJECT_DIR$/ParseLoginSampleLayoutOverride/ParseLoginSampleLayoutOverride.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ParseLoginSampleWithDispatchActivity/ParseLoginSampleWithDispatchActivity.iml" filepath="$PROJECT_DIR$/ParseLoginSampleWithDispatchActivity/ParseLoginSampleWithDispatchActivity.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ParseUI-Login/ParseUI-Login.iml" filepath="$PROJECT_DIR$/ParseUI-Login/ParseUI-Login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ParseUI-Widget/ParseUI-Widget.iml" filepath="$PROJECT_DIR$/app/ParseUI-Widget/ParseUI-Widget.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

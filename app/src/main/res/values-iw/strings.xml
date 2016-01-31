@@ -23,4 +23,7 @@
     <string name="PhoneNumber">מספר טלפון</string>
     <string name="Sensitivetogluten">רגיש לגלוטוז</string>
     <string name="isVeg">אני צמחוני</string>
+    <string name="dummyEmail">Example@Email.com</string>
+    <string name="dumyUserName">שם משתמש</string>
+    <string name="yourPassword">בחר ססמא</string>
 </resources>

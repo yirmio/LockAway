@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -62,17 +63,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         //EditTexts
         this.txtInptUserName = (EditText) findViewById(R.id.txtInputUserName);
-        this.txtInptUserName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        this.txtInptUserName.setOnClickListener(this);
         this.txtInptEmail = (EditText) findViewById(R.id.txtInputEmail);
-
+        this.txtInptEmail.setOnClickListener(this);
         this.txtInptPassword = (EditText) findViewById(R.id.txtInputPassword);
+        this.txtInptPassword.setOnClickListener(this);
         this.txtInptPassword2 = (EditText) findViewById(R.id.txtInputPassword2);
+        this.txtInptPassword2.setOnClickListener(this);
         this.txtInptPhoneNumber = (EditText) findViewById(R.id.txtInputPhone);
+        this.txtInptPhoneNumber.setOnClickListener(this);
 
         //CheckBoxes
         this.chBxIsVeg = (CheckBox) findViewById(R.id.chkBxIsVeg);
@@ -88,7 +87,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 
         //Set UI For Login
-        this.updateSignUpViewsVisibility(View.GONE);
+        this.
+
+                updateSignUpViewsVisibility(View.GONE);
     }
 
     @Override
@@ -105,9 +106,36 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 this.handleSignUp();
                 break;
             }
+            case R.id.txtInputEmail: {
+                this.clearTxtInput(view, R.string.dummyEmail);
+                break;
+            }
+            case R.id.txtInputPassword: {
+                this.clearTxtInput(view,R.string.yourPassword);
+                break;
+            }
+            case R.id.txtInputPassword2: {
+                this.clearTxtInput(view,R.string.yourPassword);
+                break;
+            }
+            case R.id.txtInputPhone: {
+                this.clearTxtInput(view,R.string.PhoneNumber);
+                break;
+            }
+            case R.id.txtInputUserName: {
+                this.clearTxtInput(view,R.string.dumyUserName);
+                break;
+            }
 
         }
 
+    }
+
+    private void clearTxtInput(View view, int txtInt) {
+        EditText tmp = (EditText) view;
+        if (tmp.getText().toString().equals(getString(txtInt))) {
+            tmp.setText("");
+        }
     }
 
     private void handleSignUp() {
@@ -137,9 +165,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         ParseUser newUser = new ParseUser();
         newUser.setUsername(usrNametxt);
         newUser.setPassword(passtxt);
-        newUser.put("PhoneNumber",phoneNumberTxt);
-        newUser.put("isVeg",this.chBxIsVeg.isChecked());
-        newUser.put("isGloten",this.chBxIsGloton.isChecked());
+        newUser.put("PhoneNumber", phoneNumberTxt);
+        newUser.setEmail(emailTxt);
+        newUser.put("isVeg", this.chBxIsVeg.isChecked());
+        newUser.put("isGloten", this.chBxIsGloton.isChecked());
 
         //Save in background
         newUser.signUpInBackground(new SignUpCallback() {
@@ -148,6 +177,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 if (e == null) {
                     //Success
                     Toast.makeText(getApplicationContext(), R.string.seccesssignup, Toast.LENGTH_SHORT).show();
+                    updateSignUpViewsVisibility(View.GONE);
                 } else {
                     //Fail
                     Toast.makeText(getApplicationContext(), R.string.errorSignup, Toast.LENGTH_SHORT).show();

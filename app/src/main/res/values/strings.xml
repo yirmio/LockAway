@@ -30,4 +30,7 @@
     <string name="PhoneNumber">Phone Number</string>
     <string name="Sensitivetogluten">Sensitive to gluten</string>
     <string name="isVeg">I am a vegetarian</string>
+    <string name="dummyEmail">Example@Email.com</string>
+    <string name="yourPassword">Your Password</string>
+    <string name="dumyUserName">Your User Name</string>
 </resources>

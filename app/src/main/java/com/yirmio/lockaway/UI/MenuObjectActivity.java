@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
@@ -103,7 +104,18 @@ public class MenuObjectActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.mnuObjActBtnAddToFavorite:
-                LockAwayApplication.parseConector.addItemToFavorite(objectId);
+                int res = LockAwayApplication.parseConector.addItemToFavorite(objectId);
+                //Item Added
+                if (res ==1){
+                    Toast.makeText(getApplicationContext(),R.string.itemaddedtofavorite,Toast.LENGTH_SHORT).show();
+                }
+                //Item Already in favorite
+                else if (res == 2){
+                    Toast.makeText(getApplicationContext(),R.string.itemalreadyfavorite,Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),R.string.erroraddingitemtofavorite,Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.mnuObjActBtnAddToOrder:
                 LockAwayApplication.getUserOrder().addItemToOrder(resObj,true);

@@ -33,6 +33,9 @@
     <string name="description">תיאור הפריט</string>
     <string name="addtoorder" >הוסף להזמנה</string>
     <string name="addrofavorite">הוסף למועדפים</string>
+    <string name="itemaddedtofavorite">הפריט נוסף לרשימת המועדפים שלך</string>
+    <string name="itemalreadyfavorite">הפריט כבר ברשימת המועדפים שלך</string>
+    <string name="erroraddingitemtofavorite">בעיה בהוספת הפריט למועדפים</string>
 
 
 </resources>

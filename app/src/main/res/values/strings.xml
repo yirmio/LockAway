@@ -40,4 +40,7 @@
     <string name="description">Item Desciption</string>
     <string name="addtoorder" >Add To Order</string>
     <string name="addrofavorite">Add To Favorite</string>
+    <string name="itemaddedtofavorite">Item Added To Your Favorite List</string>
+    <string name="itemalreadyfavorite">Item Already In Your Favorite</string>
+    <string name="erroraddingitemtofavorite">Error Adding item to favorite</string>
 </resources>

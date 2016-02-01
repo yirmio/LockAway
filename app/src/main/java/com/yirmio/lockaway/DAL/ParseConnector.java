@@ -1,12 +1,15 @@
 package com.yirmio.lockaway.DAL;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.parse.DeleteCallback;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
@@ -105,8 +108,7 @@ public final class ParseConnector {
             if (objs.size() > 0) {
                 if (maxImages == 0) {
                     imagesToGet = objs.size();
-                }
-                else {
+                } else {
                     imagesToGet = maxImages;
                 }
                 for (ParseObject obj : objs) {
@@ -233,13 +235,57 @@ public final class ParseConnector {
             public void done(ParseException e) {
                 if (e == null) {
                     //TODO - Log...
+                    ///TODO handle exception back
                 }
             }
         });
         return false;
     }
 
-    public void addItemToFavorite(String objectId) {
-        //TODO implement
+    public static int addItemToFavorite(String objectId) {
+        final int[] res = {0};
+        final String fObjectId = objectId;
+        final boolean[] flagContinu = {true};
+        ParseQuery query = ParseQuery.getQuery("FavoriteObject");
+        query.whereEqualTo("UserId", ParseUser.getCurrentUser());
+        query.whereEqualTo("MenuObjectId", fObjectId);
+        try {
+            query.findInBackground(new FindCallback<ParseObject>() {
+
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    if (e == null) {
+                        //Already in favorite
+                        if (objects.size() > 0) {
+                            res[0] = 2;
+                        } else {
+                            ParseObject newFav = new ParseObject("FavoriteObject");
+                            newFav.put("UserId", ParseUser.getCurrentUser());
+                            newFav.put("MenuObjectId", fObjectId);
+                            newFav.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e != null) {
+                                        //TODO - Log...
+                                        ///TODO handle exception back
+                                        res[0] = 0;
+                                    }
+                                }
+                            });
+                        }
+                    } else {
+                        res[0] = 0;
+                    }
+                }
+            });
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+        }
+//        //Not Found
+//        if (flagContinu[0]) {
+//
+//        }
+        return res[0];
+
     }
 }

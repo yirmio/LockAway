@@ -45,6 +45,11 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
      */
     ViewPager mViewPager;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshOrderBuilderFragment();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

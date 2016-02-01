@@ -96,15 +96,22 @@ public final class ParseConnector {
     }
 
     public List<ParseFile> getImagesFilesForObject(String objID, final int maxImages) {
+        int imagesToGet = 0;
         ArrayList<ParseFile> imagesArr = new ArrayList<ParseFile>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("MenuPhotos");
         query.whereEqualTo("MenuObjectID", objID);
         try {
             List<ParseObject> objs = query.find();
             if (objs.size() > 0) {
+                if (maxImages == 0) {
+                    imagesToGet = objs.size();
+                }
+                else {
+                    imagesToGet = maxImages;
+                }
                 for (ParseObject obj : objs) {
                     //Up To maxImages files
-                    if (imagesArr.size() < maxImages) {
+                    if (imagesArr.size() < imagesToGet) {
                         imagesArr.add(getParseFileFromParseObject(obj, PHOTO_FILE_ATTR));
                     }
                 }
@@ -230,5 +237,9 @@ public final class ParseConnector {
             }
         });
         return false;
+    }
+
+    public void addItemToFavorite(String objectId) {
+        //TODO implement
     }
 }

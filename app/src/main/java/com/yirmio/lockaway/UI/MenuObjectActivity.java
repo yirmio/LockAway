@@ -2,17 +2,34 @@ package com.yirmio.lockaway.UI;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.parse.ParseFile;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
+import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 
-public class MenuObjectActivity extends AppCompatActivity {
+import java.util.List;
+
+public class MenuObjectActivity extends AppCompatActivity implements View.OnClickListener {
     private String objectId;
     private SliderLayout slider;
     private RestaurantMenuObject resObj;
+    private List<ParseFile> images;
+    private TextView txtViewTitle;
+    private TextView txtViewDescription;
+    private TextView txtViewPrice;
+    private TextView txtViewTimeToMake;
+    private ImageView imgViewGloten;
+    private ImageView imgViewVeg;
+    private Button btnAddToOrder;
+    private Button btnAddToFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,18 +39,59 @@ public class MenuObjectActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         this.objectId = extras.getString("objectId");
 
+        //Attach UI Elements
+        this.attachUIElements();
+
+
         //Get item from menu
         this.resObj = LockAwayApplication.getRestaurantMenu().getItemById(objectId);
+        this.putInfoInUI(resObj);
+        //Get Photos
+        this.images = LockAwayApplication.parseConector.getImagesFilesForObject(objectId,0);
 
 
         //Build photo slider
         this.slider = (SliderLayout)findViewById(R.id.menuObjectActivityImagesSlider);
-        DefaultSliderView defaultSliderView = new DefaultSliderView(this);
-        defaultSliderView.image(resObj.getPic().getUrl().toString());
-        this.slider.addSlider(defaultSliderView);
+        for (ParseFile f: images) {
+            DefaultSliderView defaultSliderView = new DefaultSliderView(this);
+            defaultSliderView.image(f.getUrl().toString());
+            this.slider.addSlider(defaultSliderView);
+        }
+
 
 
     }
+
+    private void putInfoInUI(RestaurantMenuObject resObj) {
+        this.txtViewTitle.setText(resObj.getTitle());
+        this.txtViewDescription.setText(resObj.getDescription());
+        this.txtViewPrice.setText(String.valueOf(resObj.getPrice()));
+        this.txtViewTimeToMake.setText(String.valueOf(resObj.getTimeToMake()));
+        if (resObj.isGlootenFree()){
+            this.imgViewGloten.setVisibility(View.VISIBLE);
+        }
+        if (resObj.isVeg()){
+            this.imgViewVeg.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void attachUIElements() {
+        this.txtViewTitle = (TextView)findViewById(R.id.mnuObjActTitle);
+        this.txtViewDescription = (TextView)findViewById(R.id.mnuObjActDesc);
+        this.txtViewPrice = (TextView)findViewById(R.id.mnuObjActTextViewPrice);
+        this.txtViewTimeToMake = (TextView)findViewById(R.id.mnuObjActTextViewTimeToMake);
+
+        this.imgViewGloten = (ImageView)findViewById(R.id.mnuObjActImgViewGloten);
+        this.imgViewGloten.setVisibility(View.GONE);
+        this.imgViewVeg = (ImageView)findViewById(R.id.mnuObjActImgViewVeg);
+        this.imgViewVeg.setVisibility(View.GONE);
+
+        this.btnAddToOrder = (Button)findViewById(R.id.mnuObjActBtnAddToOrder);
+        this.btnAddToFavorite = (Button)findViewById(R.id.mnuObjActBtnAddToFavorite);
+        this.btnAddToFavorite.setOnClickListener(this);
+        this.btnAddToOrder.setOnClickListener(this);
+    }
+
     @Override
     protected void onStop(){
         this.slider.stopAutoCycle();
@@ -41,4 +99,15 @@ public class MenuObjectActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.mnuObjActBtnAddToFavorite:
+                LockAwayApplication.parseConector.addItemToFavorite(objectId);
+                break;
+            case R.id.mnuObjActBtnAddToOrder:
+                LockAwayApplication.getUserOrder().addItemToOrder(resObj,true);
+                break;
+        }
+    }
 }

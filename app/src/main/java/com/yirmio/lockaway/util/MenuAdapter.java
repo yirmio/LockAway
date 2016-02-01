@@ -113,7 +113,7 @@ public class MenuAdapter extends ArrayAdapter {
     }
 
     private void putDataInViewHolder(ViewHolder holder, MenuListRowLayoutItem item) {
-        holder.info.setText(item.getInfo());
+        //holder.info.setText(item.getInfo());
         holder.lable.setText(item.getLable());
         holder.price.setText(item.getPrice().toString());
         holder.timeToMake.setText(String.valueOf(item.getTimeToMake()));
@@ -136,6 +136,7 @@ public class MenuAdapter extends ArrayAdapter {
     //Get ViewHolder and View To Use and set the UI elements
     private void setViewItems(ViewHolder holder, View viewToUse, final ViewGroup parent) {
         holder.info = (TextView) viewToUse.findViewById(R.id.menu_item_description_lable);
+        holder.info.setVisibility(View.GONE);
         holder.lable = (TextView) viewToUse.findViewById(R.id.menu_item_label);
         holder.price = (TextView) viewToUse.findViewById(R.id.menu_item_price_value);
         holder.timeToMake = (TextView) viewToUse.findViewById(R.id.menu_item_time_value);

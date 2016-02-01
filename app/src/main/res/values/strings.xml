@@ -34,4 +34,10 @@
     <string name="yourPassword">Your Password</string>
     <string name="dumyUserName">Your User Name</string>
     <string name="loadingmenu">Loading Menu, Please wait...</string>
+    <string name="price">Price:</string>
+    <string name="timetomake" >Time To Make:</string>
+    <string name="title">Title</string>
+    <string name="description">Item Desciption</string>
+    <string name="addtoorder" >Add To Order</string>
+    <string name="addrofavorite">Add To Favorite</string>
 </resources>

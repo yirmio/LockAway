@@ -27,6 +27,12 @@
     <string name="dumyUserName">שם משתמש</string>
     <string name="yourPassword">בחר ססמא</string>
     <string name="loadingmenu">התפריט נטען, נא להמתין....</string>
+    <string name="price">מחיר:</string>
+    <string name="timetomake">זמן הכנה:</string>
+    <string name="title">כותרת</string>
+    <string name="description">תיאור הפריט</string>
+    <string name="addtoorder" >הוסף להזמנה</string>
+    <string name="addrofavorite">הוסף למועדפים</string>
 
 
 </resources>

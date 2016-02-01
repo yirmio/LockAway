@@ -130,6 +130,7 @@ public class OrderBuilderFragment extends Fragment {
         return view;
     }
 
+
     public void updateDetails() {
         if (app.getUserOrder() != null) {
             mTotalPriceTextView.setText(String.valueOf(app.getUserOrder().getTotalPrice()));

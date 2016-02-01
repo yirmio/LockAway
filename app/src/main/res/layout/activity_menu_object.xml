@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,12 +8,120 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.yirmio.lockaway.UI.MenuObjectActivity"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    android:showDividers="middle|beginning|end">
 
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/title"
+        android:id="@+id/mnuObjActTitle"
+        android:layout_weight="10"
+        android:gravity="center" />
 
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/menuObjectActivityImagesSlider"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="200dp"
-        />
-</RelativeLayout>
+        android:layout_marginTop="0dp"
+        android:layout_weight="30" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/description"
+            android:id="@+id/mnuObjActDesc"
+            android:layout_gravity="right"
+            android:layout_weight="60" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="20">
+
+            <TextView
+                android:id="@+id/mnuObjActTextViewPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_order_textView_time_toMake"
+                android:drawableLeft="@drawable/ic_action_money"
+                android:text="Price"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_weight="10"
+                android:gravity="left|center_vertical" />
+
+            <TextView
+                android:id="@+id/mnuObjActTextViewTimeToMake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_order_textView_name"
+                android:drawableLeft="@drawable/ic_hourglass_empty_black_24dp"
+                android:text="TimeToMake"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_weight="10"
+                android:gravity="left|center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/mnuObjActImgViewGloten"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/glooten_free" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/mnuObjActImgViewVeg"
+                android:contentDescription="menu item veg icon"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/vegan_icon" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:gravity="center_vertical"
+        android:layout_gravity="bottom">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/addtoorder"
+            android:id="@+id/mnuObjActBtnAddToOrder"
+            android:layout_weight="50" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/addrofavorite"
+            android:id="@+id/mnuObjActBtnAddToFavorite"
+            android:layout_weight="50" />
+    </LinearLayout>
+
+</LinearLayout>

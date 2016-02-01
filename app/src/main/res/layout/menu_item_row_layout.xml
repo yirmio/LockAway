@@ -13,7 +13,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp">
+        android:layout_marginLeft="5dp"
+        android:background="@color/backgroundColor">
 
         <com.parse.ParseImageView
             android:id="@+id/menu_item_icon"
@@ -39,7 +40,8 @@
         android:layout_toEndOf="@+id/menu_item_photo"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:background="@color/backgroundColor">
 
         <TextView
             android:id="@+id/menu_item_label"
@@ -67,23 +69,25 @@
             android:layout_height="wrap_content"
             android:id="@+id/price">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Price: "
-                android:textStyle="bold"
-                android:id="@+id/menu_item_price_lable"
-                android:longClickable="false"
-                android:layout_below="@+id/menu_item_label"
-                android:layout_toRightOf="@+id/menu_item_icon"
-                android:layout_toEndOf="@+id/menu_item_icon" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+                <!--android:text="@string/price"-->
+                <!--android:textStyle="bold"-->
+                <!--android:id="@+id/menu_item_price_lable"-->
+                <!---->
+                <!--android:longClickable="false"-->
+                <!--android:layout_below="@+id/menu_item_label"-->
+                <!--android:layout_toRightOf="@+id/menu_item_icon"-->
+                <!--android:layout_toEndOf="@+id/menu_item_icon" />-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/menu_item_price_value"
+                android:drawableLeft="@drawable/ic_action_money"
                 android:longClickable="false"
                 android:layout_below="@+id/menu_item_label"
                 android:layout_toRightOf="@+id/menu_item_price_lable"
@@ -96,24 +100,26 @@
             android:layout_height="wrap_content"
             android:id="@+id/timeToMake">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Time To Make: "
-                android:id="@+id/menu_item_time_lable"
-                android:longClickable="false"
-                android:textStyle="bold"
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+                <!--android:text="@string/timetomake"-->
+                <!--android:id="@+id/menu_item_time_lable"-->
+                <!--android:drawableLeft="@drawable/ic_hourglass_empty_black_24dp"-->
+                <!--android:longClickable="false"-->
+                <!--android:textStyle="bold"-->
 
-                android:layout_below="@+id/menu_item_price_lable"
-                android:layout_toRightOf="@+id/menu_item_icon"
-                android:layout_toEndOf="@+id/menu_item_icon" />
+                <!--android:layout_below="@+id/menu_item_price_lable"-->
+                <!--android:layout_toRightOf="@+id/menu_item_icon"-->
+                <!--android:layout_toEndOf="@+id/menu_item_icon" />-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/menu_item_time_value"
+                android:drawableLeft="@drawable/ic_hourglass_empty_black_24dp"
                 android:longClickable="false"
                 android:layout_alignTop="@+id/menu_item_time_lable"
                 android:layout_toRightOf="@+id/menu_item_time_lable"
@@ -131,13 +137,17 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/menu_item_gloten_free_icon" />
+                android:id="@+id/menu_item_gloten_free_icon"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:id="@+id/menu_item_veg_icon"
-                android:contentDescription="menu item veg icon" />
+                android:contentDescription="menu item veg icon"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -152,6 +162,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:background="@color/backgroundColor" />
 
 </RelativeLayout>

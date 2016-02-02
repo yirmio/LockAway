@@ -145,10 +145,10 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     public void onFragmentInteraction(String id, String orderID, String op) {
 //        ParseObject tmpItem = new ParseObject("OrderedObjects");
         if (op == "add") {
-            ParseConnector.addObjectToOrder(id, orderID);
+            LockAwayApplication.parseConector.addObjectToOrder(id, orderID);
 
         } else if (op == "remove") {
-            ParseConnector.removeObjectFromOrder(orderID, id);
+            LockAwayApplication.parseConector.removeObjectFromOrder(orderID, id);
 
         }
 

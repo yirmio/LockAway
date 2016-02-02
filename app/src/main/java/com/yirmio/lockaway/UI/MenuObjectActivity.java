@@ -115,19 +115,7 @@ LockAwayApplication.parseConector.registerObserver(this);
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.mnuObjActBtnAddToFavorite:
-                //LockAwayApplication.parseConector.registerObserver(this);
-                int res = LockAwayApplication.parseConector.addItemToFavorite(objectId);
-//                //Item Added
-//                if (res ==1){
-//                    Toast.makeText(getApplicationContext(),R.string.itemaddedtofavorite,Toast.LENGTH_SHORT).show();
-//                }
-//                //Item Already in favorite
-//                else if (res == 2){
-//                    Toast.makeText(getApplicationContext(),R.string.itemalreadyfavorite,Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(getApplicationContext(),R.string.erroraddingitemtofavorite,Toast.LENGTH_SHORT).show();
-//                }
+                LockAwayApplication.parseConector.addItemToFavorite(objectId);
                 break;
             case R.id.mnuObjActBtnAddToOrder:
                 LockAwayApplication.getUserOrder().addItemToOrder(resObj, true);
@@ -136,16 +124,9 @@ LockAwayApplication.parseConector.registerObserver(this);
     }
 
     @Override
-    public void update(String msg) {
-        if (msg.equals(getString(R.string.erroraddingitemtofavorite))) {
-            Toast.makeText(getApplicationContext(), R.string.erroraddingitemtofavorite, Toast.LENGTH_SHORT).show();
-//            LockAwayApplication.parseConector.removeObserver(this);
-        } else if (msg.equals(getString(R.string.itemaddedtofavorite))) {
-            Toast.makeText(getApplicationContext(), R.string.itemaddedtofavorite, Toast.LENGTH_SHORT).show();
-//            LockAwayApplication.parseConector.removeObserver(this);
-        } else if (msg.equals(getString(R.string.itemalreadyfavorite))) {
-            Toast.makeText(getApplicationContext(), R.string.itemalreadyfavorite, Toast.LENGTH_SHORT).show();
-//            LockAwayApplication.parseConector.removeObserver(this);
+    public void update(String msg, Observer ob) {
+        if (ob == this){
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
         }
     }
 }

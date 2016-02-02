@@ -35,7 +35,7 @@ public final class ParseConnector implements Subject{
     private static boolean tmpResult = false;
     private List<Observer> observers = new ArrayList<Observer>();
 
-    public static boolean removeObjectFromOrder(final String orderID, final String objectID) {
+    public boolean removeObjectFromOrder(final String orderID, final String objectID) {
         boolean res = true;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("OrderedObjects");
         query.whereEqualTo("MenuObjectID", objectID);
@@ -50,9 +50,11 @@ public final class ParseConnector implements Subject{
                         public void done(ParseException e) {
                             //Success
                             if (e == null) {
+                                notifyObservers(R.string.item_removed);
                                 Log.i(TAG, "Object " + objectID + " Removed from order " + orderID);
 
                             } else {
+                                notifyObservers(R.string.errorRemovingItemFromOrder);
                                 Log.e(TAG, "Error reoving object " + objectID + " From order " + orderID);
                                 //throw new ParseException(9,"Error reoving object " + objectID + " From order " + orderID);                            }
                             }
@@ -325,7 +327,7 @@ public final class ParseConnector implements Subject{
     @Override
     public void notifyObservers(String msg) {
         for (Observer ob:this.observers) {
-            ob.update(msg);
+            ob.update(msg,ob);
         }
 
     }

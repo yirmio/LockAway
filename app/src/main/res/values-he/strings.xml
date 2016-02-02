@@ -37,6 +37,7 @@
     <string name="itemalreadyfavorite">הפריט כבר ברשימת המועדפים שלך</string>
     <string name="erroraddingitemtofavorite">בעיה בהוספת הפריט למועדפים</string>
     <string name="loginscreen">התחברות\\הרשמה לאפליקציה</string>
+    <string name="errorRemovingItemFromOrder">בעיה בהסרת הפריט מההזמנה</string>
 
 
 </resources>

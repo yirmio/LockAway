@@ -4,7 +4,7 @@
     tools:context=".UI.OrderBuilderFragment"
     android:background="@color/backgroundColor">
 
-    <!-- TODO: Update blank fragment layout -->
+
 
     <ListView
         android:id="@+id/user_order_listView"

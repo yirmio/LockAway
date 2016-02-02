@@ -47,7 +47,7 @@ public class Store implements Parcelable {
     public void setOpenDays(String openDays) {
         this.openDays = openDays;
     }
-//TODO - handle location
+//TODO - handle open days
     /*public ParseGeoPoint getParseLocation() {
         return parseLocation;
     }

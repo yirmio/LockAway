@@ -236,8 +236,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             public void done(ParseUser parseUser, ParseException e) {
                 if (parseUser != null) {
                     //Good Login
-                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class); //To welcome screen
-                    startActivity(intent);
+//                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class); //To welcome screen
+//                    startActivity(intent);
+                    setResult(RESULT_OK);
+                    finish();
                     Toast.makeText(getApplicationContext(), R.string.Successlogin, Toast.LENGTH_SHORT).show();
                 } else {
                     //Bad Login

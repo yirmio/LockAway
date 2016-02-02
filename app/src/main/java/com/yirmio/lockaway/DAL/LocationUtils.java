@@ -85,7 +85,7 @@ public  static Map<String,String> getETAAndDistanceInfo(LatLng origin,LatLng des
         try {
             jsonObject = new JSONObject(stringBuilder.toString());
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
+
             Log.e("MyGeocoder", "JSONException e = " + e.getMessage());
             e.printStackTrace();
         }
@@ -183,7 +183,7 @@ public  static Map<String,String> getETAAndDistanceInfo(LatLng origin,LatLng des
             try {
                 jsonObject = new JSONObject(stringBuilder.toString());
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
+
                 Log.e("MyGeocoder", "JSONException e = " + e.getMessage());
                 e.printStackTrace();
             }

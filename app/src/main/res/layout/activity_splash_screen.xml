@@ -7,14 +7,14 @@
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
 
-    <TextView android:id="@+id/fullscreen_content" android:layout_width="wrap_content"
+    <TextView android:id="@+id/splshScrnAfeyaSlogen" android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:keepScreenOn="true" android:textColor="#ffe5dce5"
         android:textStyle="bold" android:textSize="50sp" android:gravity="center"
         android:text="@string/afeya_slogen"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="10dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -31,11 +31,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/loadingmenuprogressbar"
-        android:layout_below="@+id/fullscreen_content"
-        android:layout_centerHorizontal="true"
         android:progressDrawable="@drawable/circular_progress_bar"
         android:indeterminate="false"
-        android:layout_marginTop="15dp" />
+        android:layout_above="@+id/txtViewLoading"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,6 +46,25 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/dumyUserName"
+        android:id="@+id/splsScrnUserName"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/splsScrnWelcomeLabel"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/welcomeText"
+        android:id="@+id/splsScrnWelcomeLabel"
+        android:layout_below="@+id/splshScrnAfeyaSlogen"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

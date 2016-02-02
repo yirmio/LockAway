@@ -33,33 +33,15 @@
         android:layout_alignParentEnd="true"
         android:hint="@string/yourPassword" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:id="@+id/btnLogin"
-        android:layout_below="@+id/chkBxIsGlotonSensitive"
-        android:layout_alignParentLeft="true"
-        android:layout_toEndOf="@+id/btnSignUp"
-        android:background="@color/backgroundColor" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/signUp"
-        android:id="@+id/btnSignUp"
-        android:layout_below="@+id/chkBxIsGlotonSensitive"
-        android:layout_alignParentRight="true"
-        android:background="@color/backgroundColor" />
-
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtInputUserName"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:hint="@string/dumyUserName" />
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentEnd="false"
+        android:hint="@string/dumyUserName"
+        android:layout_below="@+id/textView2" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -103,4 +85,44 @@
         android:layout_marginLeft="5dp"
         android:checked="false"
         android:id="@+id/chkBxIsVeg" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:id="@+id/btnLogin"
+            android:layout_below="@+id/chkBxIsGlotonSensitive"
+            android:layout_alignParentLeft="true"
+            android:layout_toEndOf="@+id/btnSignUp"
+            android:background="@color/backgroundColor"
+            android:layout_weight="50"
+            android:layout_marginRight="2.5dp" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/signUp"
+            android:id="@+id/btnSignUp"
+            android:layout_below="@+id/chkBxIsGlotonSensitive"
+            android:layout_alignParentRight="true"
+            android:background="@color/backgroundColor"
+            android:layout_weight="50"
+            android:layout_marginLeft="2.5dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/loginscreen"
+        android:id="@+id/textView2"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:background="@color/titleBackgroundColor" />
 </RelativeLayout>

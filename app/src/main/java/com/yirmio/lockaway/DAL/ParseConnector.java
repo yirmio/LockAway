@@ -208,7 +208,8 @@ public final class ParseConnector {
             }
             boolean isReady = false;
 
-            //TODO - handle more than one image per object
+            //Get First Image for object
+            //TODO - add spinner maybe....
             List<ParseFile> tmpFilesArray = getImagesFilesForObject(obj.getObjectId(), 1);
             ParseFile tmpFile = null;
             if (tmpFilesArray != null) {

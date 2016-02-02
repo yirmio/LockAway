@@ -27,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
-import com.yirmio.lockaway.Location.LocationUtils;
+import com.yirmio.lockaway.DAL.LocationUtils;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 

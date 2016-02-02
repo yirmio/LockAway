@@ -1,9 +1,11 @@
-package com.yirmio.lockaway;
+package com.yirmio.lockaway.UI;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class OrderStatus extends AppCompatActivity {
+import com.yirmio.lockaway.R;
+
+public class OrderStatusActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -47,10 +47,10 @@
         <activity
             android:name=".UI.SendOrderActivity"
             android:label="SendOrder" />
-        <activity android:name=".OrderStatus" />
+        <activity android:name=".UI.OrderStatusActivity" />
         <activity android:name=".UI.LoginActivity"></activity>
         <activity android:name=".UI.WelcomeActivity" />
-        <activity android:name=".util.UserStatusLauncher"></activity>
+        <activity android:name=".UI.util.UserStatusLauncher"></activity>
         <activity android:name=".UI.MenuObjectActivity"></activity>
     </application>
 

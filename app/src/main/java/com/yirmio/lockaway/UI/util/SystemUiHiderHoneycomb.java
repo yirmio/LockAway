@@ -1,4 +1,4 @@
-package com.yirmio.lockaway.util;
+package com.yirmio.lockaway.UI.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

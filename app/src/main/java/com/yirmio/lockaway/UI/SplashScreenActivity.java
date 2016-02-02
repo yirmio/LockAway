@@ -12,8 +12,8 @@ import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.util.SystemUiHider;
-import com.yirmio.lockaway.util.UserStatusLauncher;
+import com.yirmio.lockaway.UI.util.SystemUiHider;
+import com.yirmio.lockaway.UI.util.UserStatusLauncher;
 
 
 /**

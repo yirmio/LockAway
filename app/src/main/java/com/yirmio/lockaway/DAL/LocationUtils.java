@@ -1,4 +1,4 @@
-package com.yirmio.lockaway.Location;
+package com.yirmio.lockaway.DAL;
 
 import android.location.Address;
 import android.util.Log;

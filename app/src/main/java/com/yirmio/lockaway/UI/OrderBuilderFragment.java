@@ -17,7 +17,7 @@ import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.UserOrder;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.util.OrderBuilderAdapter;
+import com.yirmio.lockaway.UI.util.OrderBuilderAdapter;
 
 import java.util.ArrayList;
 

@@ -1,61 +1,33 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="#ffb880cc"
-    tools:context=".SplashScreenActivity">
+    tools:context=".SplashScreenActivity"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
 
-    <TextView android:id="@+id/splshScrnAfeyaSlogen" android:layout_width="wrap_content"
+    <TextView android:id="@+id/splshScrnAfeyaSlogen" android:layout_width="fill_parent"
         android:layout_height="wrap_content" android:keepScreenOn="true" android:textColor="#ffe5dce5"
-        android:textStyle="bold" android:textSize="50sp" android:gravity="center"
+        android:textStyle="bold" android:textSize="50sp"
         android:text="@string/afeya_slogen"
-        android:layout_gravity="center_horizontal|bottom"
+        android:layout_gravity="center_horizontal"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_weight="15"
+        android:gravity="center_horizontal" />
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_gravity="center"
         android:src="@drawable/afeyalogo"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loadingmenuprogressbar"
-        android:progressDrawable="@drawable/circular_progress_bar"
-        android:indeterminate="false"
-        android:layout_above="@+id/txtViewLoading"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/loadingmenu"
-        android:id="@+id/txtViewLoading"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/dumyUserName"
-        android:id="@+id/splsScrnUserName"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/splsScrnWelcomeLabel"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="10dp"
+        android:layout_weight="25" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -64,7 +36,37 @@
         android:text="@string/welcomeText"
         android:id="@+id/splsScrnWelcomeLabel"
         android:layout_below="@+id/splshScrnAfeyaSlogen"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_weight="15" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/dumyUserName"
+        android:id="@+id/splsScrnUserName"
+        android:layout_marginTop="5dp"
+        android:layout_weight="20" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loadingmenuprogressbar"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:indeterminate="false"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="15" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/loadingmenu"
+        android:id="@+id/txtViewLoading"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="10"
+        android:gravity="center_horizontal" />
 
 
-</RelativeLayout>
+</LinearLayout>

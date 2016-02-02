@@ -45,4 +45,9 @@
     <string name="erroraddingitemtofavorite">Error Adding item to favorite</string>
     <string name="loginscreen">Login/Signup</string>
     <string name="errorRemovingItemFromOrder">Error removing item from order</string>
+    <string name="parse_user_display_name">DisplayName</string>
+    <string name="parse_user_phone_number">PhoneNumber</string>
+    <string name="parse_user_is_veg">isVeg</string>
+    <string name="parse_user_is_gloten">isGloten</string>
+    <string name="displayName">Display Name</string>
 </resources>

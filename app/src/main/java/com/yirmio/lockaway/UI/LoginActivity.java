@@ -40,6 +40,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private String passTxt2;
     private String phoneNumberTxt;
     private String emailTxt;
+    private String displayName;
 
     private boolean isFirstSignupClick;
 
@@ -165,10 +166,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         ParseUser newUser = new ParseUser();
         newUser.setUsername(usrNametxt);
         newUser.setPassword(passtxt);
-        newUser.put("PhoneNumber", phoneNumberTxt);
+        newUser.put(getString(R.string.parse_user_phone_number), phoneNumberTxt);
         newUser.setEmail(emailTxt);
-        newUser.put("isVeg", this.chBxIsVeg.isChecked());
-        newUser.put("isGloten", this.chBxIsGloton.isChecked());
+        newUser.put(getString(R.string.parse_user_is_veg), this.chBxIsVeg.isChecked());
+        newUser.put(getString(R.string.parse_user_is_gloten), this.chBxIsGloton.isChecked());
+        newUser.put(getString(R.string.parse_user_display_name,displayName));
 
         //Save in background
         newUser.signUpInBackground(new SignUpCallback() {

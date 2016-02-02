@@ -38,4 +38,9 @@
     <string name="erroraddingitemtofavorite">בעיה בהוספת הפריט למועדפים</string>
     <string name="loginscreen">התחברות\\הרשמה לאפליקציה</string>
     <string name="errorRemovingItemFromOrder">בעיה בהסרת הפריט מההזמנה</string>
+    <string name="parse_user_display_name">DisplayName</string>
+    <string name="parse_user_phone_number">PhoneNumber</string>
+    <string name="parse_user_is_veg">isVeg</string>
+    <string name="parse_user_is_gloten">isGloten</string>
+    <string name="displayName">שם מלא (לתצוגה)</string>
 </resources>

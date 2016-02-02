@@ -19,7 +19,7 @@
         android:layout_alignParentTop="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/txtInputUserName"
+        android:layout_below="@+id/txtInputDisplayName"
         android:hint="@string/dummyEmail" />
 
     <EditText
@@ -125,4 +125,18 @@
         android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
         android:background="@color/titleBackgroundColor" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtInputDisplayName"
+        android:hint="@string/displayName"
+        android:layout_below="@+id/txtInputUserName" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txtInputPhone"
+        android:layout_centerHorizontal="true"></LinearLayout>
 </RelativeLayout>

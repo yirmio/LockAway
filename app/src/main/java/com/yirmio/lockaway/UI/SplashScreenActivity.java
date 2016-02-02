@@ -72,6 +72,7 @@ public class SplashScreenActivity extends Activity {
 
         //Check user login
         if (ParseUser.getCurrentUser().getObjectId() != null){
+            updtaeUIAfterLogin();
             //load menu
             new LoadDataFromServer().execute();
         }
@@ -102,12 +103,16 @@ public class SplashScreenActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == LOGIN_REQUEST_CODE){
             if (resultCode == RESULT_OK){
-                this.txtViewUserName.setVisibility(View.VISIBLE);
-                this.txtViewWelcomeLabel.setVisibility(View.VISIBLE);
-                this.txtViewUserName.setText(ParseUser.getCurrentUser().getUsername());
+                updtaeUIAfterLogin();
                 new LoadDataFromServer().execute();
             }
         }
+    }
+
+    private void updtaeUIAfterLogin() {
+        this.txtViewUserName.setVisibility(View.VISIBLE);
+        this.txtViewWelcomeLabel.setVisibility(View.VISIBLE);
+        this.txtViewUserName.setText(ParseUser.getCurrentUser().getString(getString(R.string.parse_user_display_name)));
     }
 
     private class LoadDataFromServer extends AsyncTask<Void,Void,Void>{

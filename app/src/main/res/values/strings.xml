@@ -50,4 +50,5 @@
     <string name="parse_user_is_veg">isVeg</string>
     <string name="parse_user_is_gloten">isGloten</string>
     <string name="displayName">Display Name</string>
+    <string name="errorSignupEmailTaken">the email address has already been taken</string>
 </resources>

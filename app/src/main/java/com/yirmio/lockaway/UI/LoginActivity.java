@@ -28,6 +28,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText txtInptEmail;
     private EditText txtInptPassword;
     private EditText txtInptPassword2;
+    private EditText txtInptDisplaName;
     private EditText txtInptPhoneNumber;
     private CheckBox chBxIsVeg;
     private CheckBox chBxIsGloton;
@@ -73,6 +74,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         this.txtInptPassword2.setOnClickListener(this);
         this.txtInptPhoneNumber = (EditText) findViewById(R.id.txtInputPhone);
         this.txtInptPhoneNumber.setOnClickListener(this);
+        this.txtInptDisplaName = (EditText) findViewById(R.id.txtInputDisplayName);
+        this.txtInptDisplaName.setOnClickListener(this);
 
         //CheckBoxes
         this.chBxIsVeg = (CheckBox) findViewById(R.id.chkBxIsVeg);
@@ -85,12 +88,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         this.signUpViews.add(txtInptPhoneNumber);
         this.signUpViews.add(chBxIsGloton);
         this.signUpViews.add(chBxIsVeg);
-
+        this.signUpViews.add(txtInptDisplaName);
 
         //Set UI For Login
-        this.
-
-                updateSignUpViewsVisibility(View.GONE);
+        this.updateSignUpViewsVisibility(View.GONE);
     }
 
     @Override
@@ -112,19 +113,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 break;
             }
             case R.id.txtInputPassword: {
-                this.clearTxtInput(view,R.string.yourPassword);
+                this.clearTxtInput(view, R.string.yourPassword);
                 break;
             }
             case R.id.txtInputPassword2: {
-                this.clearTxtInput(view,R.string.yourPassword);
+                this.clearTxtInput(view, R.string.yourPassword);
                 break;
             }
             case R.id.txtInputPhone: {
-                this.clearTxtInput(view,R.string.PhoneNumber);
+                this.clearTxtInput(view, R.string.PhoneNumber);
                 break;
             }
             case R.id.txtInputUserName: {
-                this.clearTxtInput(view,R.string.dumyUserName);
+                this.clearTxtInput(view, R.string.dumyUserName);
                 break;
             }
 
@@ -170,7 +171,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         newUser.setEmail(emailTxt);
         newUser.put(getString(R.string.parse_user_is_veg), this.chBxIsVeg.isChecked());
         newUser.put(getString(R.string.parse_user_is_gloten), this.chBxIsGloton.isChecked());
-        newUser.put(getString(R.string.parse_user_display_name,displayName));
+        newUser.put(getString(R.string.parse_user_display_name), displayName);
 
         //Save in background
         newUser.signUpInBackground(new SignUpCallback() {
@@ -182,6 +183,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     updateSignUpViewsVisibility(View.GONE);
                 } else {
                     //Fail
+                    if (e.getCode() == 203){
+                        //the email address yirmio@gmail.com has already been taken
+                        Toast.makeText(getApplicationContext(), R.string.errorSignupEmailTaken, Toast.LENGTH_SHORT).show();
+                    }
                     Toast.makeText(getApplicationContext(), R.string.errorSignup, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -199,6 +204,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         this.passTxt2 = this.txtInptPassword2.getText().toString();
         this.emailTxt = this.txtInptEmail.getText().toString();
         this.phoneNumberTxt = this.txtInptPhoneNumber.getText().toString();
+        this.displayName = this.txtInptDisplaName.getText().toString();
 
 
         //For SignUp
@@ -215,6 +221,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
             //Email Validation
             if (!Patterns.EMAIL_ADDRESS.matcher(this.emailTxt).matches()) {
+                isInputValid = false;
+                return isInputValid;
+            }
+            if (this.displayName.length() == 0){
                 isInputValid = false;
                 return isInputValid;
             }

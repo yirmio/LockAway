@@ -64,28 +64,6 @@
         android:layout_centerHorizontal="true"
         android:hint="@string/PhoneNumber" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Sensitivetogluten"
-        android:id="@+id/chkBxIsGlotonSensitive"
-        android:layout_below="@+id/txtInputPhone"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="false"
-        android:checked="false" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/isVeg"
-        android:layout_alignBottom="@+id/chkBxIsGlotonSensitive"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentStart="false"
-        android:layout_toRightOf="@+id/chkBxIsGlotonSensitive"
-        android:layout_marginLeft="5dp"
-        android:checked="false"
-        android:id="@+id/chkBxIsVeg" />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
@@ -124,7 +102,8 @@
         android:id="@+id/textView2"
         android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
-        android:background="@color/titleBackgroundColor" />
+        android:background="@color/titleBackgroundColor"
+        android:layout_marginBottom="5dp" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -135,8 +114,32 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/txtInputPhone"
-        android:layout_centerHorizontal="true"></LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Sensitivetogluten"
+            android:id="@+id/chkBxIsGlotonSensitive"
+            android:layout_below="@+id/txtInputPhone"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="false"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/isVeg"
+            android:layout_alignBottom="@+id/chkBxIsGlotonSensitive"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentStart="false"
+            android:layout_toRightOf="@+id/chkBxIsGlotonSensitive"
+            android:layout_marginLeft="5dp"
+            android:checked="false"
+            android:id="@+id/chkBxIsVeg" />
+    </LinearLayout>
 </RelativeLayout>

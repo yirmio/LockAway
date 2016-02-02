@@ -43,6 +43,7 @@
     <string name="parse_user_is_veg">isVeg</string>
     <string name="parse_user_is_gloten">isGloten</string>
     <string name="displayName">שם מלא (לתצוגה)</string>
+    <string name="errorSignupEmailTaken">הכתובת שבחרת כבר תפוסה</string>
 
 
 </resources>

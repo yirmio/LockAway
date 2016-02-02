@@ -12,13 +12,13 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.parse.ParseFile;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
-import com.yirmio.lockaway.DAL.ParseConnector;
+import com.yirmio.lockaway.Interfaces.Observer;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 
 import java.util.List;
 
-public class MenuObjectActivity extends AppCompatActivity implements View.OnClickListener {
+public class MenuObjectActivity extends AppCompatActivity implements View.OnClickListener, Observer {
     private String objectId;
     private SliderLayout slider;
     private RestaurantMenuObject resObj;
@@ -36,6 +36,7 @@ public class MenuObjectActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_object);
+
         //TODO - get objectid from bundle
         Bundle extras = getIntent().getExtras();
         this.objectId = extras.getString("objectId");
@@ -48,17 +49,16 @@ public class MenuObjectActivity extends AppCompatActivity implements View.OnClic
         this.resObj = LockAwayApplication.getRestaurantMenu().getItemById(objectId);
         this.putInfoInUI(resObj);
         //Get Photos
-        this.images = LockAwayApplication.parseConector.getImagesFilesForObject(objectId,0);
+        this.images = LockAwayApplication.parseConector.getImagesFilesForObject(objectId, 0);
 
 
         //Build photo slider
-        this.slider = (SliderLayout)findViewById(R.id.menuObjectActivityImagesSlider);
-        for (ParseFile f: images) {
+        this.slider = (SliderLayout) findViewById(R.id.menuObjectActivityImagesSlider);
+        for (ParseFile f : images) {
             DefaultSliderView defaultSliderView = new DefaultSliderView(this);
             defaultSliderView.image(f.getUrl().toString());
             this.slider.addSlider(defaultSliderView);
         }
-
 
 
     }
@@ -68,58 +68,84 @@ public class MenuObjectActivity extends AppCompatActivity implements View.OnClic
         this.txtViewDescription.setText(resObj.getDescription());
         this.txtViewPrice.setText(String.valueOf(resObj.getPrice()));
         this.txtViewTimeToMake.setText(String.valueOf(resObj.getTimeToMake()));
-        if (resObj.isGlootenFree()){
+        if (resObj.isGlootenFree()) {
             this.imgViewGloten.setVisibility(View.VISIBLE);
         }
-        if (resObj.isVeg()){
+        if (resObj.isVeg()) {
             this.imgViewVeg.setVisibility(View.VISIBLE);
         }
     }
 
     private void attachUIElements() {
-        this.txtViewTitle = (TextView)findViewById(R.id.mnuObjActTitle);
-        this.txtViewDescription = (TextView)findViewById(R.id.mnuObjActDesc);
-        this.txtViewPrice = (TextView)findViewById(R.id.mnuObjActTextViewPrice);
-        this.txtViewTimeToMake = (TextView)findViewById(R.id.mnuObjActTextViewTimeToMake);
+        this.txtViewTitle = (TextView) findViewById(R.id.mnuObjActTitle);
+        this.txtViewDescription = (TextView) findViewById(R.id.mnuObjActDesc);
+        this.txtViewPrice = (TextView) findViewById(R.id.mnuObjActTextViewPrice);
+        this.txtViewTimeToMake = (TextView) findViewById(R.id.mnuObjActTextViewTimeToMake);
 
-        this.imgViewGloten = (ImageView)findViewById(R.id.mnuObjActImgViewGloten);
+        this.imgViewGloten = (ImageView) findViewById(R.id.mnuObjActImgViewGloten);
         this.imgViewGloten.setVisibility(View.GONE);
-        this.imgViewVeg = (ImageView)findViewById(R.id.mnuObjActImgViewVeg);
+        this.imgViewVeg = (ImageView) findViewById(R.id.mnuObjActImgViewVeg);
         this.imgViewVeg.setVisibility(View.GONE);
 
-        this.btnAddToOrder = (Button)findViewById(R.id.mnuObjActBtnAddToOrder);
-        this.btnAddToFavorite = (Button)findViewById(R.id.mnuObjActBtnAddToFavorite);
+        this.btnAddToOrder = (Button) findViewById(R.id.mnuObjActBtnAddToOrder);
+        this.btnAddToFavorite = (Button) findViewById(R.id.mnuObjActBtnAddToFavorite);
         this.btnAddToFavorite.setOnClickListener(this);
         this.btnAddToOrder.setOnClickListener(this);
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         this.slider.stopAutoCycle();
         super.onStop();
     }
 
+    @Override
+    protected void onPause() {
+LockAwayApplication.parseConector.removeObserver(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+LockAwayApplication.parseConector.registerObserver(this);
+        super.onResume();
+    }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.mnuObjActBtnAddToFavorite:
+                //LockAwayApplication.parseConector.registerObserver(this);
                 int res = LockAwayApplication.parseConector.addItemToFavorite(objectId);
-                //Item Added
-                if (res ==1){
-                    Toast.makeText(getApplicationContext(),R.string.itemaddedtofavorite,Toast.LENGTH_SHORT).show();
-                }
-                //Item Already in favorite
-                else if (res == 2){
-                    Toast.makeText(getApplicationContext(),R.string.itemalreadyfavorite,Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),R.string.erroraddingitemtofavorite,Toast.LENGTH_SHORT).show();
-                }
+//                //Item Added
+//                if (res ==1){
+//                    Toast.makeText(getApplicationContext(),R.string.itemaddedtofavorite,Toast.LENGTH_SHORT).show();
+//                }
+//                //Item Already in favorite
+//                else if (res == 2){
+//                    Toast.makeText(getApplicationContext(),R.string.itemalreadyfavorite,Toast.LENGTH_SHORT).show();
+//                }
+//                else {
+//                    Toast.makeText(getApplicationContext(),R.string.erroraddingitemtofavorite,Toast.LENGTH_SHORT).show();
+//                }
                 break;
             case R.id.mnuObjActBtnAddToOrder:
-                LockAwayApplication.getUserOrder().addItemToOrder(resObj,true);
+                LockAwayApplication.getUserOrder().addItemToOrder(resObj, true);
                 break;
+        }
+    }
+
+    @Override
+    public void update(String msg) {
+        if (msg.equals(getString(R.string.erroraddingitemtofavorite))) {
+            Toast.makeText(getApplicationContext(), R.string.erroraddingitemtofavorite, Toast.LENGTH_SHORT).show();
+//            LockAwayApplication.parseConector.removeObserver(this);
+        } else if (msg.equals(getString(R.string.itemaddedtofavorite))) {
+            Toast.makeText(getApplicationContext(), R.string.itemaddedtofavorite, Toast.LENGTH_SHORT).show();
+//            LockAwayApplication.parseConector.removeObserver(this);
+        } else if (msg.equals(getString(R.string.itemalreadyfavorite))) {
+            Toast.makeText(getApplicationContext(), R.string.itemalreadyfavorite, Toast.LENGTH_SHORT).show();
+//            LockAwayApplication.parseConector.removeObserver(this);
         }
     }
 }

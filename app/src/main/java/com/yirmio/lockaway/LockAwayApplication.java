@@ -1,6 +1,7 @@
 package com.yirmio.lockaway;
 
 import android.app.Application;
+import android.content.res.Resources;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.Parse;
@@ -23,8 +24,9 @@ public class LockAwayApplication extends Application {
     public static final ParseConnector parseConector = new ParseConnector();
     private static RestaurantMenu restaurantMenu;
     private static UserOrder userOrder;
-    public  static LatLng AfeyaLatLang = new LatLng(32.0831538,34.9435619);
+    public static LatLng AfeyaLatLang = new LatLng(32.0831538, 34.9435619);
     private static ParseUser curParseUser;
+    private static Resources appResources;
 
     public static RestaurantMenu getRestaurantMenu() {
         return restaurantMenu;
@@ -44,8 +46,8 @@ public class LockAwayApplication extends Application {
                 //ParseUser usr = ParseUser.logIn("Yirmi", "Z69Hus&&");
                 ParseObject order = new ParseObject("UserToOrders");
                 order.put("UserID", ParseUser.getCurrentUser().getObjectId());
-                order.put("ResturantID","g1bzMQEXoj");
-                order.put("OrderStatusActivity","Active");
+                order.put("ResturantID", "g1bzMQEXoj");
+                order.put("OrderStatusActivity", "Active");
 
                 order.save();
                 userOrder = new UserOrder(order.getObjectId());
@@ -61,11 +63,10 @@ public class LockAwayApplication extends Application {
 
     public static UserOrder getUserOrder() {
         UserOrder order = null;
-        if (userOrder == null){
+        if (userOrder == null) {
             GetOrderID();
             return userOrder;
-        }
-        else {
+        } else {
             order = userOrder;
         }
         return order;
@@ -77,7 +78,7 @@ public class LockAwayApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        appResources = this.getResources();
         // Initialize Crash Reporting.
         //ParseCrashReporting.enable(this);
 
@@ -92,8 +93,12 @@ public class LockAwayApplication extends Application {
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.
-         defaultACL.setPublicReadAccess(true);
+        defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
+    }
+
+    public static Resources getAppResources() {
+        return appResources;
     }
 
 

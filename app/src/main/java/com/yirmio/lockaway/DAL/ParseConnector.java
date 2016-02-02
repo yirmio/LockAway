@@ -1,7 +1,6 @@
 package com.yirmio.lockaway.DAL;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -13,6 +12,10 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
+import com.yirmio.lockaway.Interfaces.Observer;
+import com.yirmio.lockaway.Interfaces.Subject;
+import com.yirmio.lockaway.LockAwayApplication;
+import com.yirmio.lockaway.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ import java.util.List;
 /**
  * Created by yirmio on 19/07/2015.
  */
-public final class ParseConnector {
+public final class ParseConnector implements Subject{
     //DB Attributes
     private static final String PHOTO_FILE_ATTR = "PhotoFile";
     private static final String MENU_OBJECT_ATTRIBUTE = "MenuObjects";
@@ -30,6 +33,7 @@ public final class ParseConnector {
     private static ParseObject rest;
     private static String TAG = "In ParseConnector Class";
     private static boolean tmpResult = false;
+    private List<Observer> observers = new ArrayList<Observer>();
 
     public static boolean removeObjectFromOrder(final String orderID, final String objectID) {
         boolean res = true;
@@ -243,7 +247,7 @@ public final class ParseConnector {
         return false;
     }
 
-    public static int addItemToFavorite(String objectId) {
+    public  int addItemToFavorite(String objectId) {
         final int[] res = {0};
         final String fObjectId = objectId;
         final boolean[] flagContinu = {true};
@@ -259,6 +263,8 @@ public final class ParseConnector {
                         //Already in favorite
                         if (objects.size() > 0) {
                             res[0] = 2;
+                            notifyObservers(R.string.itemalreadyfavorite);
+
                         } else {
                             ParseObject newFav = new ParseObject("FavoriteObject");
                             newFav.put("UserId", ParseUser.getCurrentUser());
@@ -270,12 +276,17 @@ public final class ParseConnector {
                                         //TODO - Log...
                                         ///TODO handle exception back
                                         res[0] = 0;
+                                        notifyObservers(R.string.erroraddingitemtofavorite);
                                     }
+                                    else{
+                                        notifyObservers(R.string.itemaddedtofavorite);
+                                    }
+
                                 }
                             });
                         }
                     } else {
-                        res[0] = 0;
+                        notifyObservers(R.string.erroraddingitemtofavorite);
                     }
                 }
             });
@@ -287,6 +298,35 @@ public final class ParseConnector {
 //
 //        }
         return res[0];
+
+    }
+
+    private void notifyObservers(int msgCode) {
+        this.notifyObservers(LockAwayApplication.getAppResources().getString(msgCode));
+    }
+
+
+    @Override
+    public void registerObserver(Observer o) {
+        this.observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        this.observers.remove(o);
+
+    }
+
+    @Override
+    public void notifyObservers() {
+
+    }
+
+    @Override
+    public void notifyObservers(String msg) {
+        for (Observer ob:this.observers) {
+            ob.update(msg);
+        }
 
     }
 }

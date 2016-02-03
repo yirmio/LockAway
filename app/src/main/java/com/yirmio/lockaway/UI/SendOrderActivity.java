@@ -10,6 +10,7 @@ import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +68,8 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
     protected void onCreate(Bundle savedInstanceState) {
 //        intent.putExtra("totalPrice",this.mTotalPriceTextView.getText());
 //        intent.putExtra("totalTimeToMake",this.mTotalTimeTextView.getText());
+        //Remove title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_order);
         Bundle extras = getIntent().getExtras();

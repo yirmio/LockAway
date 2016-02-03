@@ -15,10 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
-import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.UI.util.OrderBuilderAdapter;
@@ -29,20 +27,9 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, AddMenuItemFragment.OnFragmentInteractionListener, menuListFragment.OnFragmentInteractionListener, OrderBuilderFragment.OnFragmentInteractionListener {
 
     private static final int ORDERFRAGMENTNUMBER = 1;
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+
     SectionsPagerAdapter mSectionsPagerAdapter;
     ArrayList<Fragment> fragments;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     ViewPager mViewPager;
 
     @Override
@@ -53,13 +40,11 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // remove title
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-
-
+//Remove title bar
         setContentView(R.layout.activity_main);
+
         this.fragments = new ArrayList<Fragment>();
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
@@ -185,7 +170,10 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
             OrderBuilderAdapter adapter = (OrderBuilderAdapter) ((OrderBuilderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
             adapter.clear();
-            adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
+            for (RestaurantMenuObject obj:LockAwayApplication.getUserOrder().getObjects()) {
+                adapter.add(new OrderBuilderRowLayout(obj));
+            }
+//            adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
             ((OrderBuilderFragment) fragments.get(ORDERFRAGMENTNUMBER)).updateDetails();
         }
     }
@@ -279,11 +267,11 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return "תפריט";
+                    return getString(R.string.menu);
 //                case 1:
 //                    return "הוספת פריט לתפריט";
                 case 1:
-                    return "ביצוע הזמנה";
+                    return getString(R.string.order_builder);
             }
             return null;
         }

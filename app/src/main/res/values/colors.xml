@@ -1,7 +1,9 @@
 <resources>
-
+    <color name="big_title">#d06c1d9f</color>
+    <color name="small_title">#bde5cef5</color>
+    <color name="med_title">#896c1d9f</color>
     <color name="black_overlay">#66000000</color>
-    <color name="backgroundColor">#d0d9a0ff</color>
+    <color name="backgroundColor">#f0eaf1</color>
     <color name="titleBackgroundColor">#d08d56b1</color>
 
 </resources>

@@ -63,7 +63,8 @@ public class OrderBuilderAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        OrderBuilderRowLayout item = new OrderBuilderRowLayout((RestaurantMenuObject) getItem(position));
+        //OrderBuilderRowLayout item = new OrderBuilderRowLayout((RestaurantMenuObject) getItem(position));
+        OrderBuilderRowLayout item = (OrderBuilderRowLayout)getItem(position);
         View viewToUse = null;
         final int pos = position;
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);

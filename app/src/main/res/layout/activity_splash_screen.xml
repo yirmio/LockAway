@@ -1,16 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#ffb880cc"
+    android:layout_height="match_parent"
     tools:context=".SplashScreenActivity"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:background="@color/backgroundColor">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
 
     <TextView android:id="@+id/splshScrnAfeyaSlogen" android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:keepScreenOn="true" android:textColor="#ffe5dce5"
+        android:layout_height="wrap_content" android:keepScreenOn="true" android:textColor="@color/big_title"
         android:textStyle="bold" android:textSize="50sp"
         android:text="@string/afeya_slogen"
         android:layout_gravity="center_horizontal"
@@ -37,7 +38,8 @@
         android:id="@+id/splsScrnWelcomeLabel"
         android:layout_below="@+id/splshScrnAfeyaSlogen"
         android:layout_centerHorizontal="true"
-        android:layout_weight="15" />
+        android:layout_weight="15"
+        android:textColor="@color/med_title" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,7 +48,8 @@
         android:text="@string/dumyUserName"
         android:id="@+id/splsScrnUserName"
         android:layout_marginTop="5dp"
-        android:layout_weight="20" />
+        android:layout_weight="20"
+        android:textColor="@color/med_title" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
@@ -66,7 +69,8 @@
         android:id="@+id/txtViewLoading"
         android:layout_marginBottom="15dp"
         android:layout_weight="10"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:textColor="@color/small_title" />
 
 
 </LinearLayout>

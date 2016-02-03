@@ -3,6 +3,7 @@ package com.yirmio.lockaway.UI;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class MenuObjectActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Remove title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_object);
 
@@ -118,7 +121,10 @@ LockAwayApplication.parseConector.registerObserver(this);
                 LockAwayApplication.parseConector.addItemToFavorite(objectId);
                 break;
             case R.id.mnuObjActBtnAddToOrder:
+                //TODO - do it with connector
                 LockAwayApplication.getUserOrder().addItemToOrder(resObj, true);
+                update(getString(R.string.item_addedd),this);
+                finish();
                 break;
         }
     }

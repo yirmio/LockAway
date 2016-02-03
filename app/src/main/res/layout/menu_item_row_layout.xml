@@ -1,59 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:longClickable="false"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColor"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/menu_item_photo"
-        android:layout_centerVertical="true"
+    <com.parse.ParseImageView
+        android:id="@+id/menu_item_icon"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:src="@drawable/afeyalogo"
+        android:longClickable="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp"
-        android:background="@color/backgroundColor">
-
-        <com.parse.ParseImageView
-            android:id="@+id/menu_item_icon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/afeyalogo"
-            android:longClickable="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:background="@color/backgroundColor">
-        </com.parse.ParseImageView>
-    </LinearLayout>
+        android:background="@color/backgroundColor"
+        android:layout_margin="2dp">
+    </com.parse.ParseImageView>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/menu_item_info"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/menu_item_plus_btn"
-        android:layout_toRightOf="@+id/menu_item_photo"
-        android:layout_toEndOf="@+id/menu_item_photo"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_margin="10dp"
-        android:background="@color/backgroundColor">
+        android:background="@color/backgroundColor"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/menu_item_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@+id/label"
+            android:text="@string/title"
             android:textSize="@dimen/abc_text_size_title_material"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/menu_item_icon"
-            android:layout_toEndOf="@+id/menu_item_icon"
             android:textStyle="bold"
-            android:longClickable="false">
+            android:longClickable="false"
+            android:textColor="@color/big_title">
         </TextView>
 
         <TextView
@@ -61,13 +48,15 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Description"
-            android:id="@+id/menu_item_description_lable" />
+            android:id="@+id/menu_item_description_lable"
+            android:textColor="@color/med_title" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/price">
+            android:id="@+id/price"
+            android:gravity="center_vertical">
 
             <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
@@ -89,9 +78,16 @@
                 android:id="@+id/menu_item_price_value"
                 android:drawableLeft="@drawable/ic_action_money"
                 android:longClickable="false"
-                android:layout_below="@+id/menu_item_label"
-                android:layout_toRightOf="@+id/menu_item_price_lable"
-                android:layout_toEndOf="@+id/menu_item_price_lable" />
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/menu_item_time_value"
+                android:drawableLeft="@drawable/ic_hourglass_empty_black_24dp"
+                android:longClickable="false"
+                android:gravity="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -114,22 +110,12 @@
                 <!--android:layout_toRightOf="@+id/menu_item_icon"-->
                 <!--android:layout_toEndOf="@+id/menu_item_icon" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/menu_item_time_value"
-                android:drawableLeft="@drawable/ic_hourglass_empty_black_24dp"
-                android:longClickable="false"
-                android:layout_alignTop="@+id/menu_item_time_lable"
-                android:layout_toRightOf="@+id/menu_item_time_lable"
-                android:layout_toEndOf="@+id/menu_item_time_lable" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/menu_item_icons"
             android:layout_gravity="bottom"
             android:gravity="bottom">
@@ -158,11 +144,8 @@
         android:layout_height="wrap_content"
         android:text="+"
         android:id="@+id/menu_item_plus_btn"
-        android:layout_gravity="center_vertical"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="5dp"
-        android:background="@color/backgroundColor" />
+        android:background="@color/backgroundColor"
+        android:gravity="center"
+        android:textColor="@color/button_material_dark" />
 
-</RelativeLayout>
+</LinearLayout>

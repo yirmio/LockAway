@@ -4,4 +4,6 @@
     <string name="parse_user_phone_number">PhoneNumber</string>
     <string name="parse_user_is_veg">isVeg</string>
     <string name="parse_user_is_gloten">isGloten</string>
+    <string name="menu">Menu</string>
+    <string name="order_builder">Order Builder</string>
 </resources>

@@ -2,6 +2,7 @@ package com.yirmio.lockaway.BL;
 
 import com.parse.ParseFile;
 import com.yirmio.lockaway.UI.MenuListRowLayoutItem;
+import com.yirmio.lockaway.UI.OrderBuilderRowLayout;
 
 /**
  * Created by yirmio on 1/9/2015.
@@ -37,6 +38,19 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
         this.description = item.getInfo();
         this.isVeg = item.isVeg();
         this.isGlootenFree = item.isGlotenFree();
+        this.id = item.getId();
+    }
+    public RestaurantMenuObject(OrderBuilderRowLayout item){
+        this.price = item.getPrice();
+        this.title = item.getLable();
+        this.timeToMake = item.getTimeToMake();
+        this.pic = item.getPhotoParseFile();
+        //TODO handle type
+        //this.type = item.get;
+        this.isReady = false;
+        //this.description = item.getInfo();
+//        this.isVeg = item.isVeg();
+//        this.isGlootenFree = item.isGlotenFree();
         this.id = item.getId();
     }
 

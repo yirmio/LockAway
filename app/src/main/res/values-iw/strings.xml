@@ -44,4 +44,7 @@
     <string name="parse_user_is_gloten">isGloten</string>
     <string name="displayName">שם מלא (לתצוגה)</string>
     <string name="errorSignupEmailTaken">הכתובת שבחרת כבר תפוסה</string>
+    <string name="menu">תפריט</string>
+    <string name="order_builder">הזמנה פעילה</string>
+    <string name="action_settings">הגדרות</string>
 </resources>

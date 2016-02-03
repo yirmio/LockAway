@@ -5,7 +5,10 @@
 
     <ListView android:id="@android:id/list" android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgroundColor" />
+        android:background="@color/backgroundColor"
+        android:dividerHeight="2dp"
+        android:divider="@color/secondary_text_disabled_material_dark"
+        android:layout_margin="0dp" />
 
     <TextView android:id="@android:id/empty" android:layout_width="match_parent"
         android:layout_height="match_parent" android:gravity="center" />

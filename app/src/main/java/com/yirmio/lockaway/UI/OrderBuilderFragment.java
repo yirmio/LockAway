@@ -30,7 +30,7 @@ import java.util.ArrayList;
  * Use the {@link OrderBuilderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrderBuilderFragment extends Fragment {
+public class OrderBuilderFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,7 +41,7 @@ public class OrderBuilderFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private ArrayList orderList;
+    private ArrayList<OrderBuilderRowLayout> orderList;
     private UserOrder userOrder;
     private LockAwayApplication app;
     private OrderBuilderAdapter mAdapter;
@@ -49,6 +49,7 @@ public class OrderBuilderFragment extends Fragment {
     private TextView mTotalPriceTextView;
     private TextView mTotalTimeTextView;
     private Button mSendBtn;
+    private Button mClearAllBtn;
 
     //region Ctor
 
@@ -95,7 +96,7 @@ public class OrderBuilderFragment extends Fragment {
                 orderList.add(new OrderBuilderRowLayout(obj));
             }
         }
-        mAdapter = new OrderBuilderAdapter(getActivity(), R.layout.order_builder_item_layout, orderList,this);
+        mAdapter = new OrderBuilderAdapter(getActivity(), R.layout.order_builder_item_layout, orderList, this);
 
         //mListView = (AbsListView)getView().findViewById(R.id.user_order_listView);
         //((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
@@ -114,8 +115,6 @@ public class OrderBuilderFragment extends Fragment {
         mListView.setAdapter(mAdapter);
 
 
-
-
         //Update Bottom Details
         mTotalPriceTextView = (TextView) view.findViewById(R.id.usrOrderFrgmntTxtViewTotalPriceValue);
         mTotalTimeTextView = (TextView) view.findViewById(R.id.usrOrderFrgmntTxtViewTotalTimeValue);
@@ -126,6 +125,8 @@ public class OrderBuilderFragment extends Fragment {
                 sendCurrentOrder();
             }
         });
+        mClearAllBtn = (Button) view.findViewById(R.id.frgmnt_user_order_btn_clear);
+        mClearAllBtn.setOnClickListener(this);
         updateDetails();
         return view;
     }
@@ -140,12 +141,12 @@ public class OrderBuilderFragment extends Fragment {
 
     private void sendCurrentOrder() {
         //Open sendOrderActivity
-        Intent intent = new Intent(this.getActivity(),SendOrderActivity.class);
+        Intent intent = new Intent(this.getActivity(), SendOrderActivity.class);
 
-        intent.putExtra("totalPrice",this.mTotalPriceTextView.getText().toString());
-        intent.putExtra("totalTimeToMake",this.mTotalTimeTextView.getText());
-        intent.putExtra("itemsCount",String.valueOf(this.orderList.size()));
-        intent.putExtra("OrderID",userOrder.getOrderId());
+        intent.putExtra("totalPrice", this.mTotalPriceTextView.getText().toString());
+        intent.putExtra("totalTimeToMake", this.mTotalTimeTextView.getText());
+        intent.putExtra("itemsCount", String.valueOf(this.orderList.size()));
+        intent.putExtra("OrderID", userOrder.getOrderId());
         startActivity(intent);
 
     }
@@ -180,28 +181,25 @@ public class OrderBuilderFragment extends Fragment {
 
         if (app.getUserOrder() != null) {
             if (app.getUserOrder().getObjects() != null) {
+//                for (OrderBuilderRowLayout ob : orderList) {
+//                    app.getUserOrder().removeItemFromOrder(ob.getId());
+//                }
                 orderList.clear();
-                orderList.addAll(app.getUserOrder().getObjects());
+                if (app.getUserOrder().getObjects().size() > 0) {
+                    for (RestaurantMenuObject o : app.getUserOrder().getObjects()) {
+                        orderList.add(new OrderBuilderRowLayout(o));
+                    }
+                }
+//                orderList.addAll(app.getUserOrder().getObjects());
                 mAdapter.notifyDataSetChanged();
             }
         }
-        /*if (app.getUserOrder() != null) {
-            if (orderList.size() < app.getUserOrder().getObjects().size()){
-                orderList = new ArrayList();
-                for (RestaurantMenuObject obj :
-                        app.getUserOrder().getObjects()) {
-                    orderList.add(new OrderBuilderRowLayout(obj));
-                }
-                mAdapter = new OrderBuilderAdapter(getActivity(),orderList);
-
-            }
-        }*/
         mListView.invalidate();
     }
 
     public void onXButtonClicked(int pos) {
 
-        RestaurantMenuObject item = (RestaurantMenuObject) orderList.get(pos);
+        RestaurantMenuObject item = new RestaurantMenuObject(orderList.get(pos));
         MenuListRowLayoutItem tmpItem = new MenuListRowLayoutItem(item);
         mListener.onFragmentInteraction(item.getId(), app.GetOrderID(), "remove");
         mListener.onFragmentInteraction(tmpItem, "remove");
@@ -211,9 +209,33 @@ public class OrderBuilderFragment extends Fragment {
 
         Toast.makeText(getActivity(), getString(R.string.item_removed), Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.frgmnt_user_order_btn_clear:
+                clearAllItems();
+                break;
+        }
+    }
+
+    private void clearAllItems() {
+        if (app.getUserOrder() != null) {
+            if (app.getUserOrder().getObjects() != null) {
+                for (OrderBuilderRowLayout ob : orderList) {
+                    app.getUserOrder().removeItemFromOrder(ob.getId());
+                }
+                orderList.clear();
+                mAdapter.notifyDataSetChanged();
+                updateDetails();
+            }
+        }
+    }
+
     public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(String itemID, String orderID,String opp);
-        public void onFragmentInteraction(MenuListRowLayoutItem item,String opp);
+        public void onFragmentInteraction(String itemID, String orderID, String opp);
+
+        public void onFragmentInteraction(MenuListRowLayoutItem item, String opp);
     }
 
 }

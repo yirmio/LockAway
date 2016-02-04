@@ -149,6 +149,10 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         //Register Location Change
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);//TODO - change params before release
 
+        //Open new Activity
+        Intent intent = new Intent(SendOrderActivity.this,OrderStatusActivity.class);
+        startActivity(intent);
+
     }
 
 

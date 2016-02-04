@@ -48,6 +48,10 @@
     <string name="order_builder">הזמנה פעילה</string>
     <string name="action_settings">הגדרות</string>
     <string name="shopping_cart">ההזמנה שלי</string>
+    <string name="iamlate">תמתינו, אני מאחר!</string>
+    <string name="take_me_to_resturant">נווט למסעדה</string>
+    <string name="eta">זמן הגעה משוער</string>
+    <string name="your_order_code">קוד ההזמנה שלך הוא: </string>
 
 
 </resources>

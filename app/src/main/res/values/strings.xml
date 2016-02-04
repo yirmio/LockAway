@@ -54,4 +54,8 @@
     <string name="menu">Menu</string>
     <string name="order_builder">Order Builder</string>
     <string name="shopping_cart">Shopping Cart</string>
+    <string name="iamlate">I Am Late...</string>
+    <string name="take_me_to_resturant">Navigate To The Resturant</string>
+    <string name="eta">ETA</string>
+    <string name="your_order_code">Your Order Code Is:</string>
 </resources>

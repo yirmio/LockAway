@@ -6,4 +6,5 @@
     <string name="parse_user_is_gloten">isGloten</string>
     <string name="menu">Menu</string>
     <string name="order_builder">Order Builder</string>
+    <string name="shopping_cart">Shopping Cart</string>
 </resources>

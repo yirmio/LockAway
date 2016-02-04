@@ -7,20 +7,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.UI.util.OrderBuilderAdapter;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -31,11 +36,13 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     SectionsPagerAdapter mSectionsPagerAdapter;
     ArrayList<Fragment> fragments;
     ViewPager mViewPager;
+    private TextView ui_cart_badge = null;
 
     @Override
     protected void onResume() {
         super.onResume();
         refreshOrderBuilderFragment();
+        updateCartBadge();
     }
 
     @Override
@@ -84,10 +91,49 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+//TODO - handle all add and remove actions to update badge
+        getMenuInflater().inflate(R.menu.menu_actionbar, menu);
+        MenuItem item = menu.findItem(R.id.menu_action_with_cart);//the menu
+        MenuItemCompat.setActionView(item,R.layout.action_bar_notifitcation_icon);
+        View actionBarMenu = MenuItemCompat.getActionView(item);
+        ui_cart_badge = (TextView) actionBarMenu.findViewById(R.id.cart_counter); //the badge
+        updateCartBadge();
+        return super.onCreateOptionsMenu(menu);
     }
+
+    private void updateCartBadge() {
+        final int size = LockAwayApplication.getUserOrder().getObjects().size();
+        if (ui_cart_badge == null) return;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (size == 0) {
+                    ui_cart_badge.setVisibility(View.INVISIBLE);
+                } else {
+                    ui_cart_badge.setVisibility(View.VISIBLE);
+                    ui_cart_badge.setText(String.valueOf(size));
+                }
+            }
+        });
+    }
+
+    @Override
+    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+        if (menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod(
+                            "setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+                } catch (Exception e) {
+                    Log.e(getClass().getSimpleName(), "onMenuOpened...unable to set icons for overflow menu", e);
+                }
+            }
+        }
+        return super.onPrepareOptionsPanel(view, menu);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -97,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.app_menue_cart) {
             return true;
         }
 
@@ -143,9 +189,9 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     @Override
     public void onFragmentInteraction(String id, String opp) {
         //TODO use const
-        if (opp.contains("showobject")){
-            Intent intent = new Intent(MainActivity.this,MenuObjectActivity.class);
-            intent.putExtra("objectId",id);
+        if (opp.contains("showobject")) {
+            Intent intent = new Intent(MainActivity.this, MenuObjectActivity.class);
+            intent.putExtra("objectId", id);
             startActivity(intent);
         }
     }
@@ -170,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         if (fragments.size() >= ORDERFRAGMENTNUMBER + 1) {
             OrderBuilderAdapter adapter = (OrderBuilderAdapter) ((OrderBuilderFragment) fragments.get(ORDERFRAGMENTNUMBER)).getmAdapter();
             adapter.clear();
-            for (RestaurantMenuObject obj:LockAwayApplication.getUserOrder().getObjects()) {
+            for (RestaurantMenuObject obj : LockAwayApplication.getUserOrder().getObjects()) {
                 adapter.add(new OrderBuilderRowLayout(obj));
             }
 //            adapter.addAll(LockAwayApplication.getUserOrder().getObjects());

@@ -38,6 +38,9 @@ public class MenuObjectActivity extends AppCompatActivity implements View.OnClic
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        // Enable up icon
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_menu_object);
 
         //TODO - get objectid from bundle

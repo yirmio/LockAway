@@ -47,4 +47,5 @@
     <string name="menu">תפריט</string>
     <string name="order_builder">הזמנה פעילה</string>
     <string name="action_settings">הגדרות</string>
+    <string name="shopping_cart">ההזמנה שלי</string>
 </resources>

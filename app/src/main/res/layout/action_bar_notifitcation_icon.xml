@@ -10,30 +10,36 @@
 
     <ImageView
         android:id="@+id/hotlist_cart"
-        android:src="@drawable/ic_play_dark"
+        android:src="@drawable/ic_action_cart_white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_margin="0dp"
         android:contentDescription="shopping_cart"
-        />
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="false" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/cart_counter"
         android:layout_width="wrap_content"
         android:minWidth="17sp"
         android:textSize="12sp"
-        android:textColor="#ff0000"
+        android:textColor="#e4afff"
         android:layout_height="wrap_content"
         android:text="@null"
-        android:layout_alignTop="@id/hotlist_cart"
         android:layout_marginRight="0dp"
         android:layout_marginTop="3dp"
         android:paddingBottom="1dp"
         android:paddingRight="4dp"
         android:paddingLeft="4dp"
-        android:gravity="top|left"
-        android:layout_alignLeft="@+id/hotlist_cart" />
+        android:layout_alignLeft="@+id/hotlist_cart"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:textStyle="bold"
+        android:background="#93008c"
+        android:shadowColor="#87668d"
+        android:layout_alignBottom="@+id/hotlist_cart"
+        android:gravity="center" />
 
     <!--android:background="@drawable/rounded_square"/>-->
 </RelativeLayout>

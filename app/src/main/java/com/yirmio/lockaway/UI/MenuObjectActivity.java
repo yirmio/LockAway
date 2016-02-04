@@ -1,7 +1,9 @@
 package com.yirmio.lockaway.UI;
 
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -137,5 +139,28 @@ LockAwayApplication.parseConector.registerObserver(this);
         if (ob == this){
             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            // This is the up button
+
+            case android.R.id.home:
+
+                NavUtils.navigateUpFromSameTask(this);
+
+                // overridePendingTransition(R.animator.anim_left, R.animator.anim_right);
+
+                return true;
+
+            default:
+
+                return super.onOptionsItemSelected(item);
+
+        }
+
     }
 }

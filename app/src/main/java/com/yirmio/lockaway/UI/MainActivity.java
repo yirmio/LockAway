@@ -222,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 //            adapter.addAll(LockAwayApplication.getUserOrder().getObjects());
             ((OrderBuilderFragment) fragments.get(ORDERFRAGMENTNUMBER)).updateDetails();
         }
+        updateCartBadge();
     }
 
     /**

@@ -52,7 +52,11 @@
         <activity android:name=".UI.LoginActivity"></activity>
         <activity android:name=".UI.WelcomeActivity" />
         <activity android:name=".UI.util.UserStatusLauncher"></activity>
-        <activity android:name=".UI.MenuObjectActivity"></activity>
+        <activity android:name=".UI.MenuObjectActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yirmio.lockaway.UI.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

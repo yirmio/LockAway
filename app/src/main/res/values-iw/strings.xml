@@ -8,7 +8,7 @@
     <string name="confirm_order">מאשר ההזמנה</string>
     <string name="item_addedd">הפריט נוסף בהצלחה להזמנה</string>
     <string name="current_address">כתובת נוכחית</string>
-    <string name="order_confirmed">ההזמנה התקבלה</string>
+    <string name="order_confirmed">ההזמנה התקבלה בהצלחה</string>
     <string name="login">כניסה</string>
     <string name="signUp">הרשמה</string>
     <string name="username">שם משתמש</string>
@@ -52,4 +52,5 @@
     <string name="take_me_to_resturant">נווט למסעדה</string>
     <string name="eta">זמן הגעה משוער</string>
     <string name="your_order_code">קוד ההזמנה שלך הוא: </string>
+    <string name="order_status_icon">Order Status Icon</string>
 </resources>

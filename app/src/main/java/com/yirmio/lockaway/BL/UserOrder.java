@@ -14,6 +14,7 @@ public class UserOrder {
     private List<RestaurantMenuObject> objects;
     private int totalPrice;
     private int totalTimeToMake;
+    private String ETA;
 
     //endregion
 
@@ -120,6 +121,14 @@ public class UserOrder {
         this.totalPrice -= tmpObj.getPrice();
         this.totalTimeToMake -= tmpObj.getTimeToMake();
         this.objects.remove(tmpObj);
+    }
+
+    public String getETA() {
+        return ETA;
+    }
+
+    public void setETA(String ETA) {
+        this.ETA = ETA;
     }
 
 

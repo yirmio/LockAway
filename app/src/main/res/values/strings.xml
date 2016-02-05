@@ -58,4 +58,5 @@
     <string name="take_me_to_resturant">Navigate To The Resturant</string>
     <string name="eta">ETA</string>
     <string name="your_order_code">Your Order Code Is:</string>
+    <string name="order_status_icon">Order Status Icon</string>
 </resources>

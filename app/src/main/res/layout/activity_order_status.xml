@@ -91,11 +91,12 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView5"
+            android:id="@+id/orderStatusImgViewStatusBigIcon"
             android:src="@drawable/afeyalogo"
             android:layout_above="@+id/orderStatusBtnAction"
             android:layout_alignParentStart="false"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/order_status_icon" />
 
     </RelativeLayout>
 

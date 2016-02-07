@@ -15,6 +15,9 @@ import com.yirmio.lockaway.BL.UserOrder;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 public class OrderStatusActivity extends Activity implements View.OnClickListener {
 
     private TextView txtViewETAValue;
@@ -48,11 +51,13 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
     }
 
     private void updateDataInUI() {
+//        DateTimeFormatter dFmtr = DateTimeFormat.forPattern("HH:mm");
         String curETA = curOrder.getETA();
         if (curETA == null || curETA.length() == 0){
 //            LockAwayApplication;
         }
-        this.txtViewETAValue.setText(curETA);//TODO - insert info into field
+//        mETAValueTxtView.setText(localDateTime.toString(dFmtr));
+        this.txtViewETAValue.setText(curETA);
         this.txtViewOrderCode.append(curOrder.getOrderId());
         //TODO - continue add info to ui
     }

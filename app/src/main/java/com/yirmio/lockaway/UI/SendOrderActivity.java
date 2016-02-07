@@ -144,7 +144,7 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
 
     private void orderSavedSuccess(String s) {
         //Update local BL
-        LockAwayApplication.getUserOrder().setETA(lastETATime.toString());
+        LockAwayApplication.getUserOrder().setETA(lastETAStr);
 
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
         this.mSendBtn.setText(R.string.order_confirmed);

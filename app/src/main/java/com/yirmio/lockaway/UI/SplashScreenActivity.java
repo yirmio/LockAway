@@ -141,6 +141,7 @@ public class SplashScreenActivity extends Activity {
         protected Void doInBackground(Void... voids) {
             LockAwayApplication app = ((LockAwayApplication) getApplicationContext());
             ParseConnector con = LockAwayApplication.parseConector;
+            con.initConnector(AFEYA_KSUMA_ID);
             con.setRestaurantID(AFEYA_KSUMA_ID);
 
             //Set Store

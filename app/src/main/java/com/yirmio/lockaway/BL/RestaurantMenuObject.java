@@ -13,7 +13,7 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     private String title;
     private int timeToMake;
     private ParseFile pic;
-    private String type;
+    private MenuItemTypesEnum type;
     private boolean isReady;
     private String description;
     private boolean isVeg;
@@ -54,7 +54,7 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
         this.id = item.getId();
     }
 
-    public RestaurantMenuObject(String itemID, String desc, float price, String title, int timeToMake, ParseFile pic, String type,boolean isVeg, boolean isGlootenFree) {
+    public RestaurantMenuObject(String itemID, String desc, float price, String title, int timeToMake, ParseFile pic, MenuItemTypesEnum type, boolean isVeg, boolean isGlootenFree) {
 
         this.price = price;
         this.title = title;
@@ -105,7 +105,7 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     public void setIsReady(boolean isReady) {
         this.isReady = isReady;
     }
-    public String getType() {
+    public MenuItemTypesEnum getType() {
         return type;
     }
     public float getPrice() {
@@ -144,9 +144,10 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
         this.pic = pic;
     }
 
-    public void setType(String type) {
+    public void setType(MenuItemTypesEnum type) {
         this.type = type;
     }
+    public void setType(String type){this.type = MenuItemTypesEnum.valueOf(type);}
     //endregion
 
     //region Overrides

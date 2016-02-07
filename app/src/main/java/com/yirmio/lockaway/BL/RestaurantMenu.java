@@ -10,6 +10,10 @@ public class RestaurantMenu {
     private List<RestaurantMenuObject> itemsOnSale;
     private List<RestaurantMenuObject> specials;
     private List<RestaurantMenuObject> allItems;
+    private List<RestaurantMenuObject> sanwiches;
+    private List<RestaurantMenuObject> salads;
+    private List<RestaurantMenuObject> breakFasts;
+
 
     public RestaurantMenu() {
         this.drinks = new ArrayList<RestaurantMenuObject>();
@@ -18,6 +22,9 @@ public class RestaurantMenu {
         this.itemsOnSale = new ArrayList<RestaurantMenuObject>();
         this.specials = new ArrayList<RestaurantMenuObject>();
         this.allItems = new ArrayList<RestaurantMenuObject>();
+        this.sanwiches = new ArrayList<RestaurantMenuObject>();
+        this.salads = new ArrayList<RestaurantMenuObject>();
+        this.breakFasts = new ArrayList<RestaurantMenuObject>();
 
     }
 
@@ -28,29 +35,46 @@ public class RestaurantMenu {
      * @return True - if succeeded
      */
 public boolean addItemToMenu(RestaurantMenuObject mnuItm){
-    try {
-        /*switch (mnuItm.getType()) {
-            case Drinks:
-                this.drinks.add(mnuItm);
-                break;
-            case Cakes:
-                this.cakes.add(mnuItm);
-                break;
-            case Extras:
-                this.extras.add(mnuItm);
-                break;
-            case Specials:
-                this.specials.add(mnuItm);
-                break;
-            case OnSale:
-                this.itemsOnSale.add(mnuItm);
-                break;
-        }*/
-        this.allItems.add(mnuItm);
+    if (mnuItm.getType() != null) {
+        try {
+            switch (mnuItm.getType()) {
+                case Drinks:
+                    this.drinks.add(mnuItm);
+                    break;
+                case Cakes:
+                    this.cakes.add(mnuItm);
+                    break;
+                case Extras:
+                    this.extras.add(mnuItm);
+                    break;
+                case Specials:
+                    this.specials.add(mnuItm);
+                    break;
+                case OnSale:
+                    this.itemsOnSale.add(mnuItm);
+                    break;
+                case Sandwiches:
+                    this.sanwiches.add(mnuItm);
+                    break;
+                case Salads:
+                    this.salads.add(mnuItm);
+                    break;
+                case BreakFasts:
+                    this.breakFasts.add(mnuItm);
+                    break;
 
-    }
-    catch (Exception e){
-        return  false;
+                default:
+                    this.allItems.add(mnuItm);
+                    break;
+            }
+
+
+        }
+        catch (Exception e){
+            return  false;
+        }
+    } else {
+        this.allItems.add(mnuItm);
     }
 
     return true;

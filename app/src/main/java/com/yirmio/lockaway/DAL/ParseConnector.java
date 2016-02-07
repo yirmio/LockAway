@@ -10,6 +10,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.yirmio.lockaway.BL.GlobalConsts;
+import com.yirmio.lockaway.BL.MenuItemTypesEnum;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.Store;
@@ -19,6 +21,7 @@ import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,12 +32,49 @@ public final class ParseConnector implements Subject {
     private static final String PHOTO_FILE_ATTR = "PhotoFile";
     private static final String MENU_OBJECT_ATTRIBUTE = "MenuObjects";
     private static final String STORE_ID_ATTRIBUTE = "StoreID";
+    private static HashMap<String, MenuItemTypesEnum> objectsTypesToId = new HashMap<>();
 
 
     private static ParseObject rest;
     private static String TAG = "In ParseConnector Class";
     private static boolean tmpResult = false;
     private List<Observer> observers = new ArrayList<Observer>();
+
+    public boolean initConnector(String storeId) {
+        boolean res = true;
+        //TODO - implement it....
+initObjectTypes();
+
+        return res;
+
+
+    }
+
+    //query all object types and init hash map
+    public boolean initObjectTypes() {
+        boolean res = true;
+        String tmpStr;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConsts.MenuObjectTypes);
+        try {
+            List<ParseObject> objects = query.find();
+            if (objects.size() > 0) {
+                for (ParseObject o : objects) {
+                    tmpStr = o.getString(GlobalConsts.MenuObjectTypes_TypeName);
+                    if (tmpStr != null) {
+                        objectsTypesToId.put(o.getObjectId(), MenuItemTypesEnum.valueOf(tmpStr));
+                    }
+                }
+
+            } else {
+                res = false;
+            }
+        } catch (ParseException e) {
+            res = false;
+        }
+
+
+        return res;
+    }
 
     public boolean removeObjectFromOrder(final String orderID, final String objectID) {
         boolean res = true;
@@ -206,17 +246,18 @@ public final class ParseConnector implements Subject {
             boolean isVeg = obj.getBoolean("Veg");
             boolean isGlotenFree = obj.getBoolean("GlotenFree");
             String id = obj.getObjectId();
-            String type;
-            //TODO handle real type
-            if (obj.getParseObject("Type") != null) {
-                type = (obj.getParseObject("Type")).getString("TypeName");
-            } else {
-                type = "No Type";
-            }
+            MenuItemTypesEnum type = objectsTypesToId.get(obj.getString(GlobalConsts.MenuItemTypeId));
+
+//            //TODO handle real type
+//            if (obj.getParseObject("Type") != null) {
+//                type = (obj.getParseObject("Type")).getString("TypeName");
+//            } else {
+//                type = "No Type";
+//            }
             boolean isReady = false;
 
             //Get First Image for object
-            //TODO - add spinner maybe....
+
             List<ParseFile> tmpFilesArray = getImagesFilesForObject(obj.getObjectId(), 1);
             ParseFile tmpFile = null;
             if (tmpFilesArray != null) {

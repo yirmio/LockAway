@@ -1,6 +1,8 @@
 package com.yirmio.lockaway.UI;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,7 +48,11 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
     }
 
     private void updateDataInUI() {
-        this.txtViewETAValue.setText(curOrder.getETA());//TODO - insert info into field
+        String curETA = curOrder.getETA();
+        if (curETA == null || curETA.length() == 0){
+//            LockAwayApplication;
+        }
+        this.txtViewETAValue.setText(curETA);//TODO - insert info into field
         this.txtViewOrderCode.append(curOrder.getOrderId());
         //TODO - continue add info to ui
     }
@@ -63,7 +69,7 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
         this.btnAction = (Button) findViewById(R.id.orderStatusBtnAction);
         this.btnAction.setOnClickListener(this);
 
-        this.imgViewOrderStatusBigIcon = (ImageView)findViewById(R.id.orderStatusImgViewStatusBigIcon);
+        this.imgViewOrderStatusBigIcon = (ImageView)findViewById(R.id.orderStatusImgViewStatusBigIcon);//TODO - change by order status
 
 
     }
@@ -75,7 +81,8 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
                 //TODO navigate
                 break;
             case R.id.orderStatusBtnCallResturant:
-                //TODO - call resturant
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + LockAwayApplication.getStore().getPhoneNumber()));
+                startActivity(intent);
                 break;
             case R.id.orderStatusBtnAction:
                 ///TODO - handle action

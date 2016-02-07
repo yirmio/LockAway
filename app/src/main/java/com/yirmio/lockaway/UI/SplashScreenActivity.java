@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.parse.ParseUser;
 import com.yirmio.lockaway.BL.RestaurantMenu;
+import com.yirmio.lockaway.BL.Store;
 import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
@@ -139,10 +140,13 @@ public class SplashScreenActivity extends Activity {
         @Override
         protected Void doInBackground(Void... voids) {
             LockAwayApplication app = ((LockAwayApplication) getApplicationContext());
-
-            //Load Menu
             ParseConnector con = LockAwayApplication.parseConector;
             con.setRestaurantID(AFEYA_KSUMA_ID);
+
+            //Set Store
+            app.setStore(con.getStore(AFEYA_KSUMA_ID));
+
+            //Load Menu
             RestaurantMenu restMenu = con.getMenu();
             app.setRestaurantMenu(restMenu);
             return null;

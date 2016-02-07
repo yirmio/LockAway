@@ -12,6 +12,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
+import com.yirmio.lockaway.BL.Store;
 import com.yirmio.lockaway.Interfaces.Observer;
 import com.yirmio.lockaway.Interfaces.Subject;
 import com.yirmio.lockaway.LockAwayApplication;
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * Created by yirmio on 19/07/2015.
  */
-public final class ParseConnector implements Subject{
+public final class ParseConnector implements Subject {
     //DB Attributes
     private static final String PHOTO_FILE_ATTR = "PhotoFile";
     private static final String MENU_OBJECT_ATTRIBUTE = "MenuObjects";
@@ -249,7 +250,7 @@ public final class ParseConnector implements Subject{
         return false;
     }
 
-    public  int addItemToFavorite(String objectId) {
+    public int addItemToFavorite(String objectId) {
         final int[] res = {0};
         final String fObjectId = objectId;
         final boolean[] flagContinu = {true};
@@ -279,8 +280,7 @@ public final class ParseConnector implements Subject{
                                         ///TODO handle exception back
                                         res[0] = 0;
                                         notifyObservers(R.string.erroraddingitemtofavorite);
-                                    }
-                                    else{
+                                    } else {
                                         notifyObservers(R.string.itemaddedtofavorite);
                                     }
 
@@ -326,9 +326,27 @@ public final class ParseConnector implements Subject{
 
     @Override
     public void notifyObservers(String msg) {
-        for (Observer ob:this.observers) {
-            ob.update(msg,ob);
+        for (Observer ob : this.observers) {
+            ob.update(msg, ob);
         }
 
+    }
+
+    public Store getStore(String restID) {
+        Store loadedStore = null;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Stores");
+        query.whereEqualTo("objectId", restID);
+        try {
+            List<ParseObject> stores = query.find();
+            rest = stores.get(0);
+            loadedStore = new Store();
+            loadedStore.setPhoneNumber(rest.getString("PhoneNumber"));
+            //TODO add more info....
+        } catch (ParseException e) {
+            //TODO handle....
+        }
+
+
+        return loadedStore;
     }
 }

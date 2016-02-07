@@ -23,6 +23,7 @@ public class Store implements Parcelable {
     private String displayName;//In Hebrew
     private String webStirUrl;
     private String address;
+    private String phoneNumber;
 
     public String getTelephone() {
         return telephone;
@@ -153,4 +154,12 @@ public class Store implements Parcelable {
             return new Store[size];
         }
     };
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 }

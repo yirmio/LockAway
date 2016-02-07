@@ -16,6 +16,7 @@ public class UserOrder {
     private int totalTimeToMake;
     private String ETA;
 
+
     //endregion
 
 
@@ -130,6 +131,8 @@ public class UserOrder {
     public void setETA(String ETA) {
         this.ETA = ETA;
     }
+
+
 
 
     //endregion

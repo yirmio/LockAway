@@ -120,10 +120,12 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         //var orderID,userETA;
         HashMap<String, Object> dict = new HashMap<String, Object>();
         dict.put("orderID", this.orderID);
+        //TODO - check why this way....
         if (this.lastETATime != null) {
             dict.put("userETA", lastETATime.toString());
         } else {
             dict.put("userETA",newETATime.toString());
+            lastETATime = newETATime;
         }
         Toast.makeText(this.getApplicationContext(), "Conecting to cloud", Toast.LENGTH_SHORT).show();
 
@@ -131,7 +133,7 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
             @Override
             public void done(Object o, ParseException e) {
                 if (e != null) {
-                    Toast.makeText(getApplicationContext(), "Error Saving Order " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Error Saving Order " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
 
                     orderSavedSuccess(o.toString());
@@ -141,8 +143,10 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
     }
 
     private void orderSavedSuccess(String s) {
+        //Update local BL
+        LockAwayApplication.getUserOrder().setETA(lastETATime.toString());
 
-        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
         this.mSendBtn.setText(R.string.order_confirmed);
         this.mSendBtn.setEnabled(false);
 
@@ -265,6 +269,8 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
 
 
         if (ETANeedUpdate(newETATime)) {
+            //Update local Order BL
+            LockAwayApplication.getUserOrder().setETA(lastETATime.toString());
             //Send To Cloud
             HashMap<String, Object> dict = new HashMap<String, Object>();
             dict.put("orderID", this.orderID);

@@ -11,6 +11,7 @@ import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.yirmio.lockaway.BL.RestaurantMenu;
+import com.yirmio.lockaway.BL.Store;
 import com.yirmio.lockaway.BL.UserOrder;
 import com.yirmio.lockaway.DAL.ParseConnector;
 
@@ -27,6 +28,8 @@ public class LockAwayApplication extends Application {
     public static LatLng AfeyaLatLang = new LatLng(32.0831538, 34.9435619);
     private static ParseUser curParseUser;
     private static Resources appResources;
+    private static Store curStore;
+
 
     public static RestaurantMenu getRestaurantMenu() {
         return restaurantMenu;
@@ -35,6 +38,12 @@ public class LockAwayApplication extends Application {
     public static void setRestaurantMenu(RestaurantMenu restMenu) {
         restaurantMenu = restMenu;
     }
+
+    public static Store getStore() {
+        return curStore;
+    }
+
+    ;
 
     public static String GetOrderID() {
         String idToReturn = null;
@@ -102,4 +111,7 @@ public class LockAwayApplication extends Application {
     }
 
 
+    public void setStore(Store store) {
+        this.curStore = store;
+    }
 }

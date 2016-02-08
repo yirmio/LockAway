@@ -4,10 +4,41 @@ package com.yirmio.lockaway.BL;
  * Created by yirmio on 2/10/2015.
  */
 public enum MenuItemTypesEnum {
-Drinks,Cakes,Extras,Specials,OnSale,Sandwiches,Salads,BreakFasts
+    Drinks, Cakes, Extras, Specials, OnSale, Sandwiches, Salads, BreakFasts;
+
+    public static MenuItemTypesEnum getTypeFromInt(int position) {
+//TODO - implement
+        switch (position) {
+            case 0:
+                return Drinks;
+
+            case 1:
+                return Cakes;
+
+            case 2:
+                return Extras;
+
+            case 3:
+                return Specials;
+
+            case 4:
+                return OnSale;
+
+            case 5:
+                return Sandwiches;
+
+            case 6:
+                return Salads;
+
+            case 7:
+                return BreakFasts;
+
+            default:
+                return null;
+
+        }
+    }
 }
-
-
 
 
 //{ "results": [

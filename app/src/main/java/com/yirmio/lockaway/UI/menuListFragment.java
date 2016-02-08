@@ -12,6 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yirmio.lockaway.BL.MenuItemTypesEnum;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.LockAwayApplication;
@@ -64,6 +65,14 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
 
     }
 
+    public menuListFragment(MenuItemTypesEnum tmpType) {
+        menuList = new ArrayList();
+        for (RestaurantMenuObject obj : LockAwayApplication.getRestaurantMenu().getMenuByType(tmpType)) {
+            menuList.add(new MenuListRowLayoutItem(obj));
+        }
+        //this.menuList = LockAwayApplication.getRestaurantMenu().getMenuByType(tmpType);
+    }
+
     // TODO: Rename and change types of parameters
     public static menuListFragment newInstance(String param1, String param2) {
         menuListFragment fragment = new menuListFragment();
@@ -82,9 +91,13 @@ public class menuListFragment extends Fragment implements AbsListView.OnItemClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         app = ((LockAwayApplication) this.getActivity().getApplicationContext());
-        menuList = new ArrayList();
-        for (RestaurantMenuObject obj : this.restaurantMenu.getAllItems()) {
-            menuList.add(new MenuListRowLayoutItem(obj));
+        //No init by types so show all items
+        //TODO = disable it
+        if (menuList == null) {
+            menuList = new ArrayList();
+            for (RestaurantMenuObject obj : this.restaurantMenu.getAllItems()) {
+                menuList.add(new MenuListRowLayoutItem(obj));
+            }
         }
         mAdapter = new MenuAdapter(getActivity(), menuList, this);
     }

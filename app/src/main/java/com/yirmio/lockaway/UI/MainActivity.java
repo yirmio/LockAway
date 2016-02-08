@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.yirmio.lockaway.BL.MenuItemTypesEnum;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 //TODO - handle all add and remove actions to update badge
         getMenuInflater().inflate(R.menu.menu_actionbar, menu);
         MenuItem item = menu.findItem(R.id.menu_action_with_cart);//the menu
-        MenuItemCompat.setActionView(item,R.layout.action_bar_notifitcation_icon);
+        MenuItemCompat.setActionView(item, R.layout.action_bar_notifitcation_icon);
         View actionBarMenu = MenuItemCompat.getActionView(item);
         ui_cart_badge = (TextView) actionBarMenu.findViewById(R.id.cart_counter); //the badge
         updateCartBadge();
@@ -144,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.app_menue_cart) {
+            //TODO - open order builder
             return true;
         }
 
@@ -209,7 +211,8 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         } else if (opp == "remove") {
             LockAwayApplication.getUserOrder().removeItemFromOrder(item.getId());
         }
-        refreshOrderBuilderFragment();
+        updateCartBadge();
+        //refreshOrderBuilderFragment();
     }
 
     private void refreshOrderBuilderFragment() {
@@ -272,32 +275,59 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
         @Override
         public Fragment getItem(int position) {
+            //TODO - Bug - must navi by order to load all lists
+
+            MenuItemTypesEnum tmpType = MenuItemTypesEnum.getTypeFromInt(position);
+            if (fragments.size() == position){//add new fragment
+                fragments.add(position,new menuListFragment(tmpType));
+                return fragments.get(position);
+            }
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            //create fragment for each menu object type
+            switch (tmpType){
+                case Drinks:
 
-            switch (position) {
-                case 0: {
-                    if (fragments.size() == 0) {
-                        fragments.add(0, new menuListFragment());
-                        return fragments.get(0);
-                    } else {
-                        return fragments.get(0);
-                    }
-                }
+                    break;
+                case Cakes:
+                    break;
+                case Extras:
+                    break;
+                case Specials:
+                    break;
+                case OnSale:
+                    break;
+                case Sandwiches:
+                    break;
+                case Salads:
+                    break;
+                case BreakFasts:
+                    break;
+            }
 
+//            switch (position) {
+//                case 0: {
+//                    if (fragments.size() == 0) {
+//                        fragments.add(0, new menuListFragment());
+//                        return fragments.get(0);
+//                    } else {
+//                        return fragments.get(0);
+//                    }
+//                }
+//
+////                case 1:
+////                    if (fragments.size() == 1) {
+////                        fragments.add(1, new AddMenuItemFragment());
+////                        return fragments.get(1);
+////                    }
+//
 //                case 1:
 //                    if (fragments.size() == 1) {
-//                        fragments.add(1, new AddMenuItemFragment());
+//                        fragments.add(1, new OrderBuilderFragment());
 //                        return fragments.get(1);
 //                    }
-
-                case 1:
-                    if (fragments.size() == 1) {
-                        fragments.add(1, new OrderBuilderFragment());
-                        return fragments.get(1);
-                    }
-                    //return new OrderBuilderFragment();
-            }
+//                    //return new OrderBuilderFragment();
+//            }
 
 
             return PlaceholderFragment.newInstance(position + 1);
@@ -305,22 +335,25 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
         @Override
         public int getCount() {
+            //return total items types
+            return MenuItemTypesEnum.values().length;
             // Show 2 total pages.
-            return 2;
+            //return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return getString(R.string.menu);
+//            Locale l = Locale.getDefault();
+            return MenuItemTypesEnum.getTypeFromInt(position).toString();
+//            switch (position) {
+//                case 0:
+//                    return getString(R.string.menu);
+////                case 1:
+////                    return "הוספת פריט לתפריט";
 //                case 1:
-//                    return "הוספת פריט לתפריט";
-                case 1:
-                    return getString(R.string.order_builder);
-            }
-            return null;
+//                    return getString(R.string.order_builder);
+//            }
+//            return null;
         }
     }
 

@@ -134,4 +134,27 @@ public boolean addItemToMenu(RestaurantMenuObject mnuItm){
 
         return tmpRes;
     }
+
+    public List<RestaurantMenuObject> getMenuByType(MenuItemTypesEnum tmpType) {
+        switch (tmpType) {
+            case Drinks:
+                return this.drinks;
+            case Cakes:
+                return this.cakes;
+            case Extras:
+                return this.extras;
+            case Specials:
+                return this.specials;
+            case OnSale:
+                return this.itemsOnSale;
+            case Sandwiches:
+                return this.sanwiches;
+            case Salads:
+                return this.salads;
+            case BreakFasts:
+                return this.breakFasts;
+            default:
+                return null;
+        }
+    }
 }

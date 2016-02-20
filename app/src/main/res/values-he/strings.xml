@@ -53,6 +53,9 @@
     <string name="eta">זמן הגעה משוער</string>
     <string name="your_order_code">קוד ההזמנה שלך הוא: </string>
     <string name="order_status_icon">Order Status Icon</string>
+    <string name="sendingOrder">שולח הזמנה לשרת</string>
+    <string name="youLogInAs">אתה מחובר בתור: </string>
+    <string name="errorSendingOrder">בעיה בשליחת ההזמנה</string>
 
 
 </resources>

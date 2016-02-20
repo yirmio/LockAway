@@ -45,20 +45,22 @@
         <activity
             android:name=".UI.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".UI.SendOrderActivity"
             android:label="SendOrder" />
-        <activity android:name=".UI.OrderStatusActivity"
-            android:label=""/>
-        <activity android:name=".UI.LoginActivity"></activity>
+        <activity
+            android:name=".UI.OrderStatusActivity"
+            android:label="" />
+        <activity android:name=".UI.LoginActivity" />
         <activity android:name=".UI.WelcomeActivity" />
-        <activity android:name=".UI.util.UserStatusLauncher"></activity>
+        <activity android:name=".UI.util.UserStatusLauncher" />
         <activity android:name=".UI.MenuObjectActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yirmio.lockaway.UI.MainActivity" />
         </activity>
+        <activity android:name=".UI.OrderBuilderActivity"></activity>
     </application>
 
 </manifest>

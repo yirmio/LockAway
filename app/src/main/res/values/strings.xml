@@ -35,10 +35,10 @@
     <string name="dumyUserName">Your User Name</string>
     <string name="loadingmenu">Loading Menu, Please wait...</string>
     <string name="price">Price:</string>
-    <string name="timetomake" >Time To Make:</string>
+    <string name="timetomake">Time To Make:</string>
     <string name="title">Title</string>
     <string name="description">Item Desciption</string>
-    <string name="addtoorder" >Add To Order</string>
+    <string name="addtoorder">Add To Order</string>
     <string name="addrofavorite">Add To Favorite</string>
     <string name="itemaddedtofavorite">Item Added To Your Favorite List</string>
     <string name="itemalreadyfavorite">Item Already In Your Favorite</string>
@@ -59,4 +59,6 @@
     <string name="eta">ETA</string>
     <string name="your_order_code">Your Order Code Is:</string>
     <string name="order_status_icon">Order Status Icon</string>
+    <string name="sendingOrder">Sending Order...</string>
+    <string name="errorSendingOrder">Error Sending Order:</string>
 </resources>

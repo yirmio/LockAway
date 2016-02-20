@@ -14,10 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yirmio.lockaway.BL.MenuItemTypesEnum;
@@ -28,9 +28,8 @@ import com.yirmio.lockaway.UI.util.OrderBuilderAdapter;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, AddMenuItemFragment.OnFragmentInteractionListener, menuListFragment.OnFragmentInteractionListener, OrderBuilderFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, AddMenuItemFragment.OnFragmentInteractionListener, menuListFragment.OnFragmentInteractionListener, OrderBuilderFragment.OnFragmentInteractionListener, View.OnClickListener {
 
     private static final int ORDERFRAGMENTNUMBER = 1;
 
@@ -38,11 +37,12 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     ArrayList<Fragment> fragments;
     ViewPager mViewPager;
     private TextView ui_cart_badge = null;
+    private ImageView cartIcon;
 
     @Override
     protected void onResume() {
         super.onResume();
-        refreshOrderBuilderFragment();
+//        refreshOrderBuilderFragment();
         updateCartBadge();
     }
 
@@ -92,13 +92,16 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//TODO - handle all add and remove actions to update badge
+
         getMenuInflater().inflate(R.menu.menu_actionbar, menu);
         MenuItem item = menu.findItem(R.id.menu_action_with_cart);//the menu
         MenuItemCompat.setActionView(item, R.layout.action_bar_notifitcation_icon);
         View actionBarMenu = MenuItemCompat.getActionView(item);
         ui_cart_badge = (TextView) actionBarMenu.findViewById(R.id.cart_counter); //the badge
         updateCartBadge();
+
+        cartIcon = (ImageView) actionBarMenu.findViewById(R.id.hotlist_cart);
+        cartIcon.setOnClickListener(this);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -228,6 +231,17 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         updateCartBadge();
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.hotlist_cart:{
+                Intent intent = new Intent(MainActivity.this,OrderBuilderActivity.class);
+                startActivity(intent);
+                break;
+            }
+        }
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -276,34 +290,24 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         @Override
         public Fragment getItem(int position) {
             //TODO - Bug - must navi by order to load all lists
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            //create fragment for each menu object type
 
             MenuItemTypesEnum tmpType = MenuItemTypesEnum.getTypeFromInt(position);
             if (fragments.size() == position){//add new fragment
                 fragments.add(position,new menuListFragment(tmpType));
                 return fragments.get(position);
             }
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            //create fragment for each menu object type
-            switch (tmpType){
-                case Drinks:
 
-                    break;
-                case Cakes:
-                    break;
-                case Extras:
-                    break;
-                case Specials:
-                    break;
-                case OnSale:
-                    break;
-                case Sandwiches:
-                    break;
-                case Salads:
-                    break;
-                case BreakFasts:
-                    break;
+            //Was jump
+            if (fragments.size() < position){
+                for (int i = fragments.size() ;i<position;i++){
+                    tmpType = MenuItemTypesEnum.getTypeFromInt(i);
+                    fragments.add(i,new menuListFragment(tmpType));
+                }
             }
+            return fragments.get(position);
 
 //            switch (position) {
 //                case 0: {
@@ -330,7 +334,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 //            }
 
 
-            return PlaceholderFragment.newInstance(position + 1);
+//            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override

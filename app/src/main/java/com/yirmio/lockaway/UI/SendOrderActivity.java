@@ -127,13 +127,13 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
             dict.put("userETA",newETATime.toString());
             lastETATime = newETATime;
         }
-        Toast.makeText(this.getApplicationContext(), "Conecting to cloud", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getApplicationContext(), getString(R.string.sendingOrder), Toast.LENGTH_SHORT).show();
 
         ParseCloud.callFunctionInBackground("sendNewOrder", dict, new FunctionCallback<Object>() {
             @Override
             public void done(Object o, ParseException e) {
                 if (e != null) {
-                    Toast.makeText(getApplicationContext(), "Error Saving Order " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.errorSendingOrder) + e.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
 
                     orderSavedSuccess(o.toString());
@@ -156,6 +156,7 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         //Open new Activity
         Intent intent = new Intent(SendOrderActivity.this,OrderStatusActivity.class);
         startActivity(intent);
+        finish();
 
     }
 

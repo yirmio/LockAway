@@ -201,8 +201,8 @@ public class OrderBuilderFragment extends Fragment implements View.OnClickListen
 
         RestaurantMenuObject item = new RestaurantMenuObject(orderList.get(pos));
         MenuListRowLayoutItem tmpItem = new MenuListRowLayoutItem(item);
-        mListener.onFragmentInteraction(item.getId(), app.GetOrderID(), "remove");
-        mListener.onFragmentInteraction(tmpItem, "remove");
+        mListener.onFragmentInteraction(item.getId(), app.GetOrderID(), "remove");//BL
+        mListener.onFragmentInteraction(tmpItem, "remove");//UI
 
 
         updateDetails();

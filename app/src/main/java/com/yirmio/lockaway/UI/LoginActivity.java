@@ -238,7 +238,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void handleLogin() {
-        //TODO implement
+
         //Update UI For Login
         this.updateSignUpViewsVisibility(View.GONE);
 

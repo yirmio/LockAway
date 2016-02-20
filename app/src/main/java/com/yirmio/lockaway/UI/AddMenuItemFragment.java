@@ -41,17 +41,11 @@ import java.io.ByteArrayOutputStream;
  * create an instance of this fragment.
  */
 public class AddMenuItemFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
     private static final String TAG = "AddMenuItemFragment";
     private static final int IMAGE_PICKER_SELECT = 999;
     private static final int RESULT_LOAD_IMAGE = 1;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private EditText editTextName;
     private EditText editTextDescription;
@@ -66,24 +60,14 @@ public class AddMenuItemFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddMenuItemFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddMenuItemFragment newInstance(String param1, String param2) {
-        AddMenuItemFragment fragment = new AddMenuItemFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static AddMenuItemFragment newInstance(String param1, String param2) {
+//        AddMenuItemFragment fragment = new AddMenuItemFragment();
+////        Bundle args = new Bundle();
+////        args.putString(ARG_PARAM1, param1);
+////        args.putString(ARG_PARAM2, param2);
+////        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     public AddMenuItemFragment() {
         // Required empty public constructor
@@ -92,10 +76,7 @@ public class AddMenuItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
 
     }
 
@@ -295,7 +276,7 @@ public class AddMenuItemFragment extends Fragment {
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -330,7 +311,7 @@ public class AddMenuItemFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         public void onFragmentInteraction(Uri uri);
     }
 

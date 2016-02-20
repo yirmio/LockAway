@@ -7,6 +7,7 @@ public final class GlobalConsts {
     public static String MenuObjectTypes = "MenuObjectTypes";
     public static String MenuObjectTypes_TypeName = "TypeName";
     public static String MenuItemTypeId = "ObjectType";
+    public static String OrderETAChangedSuccessfully = "Order's ETA Changed Successfully";
 //public     String
 //
 //

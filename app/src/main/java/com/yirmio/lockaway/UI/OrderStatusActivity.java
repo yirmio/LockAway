@@ -1,6 +1,8 @@
 package com.yirmio.lockaway.UI;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +12,21 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
+import com.yirmio.lockaway.BL.GlobalConsts;
 import com.yirmio.lockaway.BL.UserOrder;
+import com.yirmio.lockaway.DAL.ParseConnector;
+import com.yirmio.lockaway.Interfaces.Observer;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class OrderStatusActivity extends Activity implements View.OnClickListener {
+import java.util.Calendar;
+
+public class OrderStatusActivity extends Activity implements View.OnClickListener,Observer {
 
     private TextView txtViewETAValue;
     private TextView txtViewOrderCode;
@@ -30,12 +38,14 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
 
 
     private UserOrder curOrder;
+    private ParseConnector parseConnector;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         curOrder = LockAwayApplication.getUserOrder();
+        parseConnector = LockAwayApplication.parseConector;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_status);
@@ -48,6 +58,13 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
         updateDataInUI();
+        parseConnector.registerObserver(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        parseConnector.removeObserver(this);
     }
 
     private void updateDataInUI() {
@@ -91,7 +108,35 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.orderStatusBtnAction:
                 ///TODO - handle action
+                changeUserETA();
                 break;
         }
     }
+
+    private void changeUserETA() {
+        final Calendar calendar = Calendar.getInstance();
+        int mHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int mMinute = calendar.get(Calendar.MINUTE);
+        TimePickerDialog tpd = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                //TODO - handle new time
+                curOrder.setNewETA(hourOfDay,minute);
+                parseConnector.setNewETAToOrder(curOrder.getOrderId(),hourOfDay,minute);//DAL
+
+            }
+        },mHour,mMinute,false);
+        tpd.show();
+    }
+
+    @Override
+    public void update(String msg, Observer ob) {
+        //TODO - implement
+        if (ob == this){
+        if (msg == GlobalConsts.OrderETAChangedSuccessfully){
+            updateDataInUI();
+        }
+        }
+    }
+
 }

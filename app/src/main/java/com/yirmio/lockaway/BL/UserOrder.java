@@ -2,8 +2,12 @@ package com.yirmio.lockaway.BL;
 
 import com.yirmio.lockaway.R;
 
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 /**
  * Created by yirmio on 26/07/2015.
@@ -132,7 +136,20 @@ public class UserOrder {
         this.ETA = ETA;
     }
 
+    public void setNewETA(int hourOfDay, int minute) {
+        LocalTime tmpTime = new LocalTime(this.ETA);
+        int plusH,plusM;
 
+        plusH = hourOfDay - tmpTime.getHourOfDay();
+        plusM = minute - tmpTime.getMinuteOfHour();
+LocalTime newTime = new LocalTime(tmpTime.plusHours(plusH).getHourOfDay(),tmpTime.plusMinutes(plusM).getMinuteOfHour());
+        //TODO = handle format
+        this.ETA = newTime.toString();
+
+
+
+
+    }
 
 
     //endregion

@@ -276,7 +276,7 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
             HashMap<String, Object> dict = new HashMap<String, Object>();
             dict.put("orderID", this.orderID);
             dict.put("userETA", lastETATime.toString());
-//            Toast.makeText(this.getApplicationContext(), "Conecting to cloud", Toast.LENGTH_SHORT).show();
+
 
             ParseCloud.callFunctionInBackground("updateTimeToArrive", dict, new FunctionCallback<Object>() {
                 @Override

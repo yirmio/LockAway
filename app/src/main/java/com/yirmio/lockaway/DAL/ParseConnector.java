@@ -390,4 +390,8 @@ initObjectTypes();
 
         return loadedStore;
     }
+
+    public void setNewETAToOrder(String orderId, int hourOfDay, int minute) {
+        notifyObservers(GlobalConsts.OrderETAChangedSuccessfully);
+    }
 }

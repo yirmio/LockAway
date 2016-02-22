@@ -8,6 +8,19 @@ public final class GlobalConsts {
     public static String MenuObjectTypes_TypeName = "TypeName";
     public static String MenuItemTypeId = "ObjectType";
     public static String OrderETAChangedSuccessfully = "Order's ETA Changed Successfully";
+    public static String UserToOrders = "UserToOrders";
+    public static String OrderedObjects = "OrderedObjects";
+    public static String orderID = "OrderID";
+    public static String MenuObjectID = "MenuObjecID";
+    public static String MenuObject = "MenuObjects";
+    public static String Description = "Description";
+    public static String isGlootenFree = "GlotenFree";
+    public static String isVeg = "Veg";
+    public static String price = "Price";
+    public static String timeToMake = "TimeToMake";
+    public static String title = "Name";
+    public static String type = "ObjectType";
+
 //public     String
 //
 //

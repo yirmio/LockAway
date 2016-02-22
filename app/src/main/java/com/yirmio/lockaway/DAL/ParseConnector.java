@@ -12,6 +12,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.yirmio.lockaway.BL.GlobalConsts;
 import com.yirmio.lockaway.BL.MenuItemTypesEnum;
+import com.yirmio.lockaway.BL.Order;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.Store;
@@ -40,10 +41,12 @@ public final class ParseConnector implements Subject {
     private static boolean tmpResult = false;
     private List<Observer> observers = new ArrayList<Observer>();
 
+
+
     public boolean initConnector(String storeId) {
         boolean res = true;
         //TODO - implement it....
-initObjectTypes();
+        initObjectTypes();
 
         return res;
 
@@ -392,6 +395,68 @@ initObjectTypes();
     }
 
     public void setNewETAToOrder(String orderId, int hourOfDay, int minute) {
+        //TODO - implement
+        Order orderObject = this.getOrderByID(orderId);
         notifyObservers(GlobalConsts.OrderETAChangedSuccessfully);
+    }
+
+    private Order getOrderByID(String orderId) {
+        ParseObject orderObject = null;
+        ParseQuery parseQuery = new ParseQuery(GlobalConsts.UserToOrders);
+        try {
+            orderObject = parseQuery.get(orderId);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return buildOrderFromParseObject(orderObject);
+    }
+
+    private Order buildOrderFromParseObject(ParseObject orderObject) {
+        Order tmpOrder = new Order(ParseUser.getCurrentUser().getObjectId(), null);
+        List<ParseObject> orderItems = this.getOrdersItems(orderObject.getObjectId());
+        RestaurantMenuObject r = null;
+        for (ParseObject p : orderItems) {
+            r = new RestaurantMenuObject();
+            r.setDescription(p.getString(GlobalConsts.Description));
+            r.setId(p.getObjectId());
+            r.setIsGlootenFree(p.getBoolean(GlobalConsts.isGlootenFree));
+            r.setIsReady(false);
+            r.setIsVeg(p.getBoolean(GlobalConsts.isVeg));
+            r.setPic(null);
+            r.setPrice(p.getNumber(GlobalConsts.price).floatValue());
+            r.setTimeToMake(p.getInt(GlobalConsts.timeToMake));
+            r.setTitle(p.getString(GlobalConsts.title));
+            r.setType(p.getString(GlobalConsts.type));
+            tmpOrder.addMenuItemToOrder(r);
+        }
+        return null;
+    }
+
+    private List<ParseObject> getOrdersItems(String orderID) {
+        List<ParseObject> res = null;
+        List<ParseObject> finalRes = null;
+        ParseQuery parseQuery = new ParseQuery(GlobalConsts.OrderedObjects);
+        parseQuery.whereEqualTo(GlobalConsts.orderID, orderID);
+        try {
+            res = parseQuery.find();
+            for (ParseObject p : res) {
+                finalRes.add(getMenuObjectByID(p.getString(GlobalConsts.MenuObjectID)));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return finalRes;
+    }
+
+    private ParseObject getMenuObjectByID(String id) {
+        ParseObject object = null;
+        ParseQuery query = new ParseQuery(GlobalConsts.MenuObject);
+        try {
+            object = query.get(id);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return object;
     }
 }

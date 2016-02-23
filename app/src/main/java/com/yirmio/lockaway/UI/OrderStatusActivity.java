@@ -101,14 +101,15 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.orderStatusBtnNavToPlace:
-                //TODO navigate
+                Intent navIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?daddr=" + LockAwayApplication.getStore().getLocation()));
+                startActivity(navIntent);
                 break;
             case R.id.orderStatusBtnCallResturant:
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + LockAwayApplication.getStore().getPhoneNumber()));
-                startActivity(intent);
+                Intent phoneIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + LockAwayApplication.getStore().getPhoneNumber()));
+                startActivity(phoneIntent);
                 break;
             case R.id.orderStatusBtnAction:
-                ///TODO - handle action
+
                 changeUserETA();
                 break;
         }
@@ -139,7 +140,6 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
 
     @Override
     public void update(String msg, Observer ob) {
-        //TODO - implement
         if (ob == this) {
             if (msg == GlobalConsts.OrderETAChangedSuccessfully) {
                 updateDataInUI();

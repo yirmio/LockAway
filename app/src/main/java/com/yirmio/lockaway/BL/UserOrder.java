@@ -8,6 +8,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 
@@ -33,6 +34,8 @@ public class UserOrder {
         this.totalTimeToMake = 0;
         this.objects = new ArrayList<>();
     }
+
+
     //endregion
 
     //region Getters & Setters
@@ -70,19 +73,20 @@ public class UserOrder {
         this.totalTimeToMake = totalTimeToMake;
     }
 
-    public RestaurantMenuObject getItemByID(String id){
+    public RestaurantMenuObject getItemByID(String id) {
         //TODO - do it better
-        for (RestaurantMenuObject item:
-             this.objects) {
+        for (RestaurantMenuObject item :
+                this.objects) {
             if (item.getId() == id) {
                 return item;
             }
         }
         return null;
     }
-    public int getItemPositionByID(String id){
-        for (int i=0;i<=this.objects.size();i++){
-            if (this.objects.get(i).getId() == id){
+
+    public int getItemPositionByID(String id) {
+        for (int i = 0; i <= this.objects.size(); i++) {
+            if (this.objects.get(i).getId() == id) {
                 return i;
             }
 
@@ -124,7 +128,7 @@ public class UserOrder {
     }
 
     public void removeItemFromOrder(String id) {
-        RestaurantMenuObject tmpObj =this.getItemByID(id);
+        RestaurantMenuObject tmpObj = this.getItemByID(id);
         this.totalPrice -= tmpObj.getPrice();
         this.totalTimeToMake -= tmpObj.getTimeToMake();
         this.objects.remove(tmpObj);
@@ -144,18 +148,27 @@ public class UserOrder {
 
     public void setNewETA(int hourOfDay, int minute) {
         LocalTime tmpTime = new LocalTime(this.ETA);
-        int plusH,plusM;
+        int plusH, plusM;
 
         plusH = hourOfDay - tmpTime.getHourOfDay();
         plusM = minute - tmpTime.getMinuteOfHour();
-LocalTime newTime = new LocalTime(tmpTime.plusHours(plusH).getHourOfDay(),tmpTime.plusMinutes(plusM).getMinuteOfHour());
+        LocalTime newTime = new LocalTime(tmpTime.plusHours(plusH).getHourOfDay(), tmpTime.plusMinutes(plusM).getMinuteOfHour());
 
 
         this.ETA = newTime.toString(DateTimeFormat.forPattern("HH:mm"));
 
 
+    }
 
-
+    public void addMenuItemToOrder(RestaurantMenuObject mnuItm) {
+        try {
+            this.objects.add(mnuItm);
+            Collections.sort(this.objects);
+            this.totalPrice += mnuItm.getPrice();
+            this.totalTimeToMake += mnuItm.getTimeToMake();
+        } catch (Exception e) {
+            //TODO handle
+        }
     }
 
 

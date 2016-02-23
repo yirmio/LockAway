@@ -9,6 +9,7 @@ import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -19,6 +20,7 @@ import com.yirmio.lockaway.BL.Order;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.Store;
+import com.yirmio.lockaway.BL.UserOrder;
 import com.yirmio.lockaway.Interfaces.Observer;
 import com.yirmio.lockaway.Interfaces.Subject;
 import com.yirmio.lockaway.LockAwayApplication;
@@ -391,6 +393,8 @@ public final class ParseConnector implements Subject {
             rest = stores.get(0);
             loadedStore = new Store();
             loadedStore.setPhoneNumber(rest.getString("PhoneNumber"));
+            ParseGeoPoint gp = rest.getParseGeoPoint(GlobalConsts.storeLocation);
+            loadedStore.setLocation(gp.getLatitude() + "," + gp.getLongitude());
             //TODO add more info....
         } catch (ParseException e) {
             //TODO handle....
@@ -459,12 +463,12 @@ public final class ParseConnector implements Subject {
         return res;
     }
 
-    public Order getOrderByID(String orderId) {
+    public UserOrder getOrderByID(String orderId) {
         return buildOrderFromParseObject(getParseObjectOrderByID(orderId));
     }
 
-    private Order buildOrderFromParseObject(ParseObject orderObject) {
-        Order tmpOrder = new Order(ParseUser.getCurrentUser().getObjectId(), null);
+    private UserOrder buildOrderFromParseObject(ParseObject orderObject) {
+        UserOrder tmpOrder = new UserOrder(ParseUser.getCurrentUser().getObjectId());
         List<ParseObject> orderItems = this.getOrdersItems(orderObject.getObjectId());
         RestaurantMenuObject r;
         for (ParseObject p : orderItems) {

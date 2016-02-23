@@ -21,6 +21,8 @@ import com.yirmio.lockaway.Interfaces.Observer;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -67,14 +69,14 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
     }
 
     private void updateDataInUI() {
-//        DateTimeFormatter dFmtr = DateTimeFormat.forPattern("HH:mm");
+        DateTimeFormatter dFmtr = DateTimeFormat.forPattern("HH:mm");
         String curETA = curOrder.getETA();
         if (curETA == null || curETA.length() == 0) {
 //            LockAwayApplication;
         }
 //        mETAValueTxtView.setText(localDateTime.toString(dFmtr));
         this.txtViewETAValue.setText(curETA);
-        this.txtViewOrderCode.append(curOrder.getOrderId());
+        this.txtViewOrderCode.setText(getString(R.string.your_order_code) + curOrder.getOrderId());
         //TODO - continue add info to ui
     }
 
@@ -123,7 +125,6 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
 
                 if (timeSetCounter == 0) {
-                    //TODO - handle new time
                     curOrder.setNewETA(hourOfDay, minute);
                     parseConnector.setNewETAToOrder(curOrder.getOrderId(), hourOfDay, minute);//DAL
                     timeSetCounter++;

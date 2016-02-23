@@ -4,6 +4,8 @@ import com.yirmio.lockaway.R;
 
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +135,11 @@ public class UserOrder {
     }
 
     public void setETA(String ETA) {
-        this.ETA = ETA;
+//        this.ETA = ETA;
+
+        LocalTime tmpTime = new LocalTime(ETA);
+        this.ETA = tmpTime.toString(DateTimeFormat.forPattern("HH:mm"));
+
     }
 
     public void setNewETA(int hourOfDay, int minute) {
@@ -143,8 +149,9 @@ public class UserOrder {
         plusH = hourOfDay - tmpTime.getHourOfDay();
         plusM = minute - tmpTime.getMinuteOfHour();
 LocalTime newTime = new LocalTime(tmpTime.plusHours(plusH).getHourOfDay(),tmpTime.plusMinutes(plusM).getMinuteOfHour());
-        //TODO = handle format
-        this.ETA = newTime.toString();
+
+
+        this.ETA = newTime.toString(DateTimeFormat.forPattern("HH:mm"));
 
 
 

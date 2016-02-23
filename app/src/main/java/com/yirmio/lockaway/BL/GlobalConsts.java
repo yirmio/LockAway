@@ -20,6 +20,9 @@ public final class GlobalConsts {
     public static String timeToMake = "TimeToMake";
     public static String title = "Name";
     public static String type = "ObjectType";
+    public static String orderETA = "UserETA";
+
+    public static String OrderETAChangeError = "Error changing ETA";
 
 //public     String
 //

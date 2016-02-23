@@ -1,9 +1,12 @@
 package com.yirmio.lockaway.DAL;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -20,6 +23,9 @@ import com.yirmio.lockaway.Interfaces.Observer;
 import com.yirmio.lockaway.Interfaces.Subject;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
+
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -395,27 +401,72 @@ public final class ParseConnector implements Subject {
     }
 
     public void setNewETAToOrder(String orderId, int hourOfDay, int minute) {
+
         //TODO - implement
-        Order orderObject = this.getOrderByID(orderId);
-        notifyObservers(GlobalConsts.OrderETAChangedSuccessfully);
+        ParseObject orderObject = this.getParseObjectOrderByID(orderId);
+        LocalDateTime tmpTime = LocalDateTime.fromDateFields(orderObject.getDate(GlobalConsts.orderETA));
+
+//        LocalTime tmpTime = new LocalTime(this.ETA);
+        int plusH,plusM;
+
+        plusH = hourOfDay - tmpTime.getHourOfDay();
+        plusM = minute - tmpTime.getMinuteOfHour();
+//        int newH = tmpTime.hourOfDay().addToCopy(plusH).geth
+        LocalDateTime newTime = new LocalDateTime(tmpTime.getYear(),tmpTime.getMonthOfYear(),tmpTime.getDayOfMonth(), tmpTime.hourOfDay().addToCopy(plusH).getHourOfDay(), tmpTime.minuteOfHour().addToCopy(plusM).getMinuteOfHour());
+//        LocalDateTime newTime = new LocalDateTime(tmpTime.plusHours(plusH).getHourOfDay(),tmpTime.plusMinutes(plusM).getMinuteOfHour());
+
+        //Send To Cloud
+        HashMap<String, Object> dict = new HashMap<String, Object>();
+        dict.put("orderID", orderId);
+        dict.put("userETA", newTime.toString());
+
+
+        ParseCloud.callFunctionInBackground("updateTimeToArrive", dict, new FunctionCallback<Object>() {
+            @Override
+            public void done(Object o, ParseException e) {
+                if (e != null) {
+                    notifyObservers(GlobalConsts.OrderETAChangeError);
+                } else {
+                    notifyObservers(GlobalConsts.OrderETAChangedSuccessfully);
+                }
+            }
+        });
+//
+//        orderObject.put(GlobalConsts.orderETA,newTime.toDate());
+//        orderObject.saveInBackground(new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                if (e==null){
+//                    notifyObservers(GlobalConsts.OrderETAChangedSuccessfully);
+//                }
+//                else {
+//                    notifyObservers(GlobalConsts.OrderETAChangeError);
+//                }
+//            }
+//        });
+
+
     }
 
-    private Order getOrderByID(String orderId) {
-        ParseObject orderObject = null;
-        ParseQuery parseQuery = new ParseQuery(GlobalConsts.UserToOrders);
+    private ParseObject getParseObjectOrderByID(String orderId) {
+        ParseQuery query = new ParseQuery(GlobalConsts.UserToOrders);
+        ParseObject res = null;
         try {
-            orderObject = parseQuery.get(orderId);
+            res = query.get(orderId);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        return res;
+    }
 
-        return buildOrderFromParseObject(orderObject);
+    public Order getOrderByID(String orderId) {
+        return buildOrderFromParseObject(getParseObjectOrderByID(orderId));
     }
 
     private Order buildOrderFromParseObject(ParseObject orderObject) {
         Order tmpOrder = new Order(ParseUser.getCurrentUser().getObjectId(), null);
         List<ParseObject> orderItems = this.getOrdersItems(orderObject.getObjectId());
-        RestaurantMenuObject r = null;
+        RestaurantMenuObject r;
         for (ParseObject p : orderItems) {
             r = new RestaurantMenuObject();
             r.setDescription(p.getString(GlobalConsts.Description));
@@ -429,8 +480,9 @@ public final class ParseConnector implements Subject {
             r.setTitle(p.getString(GlobalConsts.title));
             r.setType(p.getString(GlobalConsts.type));
             tmpOrder.addMenuItemToOrder(r);
+
         }
-        return null;
+        return tmpOrder;
     }
 
     private List<ParseObject> getOrdersItems(String orderID) {

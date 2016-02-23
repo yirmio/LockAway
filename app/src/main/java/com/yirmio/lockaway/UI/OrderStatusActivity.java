@@ -26,7 +26,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Calendar;
 
-public class OrderStatusActivity extends Activity implements View.OnClickListener,Observer {
+public class OrderStatusActivity extends Activity implements View.OnClickListener, Observer {
 
     private TextView txtViewETAValue;
     private TextView txtViewOrderCode;
@@ -39,7 +39,6 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
 
     private UserOrder curOrder;
     private ParseConnector parseConnector;
-
 
 
     @Override
@@ -70,7 +69,7 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
     private void updateDataInUI() {
 //        DateTimeFormatter dFmtr = DateTimeFormat.forPattern("HH:mm");
         String curETA = curOrder.getETA();
-        if (curETA == null || curETA.length() == 0){
+        if (curETA == null || curETA.length() == 0) {
 //            LockAwayApplication;
         }
 //        mETAValueTxtView.setText(localDateTime.toString(dFmtr));
@@ -80,25 +79,25 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
     }
 
     private void attachUI() {
-        this.txtViewETAValue = (TextView)findViewById(R.id.orderStatusTextViewETAValue);
-        this.txtViewOrderCode = (TextView)findViewById(R.id.orderStatusTextViewOrderCode);
-        this.txtViewTitle = (TextView)findViewById(R.id.orderStatusTextViewTitle);
+        this.txtViewETAValue = (TextView) findViewById(R.id.orderStatusTextViewETAValue);
+        this.txtViewOrderCode = (TextView) findViewById(R.id.orderStatusTextViewOrderCode);
+        this.txtViewTitle = (TextView) findViewById(R.id.orderStatusTextViewTitle);
 
-        this.btnNavToRest = (Button)findViewById(R.id.orderStatusBtnNavToPlace);
+        this.btnNavToRest = (Button) findViewById(R.id.orderStatusBtnNavToPlace);
         this.btnNavToRest.setOnClickListener(this);
-        this.btnCallRest = (ImageButton)findViewById(R.id.orderStatusBtnCallResturant);
+        this.btnCallRest = (ImageButton) findViewById(R.id.orderStatusBtnCallResturant);
         this.btnCallRest.setOnClickListener(this);
         this.btnAction = (Button) findViewById(R.id.orderStatusBtnAction);
         this.btnAction.setOnClickListener(this);
 
-        this.imgViewOrderStatusBigIcon = (ImageView)findViewById(R.id.orderStatusImgViewStatusBigIcon);//TODO - change by order status
+        this.imgViewOrderStatusBigIcon = (ImageView) findViewById(R.id.orderStatusImgViewStatusBigIcon);//TODO - change by order status
 
 
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.orderStatusBtnNavToPlace:
                 //TODO navigate
                 break;
@@ -118,24 +117,32 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
         int mHour = calendar.get(Calendar.HOUR_OF_DAY);
         int mMinute = calendar.get(Calendar.MINUTE);
         TimePickerDialog tpd = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            int timeSetCounter = 0;
+
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                //TODO - handle new time
-                curOrder.setNewETA(hourOfDay,minute);
-                parseConnector.setNewETAToOrder(curOrder.getOrderId(),hourOfDay,minute);//DAL
+
+                if (timeSetCounter == 0) {
+                    //TODO - handle new time
+                    curOrder.setNewETA(hourOfDay, minute);
+                    parseConnector.setNewETAToOrder(curOrder.getOrderId(), hourOfDay, minute);//DAL
+                    timeSetCounter++;
+                } else {
+                    timeSetCounter = 0;
+                }
 
             }
-        },mHour,mMinute,false);
+        }, mHour, mMinute, false);
         tpd.show();
     }
 
     @Override
     public void update(String msg, Observer ob) {
         //TODO - implement
-        if (ob == this){
-        if (msg == GlobalConsts.OrderETAChangedSuccessfully){
-            updateDataInUI();
-        }
+        if (ob == this) {
+            if (msg == GlobalConsts.OrderETAChangedSuccessfully) {
+                updateDataInUI();
+            }
         }
     }
 

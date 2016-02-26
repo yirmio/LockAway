@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/current_address"
+            android:text="@string/loading_address"
             android:id="@+id/txtVw_send_order_current_address_label"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
@@ -47,15 +47,15 @@
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/infoLayout" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentLeft="false"
             android:layout_alignParentStart="false"
             android:id="@+id/infoLayout"
-            android:textAlignment="center"
-            android:gravity="center_vertical|center|center_horizontal|fill">
+            android:orientation="horizontal"
+            android:gravity="fill_horizontal|center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,14 +63,12 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="0"
                 android:id="@+id/txtVw_send_order_total_items_value"
-                android:layout_alignParentLeft="false"
-                android:layout_marginLeft="0dp"
-                android:layout_alignParentTop="false"
-                android:layout_marginTop="0dp"
                 android:paddingLeft="5dp"
-                android:layout_alignParentRight="true"
                 android:drawableLeft="@drawable/ic_shopping_cart"
-                android:layout_alignTop="@+id/txtVw_send_order_total_price_value" />
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingRight="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,17 +76,15 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="0.00"
                 android:id="@+id/txtVw_send_order_total_price_value"
-                android:layout_alignParentLeft="false"
-                android:layout_marginLeft="0dp"
-                android:layout_alignParentTop="false"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="0dp"
                 android:paddingLeft="5dp"
                 android:drawableLeft="@drawable/ic_action_money"
                 android:gravity="center_vertical|center|center_horizontal"
                 android:typeface="normal"
-                android:layout_toRightOf="@+id/txtVw_send_order_time_to_make_value"
-                android:layout_toLeftOf="@+id/txtVw_send_order_total_items_value"
-                android:layout_alignTop="@+id/txtVw_send_order_eta_value" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:paddingRight="0dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -96,10 +92,12 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="00:00"
                 android:id="@+id/txtVw_send_order_eta_value"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="false"
-                android:paddingRight="10dp"
-                android:drawableLeft="@drawable/ic_action_clock"/>
+                android:paddingRight="0dp"
+                android:drawableLeft="@drawable/ic_action_clock"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,11 +105,13 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="00:00"
                 android:id="@+id/txtVw_send_order_time_to_make_value"
-                android:paddingRight="10dp"
+                android:paddingRight="5dp"
                 android:drawableLeft="@drawable/ic_hourglass_empty_black_24dp"
-                android:layout_toRightOf="@+id/txtVw_send_order_eta_value"
-                android:layout_alignTop="@+id/txtVw_send_order_total_price_value" />
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingLeft="5dp" />
 
-        </RelativeLayout>
+        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

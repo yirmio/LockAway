@@ -109,7 +109,6 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
                 startActivity(phoneIntent);
                 break;
             case R.id.orderStatusBtnAction:
-
                 changeUserETA();
                 break;
         }

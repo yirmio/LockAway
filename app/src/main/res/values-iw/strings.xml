@@ -56,4 +56,5 @@
     <string name="sendingOrder">שולח הזמנה לשרת</string>
     <string name="youLogInAs">אתה מחובר בתור: </string>
     <string name="errorSendingOrder">בעיה בשליחת ההזמנה</string>
+    <string name="loading_address">טוען את הכתובת שלך...</string>
 </resources>

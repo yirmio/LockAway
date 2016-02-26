@@ -24,6 +24,10 @@ public class UserOrder {
     private String ETA;
 
 
+
+    private String createDate;
+
+
     //endregion
 
 
@@ -169,6 +173,17 @@ public class UserOrder {
         } catch (Exception e) {
             //TODO handle
         }
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public int getTotalItemsCount() {
+        return this.objects.size();
     }
 
 

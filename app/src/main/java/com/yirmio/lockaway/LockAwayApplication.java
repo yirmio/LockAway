@@ -60,6 +60,7 @@ public class LockAwayApplication extends Application {
 
                 order.save();
                 userOrder = new UserOrder(order.getObjectId());
+                userOrder.setCreateDate(order.getCreatedAt().toString());
 
                 idToReturn = userOrder.getOrderId();
             } catch (ParseException e) {

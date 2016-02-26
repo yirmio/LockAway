@@ -61,4 +61,6 @@
     <string name="order_status_icon">Order Status Icon</string>
     <string name="sendingOrder">Sending Order...</string>
     <string name="errorSendingOrder">Error Sending Order:</string>
+    <string name="loading_address">Loading You Address...</string>
+    <string name="order_date">Order Date</string>
 </resources>

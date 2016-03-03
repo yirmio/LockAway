@@ -1,8 +1,8 @@
 package com.yirmio.lockaway.BL;
 
 import com.parse.ParseFile;
-import com.yirmio.lockaway.UI.MenuListRowLayoutItem;
-import com.yirmio.lockaway.UI.OrderBuilderRowLayout;
+import com.yirmio.lockaway.UI.ListsItems.MenuListRowLayoutItem;
+import com.yirmio.lockaway.UI.ListsItems.OrderBuilderRowLayout;
 
 /**
  * Created by yirmio on 1/9/2015.

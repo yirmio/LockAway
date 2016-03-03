@@ -1,4 +1,4 @@
-package com.yirmio.lockaway.UI;
+package com.yirmio.lockaway.UI.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,12 +12,10 @@ import android.widget.Toast;
 
 import com.parse.ParseUser;
 import com.yirmio.lockaway.BL.RestaurantMenu;
-import com.yirmio.lockaway.BL.Store;
 import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.UI.util.SystemUiHider;
-import com.yirmio.lockaway.UI.util.UserStatusLauncher;
 
 
 /**

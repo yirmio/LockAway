@@ -16,8 +16,8 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.UI.MenuListRowLayoutItem;
-import com.yirmio.lockaway.UI.menuListFragment;
+import com.yirmio.lockaway.UI.ListsItems.MenuListRowLayoutItem;
+import com.yirmio.lockaway.UI.Fragments.menuListFragment;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.yirmio.lockaway.UI;
+package com.yirmio.lockaway.UI.ListsItems;
 
 import com.parse.ParseFile;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;

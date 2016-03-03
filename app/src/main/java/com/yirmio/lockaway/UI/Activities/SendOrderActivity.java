@@ -1,4 +1,4 @@
-package com.yirmio.lockaway.UI;
+package com.yirmio.lockaway.UI.Activities;
 
 import android.content.Context;
 import android.content.Intent;

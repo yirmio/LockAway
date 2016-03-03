@@ -57,4 +57,6 @@
     <string name="youLogInAs">אתה מחובר בתור: </string>
     <string name="errorSendingOrder">בעיה בשליחת ההזמנה</string>
     <string name="loading_address">טוען את הכתובת שלך...</string>
+    <string name="order_date">ההזמנות שלך</string>
+    <string name="your_orders">ההזמנות שלך</string>
 </resources>

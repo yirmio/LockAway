@@ -15,6 +15,9 @@ import com.yirmio.lockaway.BL.Store;
 import com.yirmio.lockaway.BL.UserOrder;
 import com.yirmio.lockaway.DAL.ParseConnector;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //import com.parse.ParseCrashReporting;
 
 /**
@@ -114,5 +117,9 @@ public class LockAwayApplication extends Application {
 
     public void setStore(Store store) {
         this.curStore = store;
+    }
+
+    public static ArrayList getAllUserOrders() {
+        return null;
     }
 }

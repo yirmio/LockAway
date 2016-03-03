@@ -3,12 +3,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.yirmio.lockaway.UI.MainActivity">
+    tools:context=".UI.Activities.MainActivity">
 
     <item android:id="@+id/menu_action_with_cart"
         android:actionLayout="@layout/action_bar_notifitcation_icon"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_shopping_cart"
         android:title="@string/menu" />
+    <item
+        android:id="@+id/app_menu_orders"
+        android:icon="@drawable/abc_btn_radio_to_on_mtrl_015"
+        android:title="@string/your_orders"
+        android:showAsAction="ifRoom" />
 
 </menu>

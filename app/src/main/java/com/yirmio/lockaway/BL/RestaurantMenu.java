@@ -67,6 +67,7 @@ public boolean addItemToMenu(RestaurantMenuObject mnuItm){
                     this.allItems.add(mnuItm);
                     break;
             }
+            this.allItems.add(mnuItm);
 
 
         }

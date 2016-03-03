@@ -1,4 +1,4 @@
-package com.yirmio.lockaway.UI;
+package com.yirmio.lockaway.UI.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -24,6 +24,11 @@ import com.yirmio.lockaway.BL.MenuItemTypesEnum;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
+import com.yirmio.lockaway.UI.Fragments.AddMenuItemFragment;
+import com.yirmio.lockaway.UI.ListsItems.MenuListRowLayoutItem;
+import com.yirmio.lockaway.UI.ListsItems.OrderBuilderRowLayout;
+import com.yirmio.lockaway.UI.Fragments.OrderBuilderFragment;
+import com.yirmio.lockaway.UI.Fragments.menuListFragment;
 import com.yirmio.lockaway.UI.util.OrderBuilderAdapter;
 
 import java.lang.reflect.Method;
@@ -145,7 +150,14 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+switch (id){
+    case R.id.app_menue_cart:
+        return true;
+    case R.id.app_menu_orders:
+        Intent intent = new Intent(MainActivity.this,UserOrdersActivity.class);
+        startActivity(intent);
+        break;
+}
         //noinspection SimplifiableIfStatement
         if (id == R.id.app_menue_cart) {
             //TODO - open order builder

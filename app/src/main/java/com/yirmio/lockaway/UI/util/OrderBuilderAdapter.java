@@ -15,10 +15,9 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
-import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.UI.OrderBuilderFragment;
-import com.yirmio.lockaway.UI.OrderBuilderRowLayout;
+import com.yirmio.lockaway.UI.Fragments.OrderBuilderFragment;
+import com.yirmio.lockaway.UI.ListsItems.OrderBuilderRowLayout;
 
 import java.util.ArrayList;
 

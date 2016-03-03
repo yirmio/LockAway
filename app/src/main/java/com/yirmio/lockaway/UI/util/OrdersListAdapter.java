@@ -5,20 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.yirmio.lockaway.R;
-import com.yirmio.lockaway.UI.OrderListRowItem;
+import com.yirmio.lockaway.UI.ListsItems.OrderListRowItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by oppenhime on 23/02/2016.
  */
-public class OrdersListAdapter extends ArrayAdapter{
+public class OrdersListAdapter extends ArrayAdapter {
     private final Context context;
     private final ArrayList userOrders;
 
@@ -31,26 +29,25 @@ public class OrdersListAdapter extends ArrayAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        OrderListRowItem item = (OrderListRowItem)getItem(position);
+        OrderListRowItem item = (OrderListRowItem) getItem(position);
         View viewToUse = null;
         final int pos = position;
         LayoutInflater mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView ==  null){
-            viewToUse = mLayoutInflater.inflate(R.layout.order_list_item_layout,null);
+        if (convertView == null) {
+            viewToUse = mLayoutInflater.inflate(R.layout.order_list_item_layout, null);
             holder = new ViewHolder();
-            holder.openOrderBtn = (ImageButton)viewToUse.findViewById(R.id.order_list_item_btn);
+            holder.openOrderBtn = (ImageButton) viewToUse.findViewById(R.id.order_list_item_btn);
             holder.openOrderBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //TODO - implement
                 }
             });
-            holder.orderDate = (TextView)viewToUse.findViewById(R.id.order_date_txt_view);
-            holder.orderItemsCount = (TextView)viewToUse.findViewById(R.id.order_list_item_total_items_textView);
-            holder.orderPrice = (TextView)viewToUse.findViewById(R.id.order_price_txt_view);
+            holder.orderDate = (TextView) viewToUse.findViewById(R.id.order_date_txt_view);
+            holder.orderItemsCount = (TextView) viewToUse.findViewById(R.id.order_list_item_total_items_textView);
+            holder.orderPrice = (TextView) viewToUse.findViewById(R.id.order_price_txt_view);
             viewToUse.setTag(holder);
-        }
-        else {
+        } else {
             viewToUse = convertView;
             holder = (ViewHolder) viewToUse.getTag();
         }
@@ -64,9 +61,10 @@ public class OrdersListAdapter extends ArrayAdapter{
 
     @Override
     public int getCount() {
-        return this.userOrders.size();
+        if (this.userOrders != null) {
+            return this.userOrders.size();
+        } else return 0;
     }
-
 
 
     private class ViewHolder {

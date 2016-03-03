@@ -4,7 +4,6 @@ import android.location.Address;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.yirmio.lockaway.UI.SendOrderActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.yirmio.lockaway.UI;
+package com.yirmio.lockaway.UI.ListsItems;
 
 import android.widget.TextView;
 

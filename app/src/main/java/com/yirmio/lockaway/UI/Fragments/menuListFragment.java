@@ -1,4 +1,4 @@
-package com.yirmio.lockaway.UI;
+package com.yirmio.lockaway.UI.Fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
+import com.yirmio.lockaway.UI.ListsItems.MenuListRowLayoutItem;
 import com.yirmio.lockaway.UI.util.MenuAdapter;
 
 import java.util.ArrayList;

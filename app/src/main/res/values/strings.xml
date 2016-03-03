@@ -63,4 +63,5 @@
     <string name="errorSendingOrder">Error Sending Order:</string>
     <string name="loading_address">Loading You Address...</string>
     <string name="order_date">Order Date</string>
+    <string name="your_orders">Your Orders</string>
 </resources>

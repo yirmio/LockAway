@@ -1,4 +1,4 @@
-package com.yirmio.lockaway.UI;
+package com.yirmio.lockaway.UI.Fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.UserOrder;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
+import com.yirmio.lockaway.UI.Activities.SendOrderActivity;
+import com.yirmio.lockaway.UI.ListsItems.MenuListRowLayoutItem;
+import com.yirmio.lockaway.UI.ListsItems.OrderBuilderRowLayout;
 import com.yirmio.lockaway.UI.util.OrderBuilderAdapter;
 
 import java.util.ArrayList;

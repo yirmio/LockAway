@@ -1,10 +1,12 @@
-package com.yirmio.lockaway.UI;
+package com.yirmio.lockaway.UI.Activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
+import com.yirmio.lockaway.UI.ListsItems.MenuListRowLayoutItem;
+import com.yirmio.lockaway.UI.Fragments.OrderBuilderFragment;
 
 public class OrderBuilderActivity extends FragmentActivity implements OrderBuilderFragment.OnFragmentInteractionListener {
 

@@ -7,16 +7,16 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!-- &lt;!&ndash; -->
-    <!-- To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect -->
-    <!-- option is required to comply with the Google+ Sign-In developer policies -->
-    <!-- &ndash;&gt; -->
-    <!-- <uses-permission android:name="android.permission.USE_CREDENTIALS" /> -->
-    <!-- &lt;!&ndash; To retrieve the account name (email) as part of sign-in: &ndash;&gt; -->
-    <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS" /> -->
-    <!-- &lt;!&ndash; To auto-complete the email text field in the login form with the user's emails &ndash;&gt; -->
-    <!-- <uses-permission android:name="android.permission.READ_PROFILE" /> -->
-    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <permission android:protectionLevel="signature"
+        android:name="com.yirmio.lockaway.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.yirmio.lockaway.permission.C2D_MESSAGE" />
+
+
+
     <application
         android:name=".LockAwayApplication"
         android:allowBackup="true"
@@ -34,7 +34,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="i6hUPoLJOlkH8j0p4nB3q1r2x18Kbr2SHlKocuua" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="32VPtaO5T2Rg62uZWO3i9x4jr9mfxOKePlSL0rlW" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -62,6 +67,28 @@
         </activity>
         <activity android:name=".UI.Activities.OrderBuilderActivity" />
         <activity android:name=".UI.Activities.UserOrdersActivity"></activity>
+
+
+        <service android:name="com.parse.PushService" />
+        <receiver android:name="com.yirmio.lockaway.UI.util.JSONCustomReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="com.parse.push.intent.DELETE" />
+                <action android:name="com.parse.push.intent.OPEN" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.yirmio.lockaway" />
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>

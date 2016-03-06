@@ -18,6 +18,7 @@ public class OrderListRowItem {
         this.OrderDate = userOrder.getCreateDate();
         this.OrderPrice = String.valueOf(userOrder.getTotalPrice());
         this.totalItems = userOrder.getTotalItemsCount();
+
     }
 
     public OrderListRowItem(Object item) {

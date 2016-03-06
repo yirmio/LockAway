@@ -29,7 +29,7 @@ public class OrdersListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        OrderListRowItem item = (OrderListRowItem) getItem(position);
+        OrderListRowItem item = new OrderListRowItem(getItem(position));
         View viewToUse = null;
         final int pos = position;
         LayoutInflater mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -72,5 +72,10 @@ public class OrdersListAdapter extends ArrayAdapter {
         TextView orderPrice;
         TextView orderItemsCount;
         ImageButton openOrderBtn;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return this.userOrders.get(position);
     }
 }

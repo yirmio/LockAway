@@ -120,6 +120,10 @@ public class LockAwayApplication extends Application {
     }
 
     public static ArrayList getAllUserOrders() {
-        return null;
+        ArrayList<UserOrder> allUserOrders = new ArrayList<>();
+        for (UserOrder o:parseConector.getAllUserOrders(ParseUser.getCurrentUser().getObjectId())) {
+            allUserOrders.add(o);
+        }
+        return allUserOrders;
     }
 }

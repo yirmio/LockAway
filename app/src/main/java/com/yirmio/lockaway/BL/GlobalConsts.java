@@ -24,8 +24,10 @@ public final class GlobalConsts {
 
     public static String OrderETAChangeError = "Error changing ETA";
     public static String storeLocation = "StoreLocation";
-
 //public     String
+
+    public static String UserOrder_UserETA = "UserETA";
+    public static String UserToOrders_UserID = "UserID";
 //
 //
 //        OnHold,

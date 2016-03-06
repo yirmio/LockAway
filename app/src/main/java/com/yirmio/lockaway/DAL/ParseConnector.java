@@ -50,7 +50,6 @@ public final class ParseConnector implements Subject {
     private List<Observer> observers = new ArrayList<Observer>();
 
 
-
     public boolean initConnector(String storeId) {
         boolean res = true;
         //TODO - implement it....
@@ -411,12 +410,12 @@ public final class ParseConnector implements Subject {
         LocalDateTime tmpTime = LocalDateTime.fromDateFields(orderObject.getDate(GlobalConsts.orderETA));
 
 //        LocalTime tmpTime = new LocalTime(this.ETA);
-        int plusH,plusM;
+        int plusH, plusM;
 
         plusH = hourOfDay - tmpTime.getHourOfDay();
         plusM = minute - tmpTime.getMinuteOfHour();
 //        int newH = tmpTime.hourOfDay().addToCopy(plusH).geth
-        LocalDateTime newTime = new LocalDateTime(tmpTime.getYear(),tmpTime.getMonthOfYear(),tmpTime.getDayOfMonth(), tmpTime.hourOfDay().addToCopy(plusH).getHourOfDay(), tmpTime.minuteOfHour().addToCopy(plusM).getMinuteOfHour());
+        LocalDateTime newTime = new LocalDateTime(tmpTime.getYear(), tmpTime.getMonthOfYear(), tmpTime.getDayOfMonth(), tmpTime.hourOfDay().addToCopy(plusH).getHourOfDay(), tmpTime.minuteOfHour().addToCopy(plusM).getMinuteOfHour());
 //        LocalDateTime newTime = new LocalDateTime(tmpTime.plusHours(plusH).getHourOfDay(),tmpTime.plusMinutes(plusM).getMinuteOfHour());
 
         //Send To Cloud
@@ -514,5 +513,28 @@ public final class ParseConnector implements Subject {
             e.printStackTrace();
         }
         return object;
+    }
+
+    public ArrayList<UserOrder> getAllUserOrders(String objectId) {
+        ArrayList arr = new ArrayList();
+        List<ParseObject> res;
+        ParseQuery parseQuery = new ParseQuery(GlobalConsts.UserToOrders);
+        parseQuery.whereEqualTo(GlobalConsts.UserToOrders_UserID, objectId);
+        try {
+            res = parseQuery.find();
+            //TODO do it better
+            for (ParseObject o : res) {
+                UserOrder tmpOrder = new UserOrder(o.getObjectId());
+                tmpOrder.setCreateDate(o.getCreatedAt().toString());
+                tmpOrder.setETA(o.getString(GlobalConsts.UserOrder_UserETA));
+                //TODO - complete order build
+                //tmpOrder.setTotalPrice();
+                arr.add(tmpOrder);
+            }
+
+        } catch (ParseException e) {
+            //TODO handle exception
+        }
+        return arr;
     }
 }

@@ -41,10 +41,15 @@ public class OrderStatusActivity extends Activity implements View.OnClickListene
 
     private UserOrder curOrder;
     private ParseConnector parseConnector;
+    private boolean isFromNotification;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (getIntent().getExtras() != null) {
+            Bundle b = getIntent().getExtras();
+            isFromNotification = b.getBoolean("fromNotification");
+        }
         curOrder = LockAwayApplication.getUserOrder();
         parseConnector = LockAwayApplication.parseConector;
 

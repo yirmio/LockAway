@@ -135,4 +135,8 @@ public class LockAwayApplication extends Application {
         }
         return allUserOrders;
     }
+
+    public static void setUserOrder(String orderid) {
+        userOrder = parseConector.getOrderByID(orderid);
+    }
 }

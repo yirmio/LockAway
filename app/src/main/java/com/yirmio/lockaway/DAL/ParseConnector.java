@@ -407,7 +407,13 @@ public final class ParseConnector implements Subject {
 
         //TODO - implement
         ParseObject orderObject = this.getParseObjectOrderByID(orderId);
-        LocalDateTime tmpTime = LocalDateTime.fromDateFields(orderObject.getDate(GlobalConsts.orderETA));
+        LocalDateTime tmpTime;
+        if (orderObject.getDate(GlobalConsts.orderETA) != null) {
+            tmpTime = LocalDateTime.fromDateFields(orderObject.getDate(GlobalConsts.orderETA));
+        } else {
+            //TODO implement
+            tmpTime = LocalDateTime.now();
+        }
 
 //        LocalTime tmpTime = new LocalTime(this.ETA);
         int plusH, plusM;
@@ -467,23 +473,25 @@ public final class ParseConnector implements Subject {
     }
 
     private UserOrder buildOrderFromParseObject(ParseObject orderObject) {
-        UserOrder tmpOrder = new UserOrder(ParseUser.getCurrentUser().getObjectId());
+        UserOrder tmpOrder = new UserOrder(orderObject.getObjectId());
         List<ParseObject> orderItems = this.getOrdersItems(orderObject.getObjectId());
         RestaurantMenuObject r;
-        for (ParseObject p : orderItems) {
-            r = new RestaurantMenuObject();
-            r.setDescription(p.getString(GlobalConsts.Description));
-            r.setId(p.getObjectId());
-            r.setIsGlootenFree(p.getBoolean(GlobalConsts.isGlootenFree));
-            r.setIsReady(false);
-            r.setIsVeg(p.getBoolean(GlobalConsts.isVeg));
-            r.setPic(null);
-            r.setPrice(p.getNumber(GlobalConsts.price).floatValue());
-            r.setTimeToMake(p.getInt(GlobalConsts.timeToMake));
-            r.setTitle(p.getString(GlobalConsts.title));
-            r.setType(p.getString(GlobalConsts.type));
-            tmpOrder.addMenuItemToOrder(r);
+        if (orderItems != null) {
+            for (ParseObject p : orderItems) {
+                r = new RestaurantMenuObject();
+                r.setDescription(p.getString(GlobalConsts.Description));
+                r.setId(p.getObjectId());
+                r.setIsGlootenFree(p.getBoolean(GlobalConsts.isGlootenFree));
+                r.setIsReady(false);
+                r.setIsVeg(p.getBoolean(GlobalConsts.isVeg));
+                r.setPic(null);
+                r.setPrice(p.getNumber(GlobalConsts.price).floatValue());
+                r.setTimeToMake(p.getInt(GlobalConsts.timeToMake));
+                r.setTitle(p.getString(GlobalConsts.title));
+                r.setType(p.getString(GlobalConsts.type));
+                tmpOrder.addMenuItemToOrder(r);
 
+            }
         }
         return tmpOrder;
     }

@@ -10,6 +10,7 @@ import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.yirmio.lockaway.BL.GlobalConsts;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.Store;
 import com.yirmio.lockaway.BL.UserOrder;
@@ -100,11 +101,19 @@ public class LockAwayApplication extends Application {
 
         // Add your initialization code here
         Parse.initialize(this, "i6hUPoLJOlkH8j0p4nB3q1r2x18Kbr2SHlKocuua", "32VPtaO5T2Rg62uZWO3i9x4jr9mfxOKePlSL0rlW");
-        ParseInstallation.getCurrentInstallation().saveInBackground();
         this.curParseUser = ParseUser.getCurrentUser();
+        ParseInstallation currentInstall = ParseInstallation.getCurrentInstallation();
+        if (this.curParseUser != null) {
+
+//            currentInstall.put("userID",ParseUser.getCurrentUser());
+            currentInstall.put("User",this.curParseUser);
+        }
+        currentInstall.saveInBackground();
+
 
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
+        defaultACL.setRoleWriteAccess("AfeyaAdmins",true);
         // Optionally enable public read access.
         defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);

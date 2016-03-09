@@ -28,6 +28,7 @@ public final class GlobalConsts {
 
     public static String UserOrder_UserETA = "UserETA";
     public static String UserToOrders_UserID = "UserID";
+    public static String ParseInstallation_UserId = "UserId";
 //
 //
 //        OnHold,

@@ -28,7 +28,10 @@ public class JSONCustomReceiver extends ParsePushBroadcastReceiver {
         HashMap<String,String> map = this.getDataFromJson(intent.getExtras().getString("com.parse.Data"));
         Intent newIntent = new Intent(context, OrderStatusActivity.class);
         newIntent.putExtra("fromNotification", true);
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
         LockAwayApplication.setUserOrder(map.get("orderid"));
+        //TODO - update the BL order
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,newIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)

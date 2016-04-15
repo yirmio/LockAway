@@ -59,6 +59,13 @@
     <string name="loading_address">טוען את הכתובת שלך...</string>
     <string name="order_date">ההזמנות שלך</string>
     <string name="your_orders">ההזמנות שלך</string>
+    <string name="order_is_ready">ההזמנה מוכנה לאיסוף</string>
+    <string name="order_on_building">ההזמנה עדיין בבניה</string>
+    <string name="order_on_delay">הכנת המנה מתעכבת</string>
+    <string name="order_on_hold">ההזמנה שלך בהמתנה</string>
+    <string name="order_on_make">בדיוק עובדים על ההזמנה שלך</string>
+    <string name="order_on_waiting_to_start">ההזמנה שלך מחכה בתור להכנה</string>
+    <string name="order_closed">הזמנה סגורה</string>
 
 
 </resources>

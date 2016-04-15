@@ -26,8 +26,9 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     //region Ctor
     public RestaurantMenuObject() {
     }
+
     //Convert MenuListRowLayoutItem to RestaurantMenuObject
-    public RestaurantMenuObject(MenuListRowLayoutItem item){
+    public RestaurantMenuObject(MenuListRowLayoutItem item) {
         this.price = item.getPrice();
         this.title = item.getLable();
         this.timeToMake = item.getTimeToMake();
@@ -40,7 +41,8 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
         this.isGlootenFree = item.isGlotenFree();
         this.id = item.getId();
     }
-    public RestaurantMenuObject(OrderBuilderRowLayout item){
+
+    public RestaurantMenuObject(OrderBuilderRowLayout item) {
         this.price = item.getPrice();
         this.title = item.getLable();
         this.timeToMake = item.getTimeToMake();
@@ -78,6 +80,7 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     public void setId(String id) {
         this.id = id;
     }
+
     public boolean isVeg() {
         return isVeg;
     }
@@ -105,21 +108,27 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     public void setIsReady(boolean isReady) {
         this.isReady = isReady;
     }
+
     public MenuItemTypesEnum getType() {
         return type;
     }
+
     public float getPrice() {
         return price;
     }
+
     public String getTitle() {
         return title;
     }
+
     public int getTimeToMake() {
         return timeToMake;
     }
+
     public ParseFile getPic() {
         return pic;
     }
+
     public void setPrice(float price) {
         this.price = price;
     }
@@ -147,7 +156,10 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     public void setType(MenuItemTypesEnum type) {
         this.type = type;
     }
-    public void setType(String type){this.type = MenuItemTypesEnum.valueOf(type);}
+
+    public void setType(String type) {
+        this.type = MenuItemTypesEnum.valueOf(type);
+    }
     //endregion
 
     //region Overrides

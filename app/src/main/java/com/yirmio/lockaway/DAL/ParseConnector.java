@@ -17,6 +17,7 @@ import com.parse.SaveCallback;
 import com.yirmio.lockaway.BL.GlobalConsts;
 import com.yirmio.lockaway.BL.MenuItemTypesEnum;
 import com.yirmio.lockaway.BL.Order;
+import com.yirmio.lockaway.BL.OrderStatusEnum;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.BL.Store;
@@ -244,6 +245,12 @@ public final class ParseConnector implements Subject {
             Log.e(TAG, e.getMessage());
         }
         return restaurantMenuResult;
+    }
+
+    //Get ObjectType From id
+    public MenuItemTypesEnum getMenuObjectTyprByID(String id){
+        MenuItemTypesEnum itemTypesEnum = objectsTypesToId.get(id);
+        return itemTypesEnum;
     }
 
     //Create MenuItem From ParseObject
@@ -474,6 +481,7 @@ public final class ParseConnector implements Subject {
 
     private UserOrder buildOrderFromParseObject(ParseObject orderObject) {
         UserOrder tmpOrder = new UserOrder(orderObject.getObjectId());
+        //Add order items
         List<ParseObject> orderItems = this.getOrdersItems(orderObject.getObjectId());
         RestaurantMenuObject r;
         if (orderItems != null) {
@@ -488,17 +496,21 @@ public final class ParseConnector implements Subject {
                 r.setPrice(p.getNumber(GlobalConsts.price).floatValue());
                 r.setTimeToMake(p.getInt(GlobalConsts.timeToMake));
                 r.setTitle(p.getString(GlobalConsts.title));
-                r.setType(p.getString(GlobalConsts.type));
+                r.setType(getMenuObjectTyprByID(p.getString(GlobalConsts.type)));
+
                 tmpOrder.addMenuItemToOrder(r);
 
             }
         }
+        //Add more info
+        tmpOrder.setOrderStatus(OrderStatusEnum.valueOf(orderObject.getString(GlobalConsts.UserOrder_orderStatus)));
+
         return tmpOrder;
     }
 
     private List<ParseObject> getOrdersItems(String orderID) {
         List<ParseObject> res = null;
-        List<ParseObject> finalRes = null;
+        List<ParseObject> finalRes = new ArrayList<>();
         ParseQuery parseQuery = new ParseQuery(GlobalConsts.OrderedObjects);
         parseQuery.whereEqualTo(GlobalConsts.orderID, orderID);
         try {

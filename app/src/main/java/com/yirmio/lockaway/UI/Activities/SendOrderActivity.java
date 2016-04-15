@@ -142,6 +142,12 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        locManager.removeUpdates(this);
+    }
+
     private void orderSavedSuccess(String s) {
         //Update local BL
         LockAwayApplication.getUserOrder().setETA(lastETAStr);

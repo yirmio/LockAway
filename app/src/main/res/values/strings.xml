@@ -64,4 +64,11 @@
     <string name="loading_address">Loading You Address...</string>
     <string name="order_date">Order Date</string>
     <string name="your_orders">Your Orders</string>
+    <string name="order_on_building">Your order still in building...</string>
+    <string name="order_on_hold">Your order is on hold</string>
+    <string name="order_on_delay">Your order is on delay</string>
+    <string name="order_on_make">Your order is on make right now</string>
+    <string name="order_is_ready">Your order is ready to collect</string>
+    <string name="order_on_waiting_to_start">Your order is waiting in turn</string>
+    <string name="order_closed">Your order is closed</string>
 </resources>

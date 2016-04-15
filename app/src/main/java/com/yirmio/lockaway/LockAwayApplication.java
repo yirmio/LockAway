@@ -60,11 +60,12 @@ public class LockAwayApplication extends Application {
                 ParseObject order = new ParseObject("UserToOrders");
                 order.put("UserID", ParseUser.getCurrentUser().getObjectId());
                 order.put("ResturantID", "g1bzMQEXoj");
-                order.put("OrderStatusActivity", "Active");
+                order.put("OrderStatus", "Active");
 
                 order.save();
                 userOrder = new UserOrder(order.getObjectId());
                 userOrder.setCreateDate(order.getCreatedAt().toString());
+                userOrder.setOrderStatus("Active");
 
                 idToReturn = userOrder.getOrderId();
             } catch (ParseException e) {
@@ -113,8 +114,7 @@ public class LockAwayApplication extends Application {
 
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
-        defaultACL.setRoleWriteAccess("AfeyaAdmins",true);
-        // Optionally enable public read access.
+        defaultACL.setRoleWriteAccess("AfeyaAdmins",true); //To allow admin edit order status
         defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
     }

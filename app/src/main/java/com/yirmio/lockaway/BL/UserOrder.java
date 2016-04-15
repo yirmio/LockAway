@@ -23,6 +23,18 @@ public class UserOrder {
     private int totalTimeToMake;
     private String ETA;
 
+    public OrderStatusEnum getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatusEnum orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+    public void setOrderStatus(String str) {
+        this.orderStatus = OrderStatusEnum.valueOf(str);
+    }
+    private OrderStatusEnum orderStatus;
+
 
 
     private String createDate;
@@ -164,6 +176,10 @@ public class UserOrder {
 
     }
 
+    /**
+     * Add MenuItemToOrder - Will also update time and price of total items in order
+     * @param mnuItm - the item to add
+     */
     public void addMenuItemToOrder(RestaurantMenuObject mnuItm) {
         try {
             this.objects.add(mnuItm);
@@ -185,6 +201,8 @@ public class UserOrder {
     public int getTotalItemsCount() {
         return this.objects.size();
     }
+
+
 
 
     //endregion

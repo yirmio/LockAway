@@ -11,7 +11,7 @@ public final class GlobalConsts {
     public static String UserToOrders = "UserToOrders";
     public static String OrderedObjects = "OrderedObjects";
     public static String orderID = "OrderID";
-    public static String MenuObjectID = "MenuObjecID";
+    public static String MenuObjectID = "MenuObjectID";
     public static String MenuObject = "MenuObjects";
     public static String Description = "Description";
     public static String isGlootenFree = "GlotenFree";
@@ -28,6 +28,7 @@ public final class GlobalConsts {
 
     public static String UserOrder_UserETA = "UserETA";
     public static String UserToOrders_UserID = "UserID";
+    public static String UserOrder_orderStatus = "OrderStatus";
     public static String ParseInstallation_UserId = "UserId";
 //
 //

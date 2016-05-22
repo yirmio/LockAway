@@ -31,7 +31,8 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:id="@+id/topBtns">
 
             <Button
                 android:layout_width="wrap_content"
@@ -76,27 +77,45 @@
             </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/iamlate"
-            android:id="@+id/orderStatusBtnAction"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="10dp" />
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/orderStatusImgViewStatusBigIcon"
             android:src="@drawable/afeyalogo"
-            android:layout_above="@+id/orderStatusBtnAction"
             android:layout_alignParentStart="false"
             android:layout_centerInParent="true"
             android:contentDescription="@string/order_status_icon" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/BtmBtns"
+            android:layout_below="@+id/orderStatusImgViewStatusBigIcon"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/iamlate"
+                android:id="@+id/orderStatusBtnAction"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="10dp"
+                android:layout_weight="50"
+                android:background="#e5990d" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cancle_order"
+                android:id="@+id/orderStatusBtnCancle"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="50"
+                android:background="@android:color/holo_red_light" />
+        </LinearLayout>
 
     </RelativeLayout>
 

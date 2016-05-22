@@ -71,4 +71,7 @@
     <string name="order_is_ready">Your order is ready to collect</string>
     <string name="order_on_waiting_to_start">Your order is waiting in turn</string>
     <string name="order_closed">Your order is closed</string>
+    <string name="cancle_order">Cancel Order</string>
+    <string name="msg_OrderCanceledSuccess">Order Canceled</string>
+    <string name="msg_CantCancelOrder">Cant Cancel Order</string>
 </resources>

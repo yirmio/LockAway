@@ -202,7 +202,13 @@ public class UserOrder {
         return this.objects.size();
     }
 
+    public void cancelOrder(boolean b) {
+        if (b == true) {
+            this.orderStatus = OrderStatusEnum.Canceled;
+        } else {
 
+        }
+    }
 
 
     //endregion

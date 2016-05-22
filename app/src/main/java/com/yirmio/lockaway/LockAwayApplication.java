@@ -1,7 +1,9 @@
 package com.yirmio.lockaway;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.res.Resources;
+import android.support.multidex.MultiDex;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.Parse;
@@ -89,7 +91,11 @@ public class LockAwayApplication extends Application {
 
     ;
 
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     @Override
     public void onCreate() {
         super.onCreate();

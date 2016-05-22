@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,6 +12,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -77,6 +79,7 @@ public class OrderStatusActivity extends AppCompatActivity implements View.OnCli
     private String lastETAStr;
     private LocalDateTime lastETATime;
     private String orderID;
+    private Button btnCancelOrder;
 
 
     @Override
@@ -197,6 +200,8 @@ public class OrderStatusActivity extends AppCompatActivity implements View.OnCli
         this.btnCallRest.setOnClickListener(this);
         this.btnAction = (Button) findViewById(R.id.orderStatusBtnAction);
         this.btnAction.setOnClickListener(this);
+        this.btnCancelOrder = (Button) findViewById(R.id.orderStatusBtnCancle);
+        this.btnCancelOrder.setOnClickListener(this);
 
         this.imgViewOrderStatusBigIcon = (ImageView) findViewById(R.id.orderStatusImgViewStatusBigIcon);//TODO - change by order status
 
@@ -217,7 +222,35 @@ public class OrderStatusActivity extends AppCompatActivity implements View.OnCli
             case R.id.orderStatusBtnAction:
                 changeUserETA();
                 break;
+            case R.id.orderStatusBtnCancle:
+                cancelOrder();
         }
+    }
+
+    private void cancelOrder() {
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        curOrder.cancelOrder(true);
+                        parseConnector.cancelOrder(curOrder.getOrderId());
+                        //TODO - back to main
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+
+
     }
 
     private void changeUserETA() {
@@ -248,6 +281,9 @@ public class OrderStatusActivity extends AppCompatActivity implements View.OnCli
         if (ob == this) {
             if (msg == GlobalConsts.OrderETAChangedSuccessfully) {
                 updateDataInUI();
+            }
+            if (msg == getResources().getString(R.string.msg_OrderCanceledSuccess)){
+                Toast.makeText(this,R.string.msg_OrderCanceledSuccess,Toast.LENGTH_SHORT).show();
             }
         }
     }

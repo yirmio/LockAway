@@ -20,6 +20,7 @@ import com.yirmio.lockaway.BL.Order;
 import com.yirmio.lockaway.BL.OrderStatusEnum;
 import com.yirmio.lockaway.BL.RestaurantMenu;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
+
 import com.yirmio.lockaway.BL.Store;
 import com.yirmio.lockaway.BL.UserOrder;
 import com.yirmio.lockaway.Interfaces.Observer;
@@ -556,5 +557,24 @@ public final class ParseConnector implements Subject {
             //TODO handle exception
         }
         return arr;
+    }
+
+    public void cancelOrder(String orderId) {
+        ParseObject orderToCancel = getParseObjectOrderByID(orderId);
+        orderToCancel.put(GlobalConsts.UserOrder_orderStatus,OrderStatusEnum.Canceled.toString());
+        orderToCancel.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null){
+                    notifyObservers(R.string.msg_OrderCanceledSuccess);
+                }
+                else {
+                    notifyObservers(R.string.msg_CantCancelOrder);
+
+                }
+            }
+        });
+
+
     }
 }

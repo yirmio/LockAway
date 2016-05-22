@@ -66,6 +66,7 @@
     <string name="order_on_make">בדיוק עובדים על ההזמנה שלך</string>
     <string name="order_on_waiting_to_start">ההזמנה שלך מחכה בתור להכנה</string>
     <string name="order_closed">הזמנה סגורה</string>
+    <string name="cancle_order">בטל הזמנה</string>
 
 
 </resources>

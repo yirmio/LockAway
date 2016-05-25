@@ -1,7 +1,8 @@
 package com.yirmio.lockaway.UI.Activities;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -9,13 +10,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.R;
 
 import java.util.ArrayList;
@@ -186,7 +187,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     updateSignUpViewsVisibility(View.GONE);
                 } else {
                     //Fail
-                    if (e.getCode() == 203){
+                    if (e.getCode() == 203) {
                         //the email address yirmio@gmail.com has already been taken
                         Toast.makeText(getApplicationContext(), R.string.errorSignupEmailTaken, Toast.LENGTH_SHORT).show();
                     }
@@ -227,7 +228,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 isInputValid = false;
                 return isInputValid;
             }
-            if (this.displayName.length() == 0){
+            if (this.displayName.length() == 0) {
                 isInputValid = false;
                 return isInputValid;
             }
@@ -244,25 +245,75 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         this.checkUserInput("login");
         //Perform Login
+        DoLoginTask loginTask = new DoLoginTask(this);
+        loginTask.execute();
 
 
-        ParseUser.logInInBackground(usrNametxt, passtxt, new LogInCallback() {
-            @Override
-            public void done(ParseUser parseUser, ParseException e) {
-                if (parseUser != null) {
-                    //Good Login
-//                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class); //To welcome screen
-//                    startActivity(intent);
-                    setResult(RESULT_OK);
-                    finish();
-                    Toast.makeText(getApplicationContext(), R.string.Successlogin, Toast.LENGTH_SHORT).show();
-                } else {
-                    //Bad Login
-                    Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
-                    //TODO - log to server and client
-                }
+    }
+
+    private class DoLoginTask extends AsyncTask {
+        ProgressDialog dialog;
+        LoginActivity activity;
+        boolean res;
+
+        public DoLoginTask(LoginActivity loginActivity) {
+            dialog = new ProgressDialog(loginActivity);
+            activity = loginActivity;
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage(getResources().getString(R.string.wait_login_msg));
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
             }
-        });
+            if (res){
+                setResult(RESULT_OK);
+                activity.finish();
+            }
+            else {
+                Toast.makeText(activity, R.string.loginError, Toast.LENGTH_SHORT).show();
+            }
+        }
 
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            res = true;
+            try {
+                ParseUser usr = ParseUser.logIn(usrNametxt, passtxt);
+                if (usr != null){
+                    res = true;
+                    ParseConnector.setInstallationCurrentUserId();
+                }
+                else {
+                    res = false;
+                }
+            } catch (ParseException e) {
+                res = false;
+            }
+//            ParseUser.logIn(usrNametxt, passtxt, new LogInCallback(); {
+//                @Override
+//                public void done(ParseUser parseUser, ParseException e) {
+//                    if (parseUser != null) {
+//                        //Good Login
+//                        ParseConnector.setInstallationCurrentUserId();
+//                        setResult(RESULT_OK);
+//                        res = true;
+//
+//                    } else {
+//                        //Bad Login
+//                        res = false;
+//                        Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
+            return res;
+        }
     }
 }

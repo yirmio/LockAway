@@ -1,84 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColor"
+    android:weightSum="23">
 
-    <ImageView
-        android:layout_width="10dp"
-        android:layout_height="fill_parent"
-        android:id="@+id/imageView5"
-        android:background="#e2a7ff"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_margin="5dp"
-        android:layout_weight="1" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_weight="50">
+        android:weightSum="23"
+        android:layout_alignParentTop="true"
+        android:id="@+id/order_list_item_info_layout">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageView5"
+            android:background="#e2a7ff"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/order_date"
-            android:id="@+id/order_date_txt_view"
-            android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
+            android:layout_weight="15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/order_date"
+                android:id="@+id/order_date_txt_view"
+                android:layout_alignParentTop="true"
+                android:layout_margin="2dp"
+                android:layout_alignLeft="@+id/order_price_txt_view" />
+
+            <TextView
+                android:id="@+id/order_price_txt_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/order_date_txt_view"
+                android:drawableLeft="@drawable/ic_action_money"
+                android:text="Price"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_margin="2dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
+                android:id="@+id/order_list_item_total_items_textView"
+                android:paddingLeft="5dp"
+                android:drawableLeft="@drawable/ic_shopping_cart"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:paddingRight="5dp"
+                android:layout_toRightOf="@+id/order_price_txt_view"
+                android:layout_margin="2dp"
+                android:layout_alignTop="@+id/order_price_txt_view" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageView6"
+            android:layout_toRightOf="@+id/order_date_txt_view"
+            android:layout_toStartOf="@+id/textView3"
+            android:layout_centerVertical="true"
             android:layout_margin="2dp"
-            android:layout_alignRight="@+id/textView3"
-            android:layout_alignLeft="@+id/order_price_txt_view" />
+            android:layout_weight="5"
+            android:src="@drawable/afeyalogo" />
 
-        <TextView
-            android:id="@+id/order_price_txt_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/order_date_txt_view"
-            android:drawableLeft="@drawable/ic_action_money"
-            android:text="Price"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_margin="2dp" />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/order_list_item_btn"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/ic_menu_info_details"
+            android:layout_weight="2"
+            android:background="@color/backgroundColor" />
+    </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="0"
-            android:id="@+id/order_list_item_total_items_textView"
-            android:paddingLeft="5dp"
-            android:drawableLeft="@drawable/ic_shopping_cart"
-            android:layout_gravity="left|center_vertical"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:paddingRight="5dp"
-            android:layout_toRightOf="@+id/order_price_txt_view"
-            android:layout_alignBaseline="@+id/order_price_txt_view"
-            android:layout_margin="2dp" />
-
-    </RelativeLayout>
-
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imageView6"
-        android:layout_toRightOf="@+id/order_date_txt_view"
-        android:layout_toStartOf="@+id/textView3"
-        android:layout_centerVertical="true"
-        android:layout_margin="2dp"
-        android:layout_weight="40"
-        android:src="@drawable/afeyalogo" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/order_list_item_btn"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/abc_ic_go_search_api_mtrl_alpha"
-        android:layout_weight="5"
-        android:background="@color/backgroundColor" />
+        android:id="@+id/order_list_item_extended_layout"
+        android:layout_below="@+id/order_list_item_info_layout">
 
-</LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/order_again"
+        android:id="@+id/button"
+        android:layout_below="@+id/order_list_item_extended_layout" />
+
+</RelativeLayout>

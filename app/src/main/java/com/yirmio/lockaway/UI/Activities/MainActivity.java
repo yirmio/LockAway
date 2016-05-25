@@ -19,16 +19,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yirmio.lockaway.BL.MenuItemTypesEnum;
 import com.yirmio.lockaway.BL.RestaurantMenuObject;
 import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.UI.Fragments.AddMenuItemFragment;
-import com.yirmio.lockaway.UI.ListsItems.MenuListRowLayoutItem;
-import com.yirmio.lockaway.UI.ListsItems.OrderBuilderRowLayout;
 import com.yirmio.lockaway.UI.Fragments.OrderBuilderFragment;
 import com.yirmio.lockaway.UI.Fragments.menuListFragment;
+import com.yirmio.lockaway.UI.ListsItems.MenuListRowLayoutItem;
+import com.yirmio.lockaway.UI.ListsItems.OrderBuilderRowLayout;
 import com.yirmio.lockaway.UI.util.OrderBuilderAdapter;
 
 import java.lang.reflect.Method;
@@ -43,12 +44,14 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     ViewPager mViewPager;
     private TextView ui_cart_badge = null;
     private ImageView cartIcon;
+    private boolean isStoreOpen;
 
     @Override
     protected void onResume() {
         super.onResume();
 //        refreshOrderBuilderFragment();
         updateCartBadge();
+        this.isStoreOpen = LockAwayApplication.getStore().getIsStoreOpen();
     }
 
     @Override
@@ -150,14 +153,14 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-switch (id){
-    case R.id.app_menue_cart:
-        return true;
-    case R.id.app_menu_orders:
-        Intent intent = new Intent(MainActivity.this,UserOrdersActivity.class);
-        startActivity(intent);
-        break;
-}
+        switch (id) {
+            case R.id.app_menue_cart:
+                return true;
+            case R.id.app_menu_orders:
+                Intent intent = new Intent(MainActivity.this, UserOrdersActivity.class);
+                startActivity(intent);
+                break;
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.app_menue_cart) {
             //TODO - open order builder
@@ -245,10 +248,15 @@ switch (id){
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.hotlist_cart:{
-                Intent intent = new Intent(MainActivity.this,OrderBuilderActivity.class);
-                startActivity(intent);
+        switch (view.getId()) {
+            case R.id.hotlist_cart: {
+                if (isStoreOpen) {
+                    Intent intent = new Intent(MainActivity.this, OrderBuilderActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(this, R.string.store_closed,Toast.LENGTH_LONG).show();
+                }
                 break;
             }
         }
@@ -307,16 +315,16 @@ switch (id){
             //create fragment for each menu object type
 
             MenuItemTypesEnum tmpType = MenuItemTypesEnum.getTypeFromInt(position);
-            if (fragments.size() == position){//add new fragment
-                fragments.add(position,new menuListFragment(tmpType));
+            if (fragments.size() == position) {//add new fragment
+                fragments.add(position, new menuListFragment(tmpType));
                 return fragments.get(position);
             }
 
             //Was jump
-            if (fragments.size() < position){
-                for (int i = fragments.size() ;i<position;i++){
+            if (fragments.size() < position) {
+                for (int i = fragments.size(); i < position; i++) {
                     tmpType = MenuItemTypesEnum.getTypeFromInt(i);
-                    fragments.add(i,new menuListFragment(tmpType));
+                    fragments.add(i, new menuListFragment(tmpType));
                 }
             }
             return fragments.get(position);

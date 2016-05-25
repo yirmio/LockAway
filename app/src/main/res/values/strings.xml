@@ -74,4 +74,12 @@
     <string name="cancle_order">Cancel Order</string>
     <string name="msg_OrderCanceledSuccess">Order Canceled</string>
     <string name="msg_CantCancelOrder">Cant Cancel Order</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="wait_login_msg">Loging in...</string>
+    <string name="anonym_login">Anonymous</string>
+    <string name="order_again">Order again</string>
+    <string name="loading_order_wait">Loading orders, please wait...</string>
+    <string name="store_closed">Sorry! Store is closed now...</string>
 </resources>

@@ -7,7 +7,6 @@ public enum MenuItemTypesEnum {
     Drinks, Cakes, Extras, Specials, OnSale, Sandwiches, Salads, BreakFasts;
 
     public static MenuItemTypesEnum getTypeFromInt(int position) {
-//TODO - implement
         switch (position) {
             case 0:
                 return Drinks;

@@ -67,4 +67,14 @@
     <string name="order_on_waiting_to_start">ההזמנה שלך מחכה בתור להכנה</string>
     <string name="order_closed">הזמנה סגורה</string>
     <string name="cancle_order">בטל הזמנה</string>
+    <string name="are_you_sure">האם אתה בטוח?</string>
+    <string name="no">לא</string>
+    <string name="msg_CantCancelOrder">לא ניתן לבטל את ההזמנה</string>
+    <string name="msg_OrderCanceledSuccess">ההזמנה בוטלה</string>
+    <string name="yes">כן</string>
+    <string name="wait_login_msg">מבצע כניסה...</string>
+    <string name="anonym_login">אנונימי</string>
+    <string name="order_again">הזמן מחדש</string>
+    <string name="loading_order_wait">טוען את ההזמנות שלך...</string>
+    <string name="store_closed">המסעדה סגורה, לא ניתן לבצע הזמנות...</string>
 </resources>

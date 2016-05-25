@@ -10,6 +10,7 @@ import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -54,7 +55,6 @@ public final class ParseConnector implements Subject {
 
     public boolean initConnector(String storeId) {
         boolean res = true;
-        //TODO - implement it....
         initObjectTypes();
 
         return res;
@@ -226,21 +226,6 @@ public final class ParseConnector implements Subject {
                     restaurantMenuResult.addItemToMenu(CreateMenuItemFromParseObject(obj));
                 }
             }
-            /*query.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List<ParseObject> list, ParseException e) {
-                    //No Error
-                    if (e == null){
-                        for (ParseObject obj:list) {
-                            restaurantMenuResult.addItemToMenu(CreateMenuItemFromParseObject(obj));
-                        }
-
-                    }
-                    else {
-                        Log.d(TAG, "Error: " + e.getMessage());
-                    }
-                }
-            });*/
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -400,11 +385,12 @@ public final class ParseConnector implements Subject {
             rest = stores.get(0);
             loadedStore = new Store();
             loadedStore.setPhoneNumber(rest.getString("PhoneNumber"));
+            loadedStore.setIsOpen(rest.getBoolean("isOpen"));
             ParseGeoPoint gp = rest.getParseGeoPoint(GlobalConsts.storeLocation);
             loadedStore.setLocation(gp.getLatitude() + "," + gp.getLongitude());
-            //TODO add more info....
+
         } catch (ParseException e) {
-            //TODO handle....
+
         }
 
 
@@ -413,13 +399,13 @@ public final class ParseConnector implements Subject {
 
     public void setNewETAToOrder(String orderId, int hourOfDay, int minute) {
 
-        //TODO - implement
+
         ParseObject orderObject = this.getParseObjectOrderByID(orderId);
         LocalDateTime tmpTime;
         if (orderObject.getDate(GlobalConsts.orderETA) != null) {
             tmpTime = LocalDateTime.fromDateFields(orderObject.getDate(GlobalConsts.orderETA));
         } else {
-            //TODO implement
+
             tmpTime = LocalDateTime.now();
         }
 
@@ -541,13 +527,18 @@ public final class ParseConnector implements Subject {
         List<ParseObject> res;
         ParseQuery parseQuery = new ParseQuery(GlobalConsts.UserToOrders);
         parseQuery.whereEqualTo(GlobalConsts.UserToOrders_UserID, objectId);
+        UserOrder tmpOrder;
         try {
             res = parseQuery.find();
             //TODO do it better
             for (ParseObject o : res) {
-                UserOrder tmpOrder = new UserOrder(o.getObjectId());
+                tmpOrder = new UserOrder(o.getObjectId());
                 tmpOrder.setCreateDate(o.getCreatedAt().toString());
                 tmpOrder.setETA(o.getString(GlobalConsts.UserOrder_UserETA));
+                for (ParseObject pObj:getOrdersItems(o.getObjectId())) {
+                    tmpOrder.addItemToOrder(CreateMenuItemFromParseObject(pObj),true);
+                }
+
                 //TODO - complete order build
                 //tmpOrder.setTotalPrice();
                 arr.add(tmpOrder);
@@ -575,6 +566,13 @@ public final class ParseConnector implements Subject {
             }
         });
 
+
+    }
+
+    public static void setInstallationCurrentUserId() {
+        ParseInstallation tmpInstallation = ParseInstallation.getCurrentInstallation();
+        tmpInstallation.put("userIdAsString",ParseUser.getCurrentUser().getObjectId());
+        tmpInstallation.saveInBackground();
 
     }
 }

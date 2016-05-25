@@ -6,8 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.yirmio.lockaway.DAL.ParseConnector;
 import com.yirmio.lockaway.R;
 import com.yirmio.lockaway.UI.ListsItems.OrderListRowItem;
 
@@ -20,10 +23,12 @@ public class OrdersListAdapter extends ArrayAdapter {
     private final Context context;
     private final ArrayList userOrders;
 
+
     public OrdersListAdapter(Context context, int resource, ArrayList objects) {
         super(context, resource, objects);
         this.context = context;
         this.userOrders = objects;
+
     }
 
     @Override
@@ -37,15 +42,24 @@ public class OrdersListAdapter extends ArrayAdapter {
             viewToUse = mLayoutInflater.inflate(R.layout.order_list_item_layout, null);
             holder = new ViewHolder();
             holder.openOrderBtn = (ImageButton) viewToUse.findViewById(R.id.order_list_item_btn);
+            final ViewHolder finalHolder = holder;
             holder.openOrderBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO - implement
+                    if (finalHolder.expendedLayout.getVisibility() != View.VISIBLE) {
+                        finalHolder.expendedLayout.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        finalHolder.expendedLayout.setVisibility(View.GONE);
+                    }
                 }
             });
             holder.orderDate = (TextView) viewToUse.findViewById(R.id.order_date_txt_view);
             holder.orderItemsCount = (TextView) viewToUse.findViewById(R.id.order_list_item_total_items_textView);
             holder.orderPrice = (TextView) viewToUse.findViewById(R.id.order_price_txt_view);
+//            holder.itemsListView = (ListView)viewToUse.findViewById(R.id.order_list_item_listView_items);
+            holder.expendedLayout = (LinearLayout)viewToUse.findViewById(R.id.order_list_item_extended_layout);
+            holder.expendedLayout.setVisibility(View.GONE);
             viewToUse.setTag(holder);
         } else {
             viewToUse = convertView;
@@ -56,6 +70,13 @@ public class OrdersListAdapter extends ArrayAdapter {
         holder.orderDate.setText(item.getDate());
         holder.orderPrice.setText(item.getPrice());
         holder.orderItemsCount.setText(String.valueOf(item.getTotalItemsCount()));
+        String[] items = new String[item.getTotalItemsCount()];
+        items = item.getAllItemsNames();
+        for (String str : items) {
+            TextView textViewChild = new TextView(context);
+            textViewChild.setText(str);
+            holder.expendedLayout.addView(textViewChild);
+        }
         return viewToUse;
     }
 
@@ -72,6 +93,7 @@ public class OrdersListAdapter extends ArrayAdapter {
         TextView orderPrice;
         TextView orderItemsCount;
         ImageButton openOrderBtn;
+        LinearLayout expendedLayout;
     }
 
     @Override

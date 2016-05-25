@@ -84,13 +84,14 @@ public class OrderStatusActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        parseConnector = LockAwayApplication.parseConector;
         if (getIntent().getExtras() != null) {
             Bundle b = getIntent().getExtras();
             isFromNotification = b.getBoolean("fromNotification");
         }
+
         curOrder = LockAwayApplication.getUserOrder();
         this.orderID = curOrder.getOrderId();
-        parseConnector = LockAwayApplication.parseConector;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_status);
@@ -247,8 +248,8 @@ public class OrderStatusActivity extends AppCompatActivity implements View.OnCli
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();
+        builder.setMessage(R.string.are_you_sure).setPositiveButton(R.string.yes, dialogClickListener)
+                .setNegativeButton(R.string.no, dialogClickListener).show();
 
 
     }

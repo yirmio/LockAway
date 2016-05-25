@@ -80,7 +80,7 @@ public class SplashScreenActivity extends Activity {
         }
         else{
             //Send to login screen
-            Toast.makeText(getApplicationContext(),"To login...",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(),"To login...",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SplashScreenActivity.this,LoginActivity.class);
             startActivityForResult(intent,LOGIN_REQUEST_CODE);
         }

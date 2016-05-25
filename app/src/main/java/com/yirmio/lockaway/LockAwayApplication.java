@@ -36,6 +36,12 @@ public class LockAwayApplication extends Application {
     private static Resources appResources;
     private static Store curStore;
 
+    public ParseInstallation getCurrentInstall() {
+        return currentInstall;
+    }
+
+    private ParseInstallation currentInstall;
+
 
     public static RestaurantMenu getRestaurantMenu() {
         return restaurantMenu;
@@ -109,11 +115,12 @@ public class LockAwayApplication extends Application {
         // Add your initialization code here
         Parse.initialize(this, "i6hUPoLJOlkH8j0p4nB3q1r2x18Kbr2SHlKocuua", "32VPtaO5T2Rg62uZWO3i9x4jr9mfxOKePlSL0rlW");
         this.curParseUser = ParseUser.getCurrentUser();
-        ParseInstallation currentInstall = ParseInstallation.getCurrentInstallation();
+        currentInstall = ParseInstallation.getCurrentInstallation();
         if (this.curParseUser != null) {
 
 //            currentInstall.put("userID",ParseUser.getCurrentUser());
             currentInstall.put("User",this.curParseUser);
+            currentInstall.put("userIdAsString",this.curParseUser.getObjectId());
         }
         currentInstall.saveInBackground();
 

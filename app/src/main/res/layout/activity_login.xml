@@ -68,10 +68,11 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:weightSum="3">
 
         <Button
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:id="@+id/btnLogin"
@@ -79,19 +80,32 @@
             android:layout_alignParentLeft="true"
             android:layout_toEndOf="@+id/btnSignUp"
             android:background="@color/backgroundColor"
-            android:layout_weight="50"
+            android:layout_weight="1"
             android:layout_marginRight="2.5dp" />
 
         <Button
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/anonym_login"
+            android:id="@+id/btnAnonym"
+            android:layout_below="@+id/chkBxIsGlotonSensitive"
+            android:layout_alignParentLeft="true"
+            android:layout_toEndOf="@+id/btnSignUp"
+            android:background="@color/backgroundColor"
+            android:layout_weight="1"
+            android:layout_marginRight="2.5dp" />
+
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/signUp"
             android:id="@+id/btnSignUp"
             android:layout_below="@+id/chkBxIsGlotonSensitive"
             android:layout_alignParentRight="true"
             android:background="@color/backgroundColor"
-            android:layout_weight="50"
+            android:layout_weight="1"
             android:layout_marginLeft="2.5dp" />
+
     </LinearLayout>
 
     <TextView

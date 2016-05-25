@@ -24,6 +24,8 @@ public class Store implements Parcelable {
     private String webStirUrl;
     private String address;
     private String phoneNumber;
+    private boolean isStoreOpen;
+    private boolean isOpen;
 
     public String getTelephone() {
         return telephone;
@@ -161,5 +163,13 @@ public class Store implements Parcelable {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setIsOpen(boolean isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public boolean getIsStoreOpen() {
+        return isStoreOpen;
     }
 }

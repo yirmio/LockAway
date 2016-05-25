@@ -211,5 +211,15 @@ public class UserOrder {
     }
 
 
+
+    public String[] getItemsNames() {
+        String[] itemsStrings = new String[getTotalItemsCount()];
+        for (int i = 0; i < getTotalItemsCount(); i++) {
+            itemsStrings[i] = objects.get(i).getTitle();
+        }
+        return itemsStrings;
+    }
+
+
     //endregion
 }

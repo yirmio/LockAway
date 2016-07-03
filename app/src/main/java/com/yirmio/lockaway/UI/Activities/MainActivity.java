@@ -1,6 +1,7 @@
 package com.yirmio.lockaway.UI.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,10 +46,21 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     private TextView ui_cart_badge = null;
     private ImageView cartIcon;
     private boolean isStoreOpen;
+    SharedPreferences prefs = null;
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (prefs.getBoolean("firstrun", true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            // using the following line to edit/commit prefs
+            Intent introIntent = new Intent(this,MyIntro.class);
+            startActivity(introIntent);
+            prefs.edit().putBoolean("firstrun", false).commit();
+        }
+
+
 //        refreshOrderBuilderFragment();
         updateCartBadge();
         this.isStoreOpen = LockAwayApplication.getStore().getIsStoreOpen();
@@ -58,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     protected void onCreate(Bundle savedInstanceState) {
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+
+        prefs = getSharedPreferences("com.yirmio.lockaway", MODE_PRIVATE);
+
 //Remove title bar
         setContentView(R.layout.activity_main);
 

@@ -569,6 +569,13 @@ public final class ParseConnector implements Subject {
 
     }
 
+//    public static void setInstallationCurrentUserId(String phone) {
+//        ParseInstallation tmpInstallation = ParseInstallation.getCurrentInstallation();
+//        tmpInstallation.put("userIdAsString",phone);
+//        tmpInstallation.saveInBackground();
+//
+//    }
+
     public static void setInstallationCurrentUserId() {
         ParseInstallation tmpInstallation = ParseInstallation.getCurrentInstallation();
         tmpInstallation.put("userIdAsString",ParseUser.getCurrentUser().getObjectId());

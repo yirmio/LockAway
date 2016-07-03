@@ -82,4 +82,5 @@
     <string name="order_again">Order again</string>
     <string name="loading_order_wait">Loading orders, please wait...</string>
     <string name="store_closed">Sorry! Store is closed now...</string>
+    <string name="must_insert_phone">You must insert phone for anonymous login...</string>
 </resources>

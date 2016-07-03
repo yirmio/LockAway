@@ -5,8 +5,6 @@ import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.parse.ParseGeoPoint;
-
 /**
  * Created by Yirmi on 1/5/2015.
  */
@@ -141,7 +139,7 @@ public class Store implements Parcelable {
         this.email = in.readString();
         this.openDays = in.readString();
         //TODO - handle location
-      //  this.parseLocation = in.readParcelable(ParseGeoPoint.class.getClassLoader());
+        //  this.parseLocation = in.readParcelable(ParseGeoPoint.class.getClassLoader());
         this.displayName = in.readString();
         this.webStirUrl = in.readString();
         this.address = in.readString();
@@ -165,11 +163,12 @@ public class Store implements Parcelable {
         return phoneNumber;
     }
 
-    public void setIsOpen(boolean isOpen) {
-        this.isOpen = isOpen;
+    public void setIsOpen(boolean isOpenNew) {
+
+        this.isOpen = isOpenNew;
     }
 
     public boolean getIsStoreOpen() {
-        return isStoreOpen;
+        return isOpen;
     }
 }

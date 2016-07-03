@@ -12,11 +12,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.yirmio.lockaway.DAL.ParseConnector;
+import com.yirmio.lockaway.LockAwayApplication;
 import com.yirmio.lockaway.R;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private Button btnLogin;
     private Button btnSignUp;
+    private Button btnAnonym;
     private EditText txtInptUserName;
     private EditText txtInptEmail;
     private EditText txtInptPassword;
@@ -46,6 +48,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private String displayName;
 
     private boolean isFirstSignupClick;
+    private boolean isAnonym;
 
 
     @Override
@@ -55,6 +58,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
         this.isFirstSignupClick = true;
+        this.isAnonym = false;
 
 
         this.attachView();
@@ -66,6 +70,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         this.btnLogin.setOnClickListener(this);
         this.btnSignUp = (Button) findViewById(R.id.btnSignUp);
         this.btnSignUp.setOnClickListener(this);
+        this.btnAnonym = (Button) findViewById(R.id.btnAnonym);
+        this.btnAnonym.setOnClickListener(this);
 
         //EditTexts
         this.txtInptUserName = (EditText) findViewById(R.id.txtInputUserName);
@@ -132,8 +138,24 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 this.clearTxtInput(view, R.string.dumyUserName);
                 break;
             }
+            case R.id.btnAnonym:
+//                this.handleAnonymous();
+                Toast.makeText(this,"Not Supportes yet...",Toast.LENGTH_LONG).show();
+                break;
 
         }
+
+    }
+
+    private void handleAnonymous() {
+        this.updateSignUpViewsVisibility(View.GONE);
+        this.txtInptDisplaName.setVisibility(View.GONE);
+        this.txtInptUserName.setVisibility(View.GONE);
+        this.txtInptPassword.setVisibility(View.GONE);
+        this.txtInptPhoneNumber.setVisibility(View.VISIBLE);
+        this.btnSignUp.setVisibility(View.GONE);
+        Toast.makeText(this, R.string.must_insert_phone, Toast.LENGTH_LONG).show();
+        this.isAnonym = true;
 
     }
 
@@ -198,7 +220,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private boolean checkUserInput(String op) {
+
         boolean isInputValid = false;
+//        //anonymous login
+//        if (isAnonym){
+//            this.phoneNumberTxt = this.txtInptPhoneNumber.getText().toString();
+//            if (this.phoneNumberTxt.length() != 10){
+//                return false;
+//            }
+//            else {
+//                return true;
+//            }
+//        }
+
         //for just login
         this.usrNametxt = this.txtInptUserName.getText().toString();
         this.passtxt = this.txtInptPassword.getText().toString();
@@ -242,8 +276,23 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         //Update UI For Login
         this.updateSignUpViewsVisibility(View.GONE);
+        if (this.checkUserInput("login")) {
+//            if (isAnonym) {
+//                ParseConnector.setInstallationCurrentUserId();
+//                LockAwayApplication.workAnonymous(true,phoneNumberTxt);
+//                setResult(RESULT_OK);
+//                finish();
+//                return;
+//            } else {
+//                ParseConnector.setInstallationCurrentUserId();
+//            }
+            setResult(RESULT_OK);
+//            return;
+        } else {
+            //error
 
-        this.checkUserInput("login");
+        }
+
         //Perform Login
         DoLoginTask loginTask = new DoLoginTask(this);
         loginTask.execute();
@@ -273,11 +322,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
-            if (res){
+            if (res) {
                 setResult(RESULT_OK);
                 activity.finish();
-            }
-            else {
+            } else {
                 Toast.makeText(activity, R.string.loginError, Toast.LENGTH_SHORT).show();
             }
         }
@@ -287,11 +335,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             res = true;
             try {
                 ParseUser usr = ParseUser.logIn(usrNametxt, passtxt);
-                if (usr != null){
+                if (usr != null) {
                     res = true;
                     ParseConnector.setInstallationCurrentUserId();
-                }
-                else {
+                } else {
                     res = false;
                 }
             } catch (ParseException e) {

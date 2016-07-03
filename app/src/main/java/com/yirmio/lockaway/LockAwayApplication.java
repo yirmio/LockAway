@@ -35,6 +35,13 @@ public class LockAwayApplication extends Application {
     private static ParseUser curParseUser;
     private static Resources appResources;
     private static Store curStore;
+    private static boolean anonym;
+    private static String anonymPhone;
+    private static boolean isFirstRun;
+
+    public static boolean isAnonym() {
+        return anonym;
+    }
 
     public ParseInstallation getCurrentInstall() {
         return currentInstall;
@@ -66,7 +73,11 @@ public class LockAwayApplication extends Application {
             try {
                 //ParseUser usr = ParseUser.logIn("Yirmi", "Z69Hus&&");
                 ParseObject order = new ParseObject("UserToOrders");
-                order.put("UserID", ParseUser.getCurrentUser().getObjectId());
+                if (LockAwayApplication.isAnonym()) {
+                    order.put("UserID", anonymPhone);
+                } else {
+                    order.put("UserID", ParseUser.getCurrentUser().getObjectId());
+                }
                 order.put("ResturantID", "g1bzMQEXoj");
                 order.put("OrderStatus", "Active");
 
@@ -151,5 +162,10 @@ public class LockAwayApplication extends Application {
 
     public static void setUserOrder(String orderid) {
         userOrder = parseConector.getOrderByID(orderid);
+    }
+
+    public static void workAnonymous(boolean b, String phoneNumberTxt) {
+        anonym = b;
+        anonymPhone = phoneNumberTxt;
     }
 }

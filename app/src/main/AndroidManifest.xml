@@ -6,16 +6,16 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <permission android:protectionLevel="signature"
-        android:name="com.yirmio.lockaway.permission.C2D_MESSAGE" />
+
+    <permission
+        android:name="com.yirmio.lockaway.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.yirmio.lockaway.permission.C2D_MESSAGE" />
-
-
 
     <application
         android:name=".LockAwayApplication"
@@ -34,6 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.yirmio.lockaway.UI.Activities.MyIntro"
+            android:label="MyIntro" />
+
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="i6hUPoLJOlkH8j0p4nB3q1r2x18Kbr2SHlKocuua" />
@@ -66,11 +69,12 @@
                 android:value=".UI.Activities.MainActivity" />
         </activity>
         <activity android:name=".UI.Activities.OrderBuilderActivity" />
-        <activity android:name=".UI.Activities.UserOrdersActivity"></activity>
-
+        <activity android:name=".UI.Activities.UserOrdersActivity" />
 
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.yirmio.lockaway.UI.util.JSONCustomReceiver"
+
+        <receiver
+            android:name=".UI.util.JSONCustomReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
@@ -78,7 +82,8 @@
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -88,7 +93,7 @@
             </intent-filter>
         </receiver>
 
-
+        <activity android:name=".UI.FirstRunActivity"></activity>
     </application>
 
 </manifest>

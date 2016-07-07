@@ -39,6 +39,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, AddMenuItemFragment.OnFragmentInteractionListener, menuListFragment.OnFragmentInteractionListener, OrderBuilderFragment.OnFragmentInteractionListener, View.OnClickListener {
 
     private static final int ORDERFRAGMENTNUMBER = 1;
+    public static final int INTROFINISH = 55555;
 
     SectionsPagerAdapter mSectionsPagerAdapter;
     ArrayList<Fragment> fragments;
@@ -53,11 +54,10 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         super.onResume();
 
         if (prefs.getBoolean("firstrun", true)) {
-            // Do first run stuff here then set 'firstrun' as false
-            // using the following line to edit/commit prefs
-            Intent introIntent = new Intent(this,MyIntro.class);
-            startActivity(introIntent);
-            prefs.edit().putBoolean("firstrun", false).commit();
+
+            Intent introIntent = new Intent(MainActivity.this,MyIntro.class);
+            startActivityForResult(introIntent,INTROFINISH);
+            prefs.edit().putBoolean("firstrun", false).apply();
         }
 
 

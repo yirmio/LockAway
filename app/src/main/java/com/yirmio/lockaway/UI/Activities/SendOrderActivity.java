@@ -120,7 +120,7 @@ public class SendOrderActivity extends AppCompatActivity implements GoogleApiCli
         //var orderID,userETA;
         HashMap<String, Object> dict = new HashMap<String, Object>();
         dict.put("orderID", this.orderID);
-        //TODO - check why this way....
+        dict.put("totalTime",this.mTimeToMakeValue.getText().toString());
         if (this.lastETATime != null) {
             dict.put("userETA", lastETATime.toString());
         } else {
